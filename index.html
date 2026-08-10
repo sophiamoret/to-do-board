@@ -1,0 +1,1948 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <meta
+        name="theme-color"
+        content="#f5f6f8"
+    >
+    <title>Urgency Board</title>
+
+    <style>
+        :root {
+            --background: #f5f6f8;
+            --surface: #ffffff;
+            --surface-secondary: #f0f2f5;
+            --border: #dfe3e8;
+            --text: #18202a;
+            --muted: #697586;
+            --primary: #1f6feb;
+            --primary-hover: #1759be;
+            --danger: #c62828;
+            --shadow:
+                0 1px 2px rgb(0 0 0 / 5%),
+                0 4px 14px rgb(0 0 0 / 5%);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+            color: var(--text);
+            background: var(--background);
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        button,
+        select {
+            cursor: pointer;
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible {
+            outline: 3px solid rgb(31 111 235 / 25%);
+            outline-offset: 2px;
+        }
+
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            padding: 18px 24px;
+            background: rgb(255 255 255 / 94%);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+        }
+
+        .header-top {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 24px;
+            line-height: 1.1;
+        }
+
+        .brand p {
+            margin: 5px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .button {
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 8px 13px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+            color: var(--text);
+            font-weight: 650;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background: var(--surface-secondary);
+        }
+
+        .button.primary {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .button.primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .button.danger {
+            border-color: #efcaca;
+            color: var(--danger);
+        }
+
+        .button.small {
+            min-height: 31px;
+            padding: 5px 9px;
+            font-size: 12px;
+        }
+
+        .import-label input {
+            display: none;
+        }
+
+        .stats {
+            display: flex;
+            gap: 8px;
+            max-width: 1800px;
+            margin: 14px auto 0;
+            overflow-x: auto;
+        }
+
+        .stat {
+            flex: 0 0 auto;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: var(--surface-secondary);
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .stat strong {
+            color: var(--text);
+        }
+
+        main {
+            width: 100%;
+            max-width: 1900px;
+            margin: 0 auto;
+            padding: 22px 20px 60px;
+        }
+
+        .board-header {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .board-header h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .rule-reminder {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(250px, 1fr));
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 14px;
+        }
+
+        .day-column {
+            min-width: 250px;
+            min-height: 500px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: #eceff3;
+            overflow: hidden;
+        }
+
+        .day-column.today {
+            border: 2px solid var(--primary);
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .day-name {
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .day-date {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        .today-badge {
+            display: inline-block;
+            margin-left: 6px;
+            padding: 2px 6px;
+            border-radius: 999px;
+            background: var(--primary);
+            color: white;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .drop-zone {
+            min-height: 450px;
+            padding: 9px;
+            transition:
+                background 120ms ease,
+                box-shadow 120ms ease;
+        }
+
+        .drop-zone.drag-over {
+            background: #dce8fa;
+            box-shadow: inset 0 0 0 2px var(--primary);
+        }
+
+        .empty-day {
+            padding: 24px 10px;
+            color: #8a94a3;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .task-card {
+            position: relative;
+            margin-bottom: 9px;
+            padding: 12px;
+            border: 1px solid rgb(0 0 0 / 8%);
+            border-left: 6px solid;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition:
+                transform 120ms ease,
+                box-shadow 120ms ease,
+                opacity 120ms ease;
+        }
+
+        .task-card:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 2px 5px rgb(0 0 0 / 8%),
+                0 8px 18px rgb(0 0 0 / 7%);
+        }
+
+        .task-card.dragging {
+            opacity: 0.45;
+        }
+
+        .task-top {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .task-title {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
+        }
+
+        .urgency-badge {
+            flex: 0 0 auto;
+            padding: 3px 7px;
+            border: 1px solid rgb(0 0 0 / 8%);
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 850;
+            white-space: nowrap;
+        }
+
+        .task-details {
+            margin: 8px 0 0;
+            color: #4d5866;
+            font-size: 12px;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+
+        .task-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .meta-chip {
+            padding: 3px 6px;
+            border: 1px solid rgb(0 0 0 / 8%);
+            border-radius: 6px;
+            background: rgb(255 255 255 / 55%);
+            color: #46515e;
+            font-size: 10px;
+            font-weight: 750;
+        }
+
+        .urgency-track {
+            height: 6px;
+            margin-top: 10px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgb(0 0 0 / 10%);
+        }
+
+        .urgency-fill {
+            height: 100%;
+            border-radius: inherit;
+        }
+
+        .urgency-copy {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 4px;
+            color: #46515e;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .task-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 11px;
+        }
+
+        .task-actions select {
+            min-width: 86px;
+            min-height: 31px;
+            padding: 4px 6px;
+            border: 1px solid rgb(0 0 0 / 16%);
+            border-radius: 7px;
+            background: rgb(255 255 255 / 75%);
+            font-size: 11px;
+            font-weight: 650;
+        }
+
+        .completed-section {
+            margin-top: 28px;
+            padding: 18px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+        }
+
+        .completed-section h2 {
+            margin: 0 0 12px;
+            font-size: 18px;
+        }
+
+        .completed-list {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fill, minmax(260px, 1fr));
+            gap: 9px;
+        }
+
+        .completed-card {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: var(--surface-secondary);
+        }
+
+        .completed-card h3 {
+            margin: 0;
+            font-size: 13px;
+            text-decoration: line-through;
+        }
+
+        .completed-card p {
+            margin: 5px 0 0;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .completed-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: 9px;
+        }
+
+        dialog {
+            width: min(560px, calc(100vw - 28px));
+            max-height: calc(100vh - 40px);
+            padding: 0;
+            overflow: auto;
+            border: 0;
+            border-radius: 14px;
+            background: var(--surface);
+            box-shadow: 0 20px 70px rgb(0 0 0 / 22%);
+        }
+
+        dialog::backdrop {
+            background: rgb(15 20 26 / 55%);
+            backdrop-filter: blur(2px);
+        }
+
+        .dialog-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dialog-header h2 {
+            margin: 0;
+            font-size: 19px;
+        }
+
+        .icon-button {
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+            font-size: 20px;
+        }
+
+        .task-form {
+            padding: 20px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            font-weight: 750;
+        }
+
+        .field-help {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .field input,
+        .field textarea,
+        .field select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cdd3da;
+            border-radius: 8px;
+            background: white;
+            color: var(--text);
+        }
+
+        .field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .dialog-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: flex-end;
+            padding-top: 5px;
+        }
+
+        .dialog-actions .danger {
+            margin-right: auto;
+        }
+
+        .toast {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 100;
+            max-width: 330px;
+            padding: 11px 14px;
+            border-radius: 9px;
+            background: #17212b;
+            color: white;
+            box-shadow: 0 10px 30px rgb(0 0 0 / 20%);
+            font-size: 12px;
+            font-weight: 650;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(8px);
+            transition:
+                opacity 160ms ease,
+                transform 160ms ease;
+        }
+
+        .toast.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 720px) {
+            .app-header {
+                padding: 14px;
+            }
+
+            .header-top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .toolbar {
+                justify-content: flex-start;
+            }
+
+            main {
+                padding: 16px 12px 50px;
+            }
+
+            .board-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="header-top">
+            <div class="brand">
+                <h1>Urgency Board</h1>
+                <p>
+                    Moving a task never resets its age.
+                </p>
+            </div>
+
+            <div class="toolbar">
+                <button
+                    class="button primary"
+                    id="addTaskButton"
+                    type="button"
+                >
+                    + Add Task
+                </button>
+
+                <button
+                    class="button"
+                    id="exportButton"
+                    type="button"
+                >
+                    Export Backup
+                </button>
+
+                <label class="button import-label">
+                    Import Backup
+                    <input
+                        id="importInput"
+                        type="file"
+                        accept=".json,application/json"
+                    >
+                </label>
+
+                <button
+                    class="button"
+                    id="toggleCompletedButton"
+                    type="button"
+                >
+                    Completed
+                </button>
+            </div>
+        </div>
+
+        <div
+            class="stats"
+            id="stats"
+            aria-label="Task statistics"
+        ></div>
+    </header>
+
+    <main>
+        <section>
+            <div class="board-header">
+                <h2 id="weekLabel"></h2>
+
+                <div class="rule-reminder">
+                    Task age is based on received date — not scheduled day.
+                </div>
+            </div>
+
+            <div
+                class="board"
+                id="board"
+            ></div>
+        </section>
+
+        <section
+            class="completed-section"
+            id="completedSection"
+            hidden
+        >
+            <h2>Completed Tasks</h2>
+
+            <div
+                class="completed-list"
+                id="completedList"
+            ></div>
+        </section>
+    </main>
+
+    <dialog id="taskDialog">
+        <div class="dialog-header">
+            <h2 id="dialogTitle">Add Task</h2>
+
+            <button
+                class="icon-button"
+                id="closeDialogButton"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+        </div>
+
+        <form
+            class="task-form"
+            id="taskForm"
+        >
+            <div class="field">
+                <label for="taskTitle">
+                    Task
+                </label>
+
+                <input
+                    id="taskTitle"
+                    name="title"
+                    type="text"
+                    maxlength="200"
+                    placeholder="e.g. Email Sarah the revised proposal"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label for="taskDetails">
+                    Notes
+                </label>
+
+                <textarea
+                    id="taskDetails"
+                    name="details"
+                    maxlength="2000"
+                    placeholder="Optional details..."
+                ></textarea>
+            </div>
+
+            <div class="field-grid">
+                <div class="field">
+                    <label for="scheduledDay">
+                        Schedule for
+                    </label>
+
+                    <select
+                        id="scheduledDay"
+                        name="scheduledDay"
+                        required
+                    ></select>
+
+                    <p class="field-help">
+                        You can move this later without resetting its age.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="receivedDate">
+                        When did you receive this task?
+                    </label>
+
+                    <input
+                        id="receivedDate"
+                        name="receivedDate"
+                        type="date"
+                        required
+                    >
+
+                    <p class="field-help">
+                        Use the real date, even for an old task.
+                    </p>
+                </div>
+            </div>
+
+            <div class="field-grid">
+                <div class="field">
+                    <label for="effort">
+                        Estimated effort
+                    </label>
+
+                    <select
+                        id="effort"
+                        name="effort"
+                        required
+                    >
+                        <option value="5m">⚡ 5 minutes</option>
+                        <option value="15m">⚡ 15 minutes</option>
+                        <option value="30m" selected>● 30 minutes</option>
+                        <option value="1h">●● 1 hour</option>
+                        <option value="2h">●● 2 hours</option>
+                        <option value="4h">●●● 4+ hours</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="redAfterDays">
+                        Turn fully red after
+                    </label>
+
+                    <input
+                        id="redAfterDays"
+                        name="redAfterDays"
+                        type="number"
+                        min="1"
+                        max="365"
+                        value="14"
+                        required
+                    >
+
+                    <p class="field-help">
+                        Default: 14 days. Yellow begins around halfway.
+                    </p>
+                </div>
+            </div>
+
+            <div class="dialog-actions">
+                <button
+                    class="button danger"
+                    id="deleteTaskButton"
+                    type="button"
+                    hidden
+                >
+                    Delete
+                </button>
+
+                <button
+                    class="button"
+                    id="cancelButton"
+                    type="button"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    class="button primary"
+                    type="submit"
+                >
+                    Save Task
+                </button>
+            </div>
+        </form>
+    </dialog>
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+    <script>
+        "use strict";
+
+        const STORAGE_KEY = "urgency-board.tasks.v1";
+
+        const DAYS = [
+            { key: "monday", label: "Monday" },
+            { key: "tuesday", label: "Tuesday" },
+            { key: "wednesday", label: "Wednesday" },
+            { key: "thursday", label: "Thursday" },
+            { key: "friday", label: "Friday" },
+            { key: "saturday", label: "Saturday" },
+            { key: "sunday", label: "Sunday" }
+        ];
+
+        const EFFORT_LABELS = {
+            "5m": "⚡ 5 min",
+            "15m": "⚡ 15 min",
+            "30m": "● 30 min",
+            "1h": "●● 1 hr",
+            "2h": "●● 2 hrs",
+            "4h": "●●● 4+ hrs"
+        };
+
+        const state = {
+            tasks: loadTasks(),
+            editingTaskId: null,
+            completedVisible: false
+        };
+
+        const board = document.getElementById("board");
+        const weekLabel = document.getElementById("weekLabel");
+        const stats = document.getElementById("stats");
+        const taskDialog = document.getElementById("taskDialog");
+        const dialogTitle = document.getElementById("dialogTitle");
+        const taskForm = document.getElementById("taskForm");
+        const taskTitle = document.getElementById("taskTitle");
+        const taskDetails = document.getElementById("taskDetails");
+        const scheduledDay = document.getElementById("scheduledDay");
+        const receivedDate = document.getElementById("receivedDate");
+        const effort = document.getElementById("effort");
+        const redAfterDays = document.getElementById("redAfterDays");
+        const deleteTaskButton =
+            document.getElementById("deleteTaskButton");
+        const completedSection =
+            document.getElementById("completedSection");
+        const completedList =
+            document.getElementById("completedList");
+        const toggleCompletedButton =
+            document.getElementById("toggleCompletedButton");
+        const importInput =
+            document.getElementById("importInput");
+        const toast = document.getElementById("toast");
+
+        let toastTimer = null;
+
+        initialize();
+
+        function initialize() {
+            populateDaySelect();
+            bindEvents();
+            render();
+        }
+
+        function bindEvents() {
+            document
+                .getElementById("addTaskButton")
+                .addEventListener("click", openAddTaskDialog);
+
+            document
+                .getElementById("closeDialogButton")
+                .addEventListener("click", closeTaskDialog);
+
+            document
+                .getElementById("cancelButton")
+                .addEventListener("click", closeTaskDialog);
+
+            document
+                .getElementById("exportButton")
+                .addEventListener("click", exportBackup);
+
+            toggleCompletedButton.addEventListener(
+                "click",
+                toggleCompleted
+            );
+
+            deleteTaskButton.addEventListener(
+                "click",
+                handleDeleteEditingTask
+            );
+
+            importInput.addEventListener(
+                "change",
+                handleImport
+            );
+
+            taskForm.addEventListener(
+                "submit",
+                handleTaskSubmit
+            );
+
+            taskDialog.addEventListener("click", (event) => {
+                if (event.target === taskDialog) {
+                    closeTaskDialog();
+                }
+            });
+        }
+
+        function populateDaySelect() {
+            scheduledDay.innerHTML = DAYS
+                .map((day) => (
+                    `<option value="${day.key}">${day.label}</option>`
+                ))
+                .join("");
+        }
+
+        function render() {
+            renderWeekLabel();
+            renderStats();
+            renderBoard();
+            renderCompletedTasks();
+        }
+
+        function renderWeekLabel() {
+            const weekDates = getCurrentWeekDates();
+            const first = weekDates[0];
+            const last = weekDates[6];
+
+            const firstText = first.toLocaleDateString(
+                undefined,
+                {
+                    month: "short",
+                    day: "numeric"
+                }
+            );
+
+            const lastText = last.toLocaleDateString(
+                undefined,
+                {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                }
+            );
+
+            weekLabel.textContent =
+                `Week of ${firstText} – ${lastText}`;
+        }
+
+        function renderStats() {
+            const openTasks = state.tasks.filter(
+                (task) => !task.completed
+            );
+
+            const urgentTasks = openTasks.filter(
+                (task) => calculateUrgency(task).progress >= 100
+            );
+
+            const oldestAge = openTasks.length
+                ? Math.max(
+                    ...openTasks.map(
+                        (task) => calculateTaskAge(task.receivedDate)
+                    )
+                )
+                : 0;
+
+            stats.innerHTML = `
+                <div class="stat">
+                    <strong>${openTasks.length}</strong> open
+                </div>
+
+                <div class="stat">
+                    <strong>${urgentTasks.length}</strong> red
+                </div>
+
+                <div class="stat">
+                    Oldest:
+                    <strong>${oldestAge} day${oldestAge === 1 ? "" : "s"}</strong>
+                </div>
+
+                <div class="stat">
+                    <strong>${state.tasks.filter(
+                        (task) => task.completed
+                    ).length}</strong>
+                    completed
+                </div>
+            `;
+        }
+
+        function renderBoard() {
+            board.innerHTML = "";
+
+            const weekDates = getCurrentWeekDates();
+            const currentDayKey = getCurrentDayKey();
+
+            DAYS.forEach((day, index) => {
+                const column = document.createElement("section");
+                const isToday = day.key === currentDayKey;
+
+                column.className =
+                    `day-column${isToday ? " today" : ""}`;
+
+                const dateText = weekDates[index].toLocaleDateString(
+                    undefined,
+                    {
+                        month: "short",
+                        day: "numeric"
+                    }
+                );
+
+                column.innerHTML = `
+                    <header class="day-header">
+                        <div>
+                            <span class="day-name">
+                                ${day.label}
+                            </span>
+
+                            ${isToday
+                                ? '<span class="today-badge">Today</span>'
+                                : ""
+                            }
+                        </div>
+
+                        <span class="day-date">
+                            ${dateText}
+                        </span>
+                    </header>
+                `;
+
+                const dropZone = document.createElement("div");
+                dropZone.className = "drop-zone";
+                dropZone.dataset.day = day.key;
+
+                configureDropZone(dropZone);
+
+                const dayTasks = state.tasks
+                    .filter(
+                        (task) =>
+                            !task.completed &&
+                            task.scheduledDay === day.key
+                    )
+                    .sort(compareTasksByUrgency);
+
+                if (dayTasks.length === 0) {
+                    const empty = document.createElement("div");
+                    empty.className = "empty-day";
+                    empty.textContent = "Drop tasks here";
+                    dropZone.appendChild(empty);
+                } else {
+                    dayTasks.forEach((task) => {
+                        dropZone.appendChild(createTaskCard(task));
+                    });
+                }
+
+                column.appendChild(dropZone);
+                board.appendChild(column);
+            });
+        }
+
+        function compareTasksByUrgency(firstTask, secondTask) {
+            const firstUrgency = calculateUrgency(firstTask);
+            const secondUrgency = calculateUrgency(secondTask);
+
+            if (secondUrgency.progress !== firstUrgency.progress) {
+                return secondUrgency.progress - firstUrgency.progress;
+            }
+
+            return firstTask.title.localeCompare(secondTask.title);
+        }
+
+        function createTaskCard(task) {
+            const card = document.createElement("article");
+            const urgency = calculateUrgency(task);
+            const age = calculateTaskAge(task.receivedDate);
+
+            card.className = "task-card";
+            card.draggable = true;
+            card.dataset.taskId = task.id;
+
+            card.style.backgroundColor =
+                `hsl(${urgency.hue} 82% 94%)`;
+
+            card.style.borderLeftColor =
+                `hsl(${urgency.hue} 78% 38%)`;
+
+            const details = task.details
+                ? `
+                    <p class="task-details">
+                        ${escapeHtml(task.details).replace(/\n/g, "<br>")}
+                    </p>
+                `
+                : "";
+
+            const moveOptions = DAYS
+                .map((day) => `
+                    <option
+                        value="${day.key}"
+                        ${day.key === task.scheduledDay
+                            ? "selected"
+                            : ""
+                        }
+                    >
+                        ${day.label}
+                    </option>
+                `)
+                .join("");
+
+            card.innerHTML = `
+                <div class="task-top">
+                    <h3 class="task-title">
+                        ${escapeHtml(task.title)}
+                    </h3>
+
+                    <span
+                        class="urgency-badge"
+                        style="
+                            background:
+                                hsl(${urgency.hue} 82% 84%);
+                        "
+                    >
+                        ${urgency.status} ${Math.round(urgency.progress)}%
+                    </span>
+                </div>
+
+                ${details}
+
+                <div class="task-meta">
+                    <span class="meta-chip">
+                        ${age} day${age === 1 ? "" : "s"} old
+                    </span>
+
+                    <span class="meta-chip">
+                        ${EFFORT_LABELS[task.effort] ?? task.effort}
+                    </span>
+
+                    <span class="meta-chip">
+                        Red at ${task.redAfterDays} days
+                    </span>
+                </div>
+
+                <div
+                    class="urgency-track"
+                    aria-label="Urgency progress"
+                >
+                    <div
+                        class="urgency-fill"
+                        style="
+                            width: ${Math.min(urgency.progress, 100)}%;
+                            background:
+                                hsl(${urgency.hue} 80% 40%);
+                        "
+                    ></div>
+                </div>
+
+                <div class="urgency-copy">
+                    <span>
+                        Received ${formatDate(task.receivedDate)}
+                    </span>
+
+                    <span>
+                        ${Math.round(urgency.progress)}% elapsed
+                    </span>
+                </div>
+
+                <div class="task-actions">
+                    <button
+                        class="button small complete-button"
+                        type="button"
+                    >
+                        ✓ Done
+                    </button>
+
+                    <button
+                        class="button small edit-button"
+                        type="button"
+                    >
+                        Edit
+                    </button>
+
+                    <select
+                        class="move-select"
+                        aria-label="Move ${escapeHtml(task.title)}"
+                    >
+                        ${moveOptions}
+                    </select>
+                </div>
+            `;
+
+            card
+                .querySelector(".complete-button")
+                .addEventListener("click", () => completeTask(task.id));
+
+            card
+                .querySelector(".edit-button")
+                .addEventListener("click", () => openEditTaskDialog(task.id));
+
+            card
+                .querySelector(".move-select")
+                .addEventListener("change", (event) => {
+                    moveTask(task.id, event.target.value);
+                });
+
+            card.addEventListener("dragstart", (event) => {
+                card.classList.add("dragging");
+
+                event.dataTransfer.effectAllowed = "move";
+                event.dataTransfer.setData(
+                    "text/plain",
+                    task.id
+                );
+            });
+
+            card.addEventListener("dragend", () => {
+                card.classList.remove("dragging");
+            });
+
+            return card;
+        }
+
+        function configureDropZone(dropZone) {
+            dropZone.addEventListener("dragover", (event) => {
+                event.preventDefault();
+                event.dataTransfer.dropEffect = "move";
+                dropZone.classList.add("drag-over");
+            });
+
+            dropZone.addEventListener("dragleave", (event) => {
+                if (!dropZone.contains(event.relatedTarget)) {
+                    dropZone.classList.remove("drag-over");
+                }
+            });
+
+            dropZone.addEventListener("drop", (event) => {
+                event.preventDefault();
+                dropZone.classList.remove("drag-over");
+
+                const taskId =
+                    event.dataTransfer.getData("text/plain");
+
+                if (!taskId) {
+                    return;
+                }
+
+                moveTask(taskId, dropZone.dataset.day);
+            });
+        }
+
+        function renderCompletedTasks() {
+            completedSection.hidden = !state.completedVisible;
+
+            if (!state.completedVisible) {
+                return;
+            }
+
+            const completedTasks = state.tasks
+                .filter((task) => task.completed)
+                .sort((firstTask, secondTask) => {
+                    return (
+                        new Date(secondTask.completedAt ?? 0) -
+                        new Date(firstTask.completedAt ?? 0)
+                    );
+                });
+
+            if (completedTasks.length === 0) {
+                completedList.innerHTML =
+                    "<p>No completed tasks yet.</p>";
+                return;
+            }
+
+            completedList.innerHTML = "";
+
+            completedTasks.forEach((task) => {
+                const card = document.createElement("article");
+                card.className = "completed-card";
+
+                const completedText = task.completedAt
+                    ? new Date(task.completedAt).toLocaleDateString()
+                    : "Unknown";
+
+                card.innerHTML = `
+                    <h3>${escapeHtml(task.title)}</h3>
+
+                    <p>
+                        Completed ${completedText}
+                    </p>
+
+                    <div class="completed-actions">
+                        <button
+                            class="button small restore-button"
+                            type="button"
+                        >
+                            Restore
+                        </button>
+
+                        <button
+                            class="button small danger delete-button"
+                            type="button"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                `;
+
+                card
+                    .querySelector(".restore-button")
+                    .addEventListener(
+                        "click",
+                        () => restoreTask(task.id)
+                    );
+
+                card
+                    .querySelector(".delete-button")
+                    .addEventListener(
+                        "click",
+                        () => deleteTask(task.id)
+                    );
+
+                completedList.appendChild(card);
+            });
+        }
+
+        function openAddTaskDialog() {
+            state.editingTaskId = null;
+
+            dialogTitle.textContent = "Add Task";
+            deleteTaskButton.hidden = true;
+
+            taskForm.reset();
+
+            scheduledDay.value = getCurrentDayKey();
+            receivedDate.value = getTodayDateString();
+            effort.value = "30m";
+            redAfterDays.value = "14";
+
+            taskDialog.showModal();
+            taskTitle.focus();
+        }
+
+        function openEditTaskDialog(taskId) {
+            const task = findTask(taskId);
+
+            if (!task) {
+                showToast("Task could not be found.");
+                return;
+            }
+
+            state.editingTaskId = task.id;
+
+            dialogTitle.textContent = "Edit Task";
+            deleteTaskButton.hidden = false;
+
+            taskTitle.value = task.title;
+            taskDetails.value = task.details;
+            scheduledDay.value = task.scheduledDay;
+            receivedDate.value = task.receivedDate;
+            effort.value = task.effort;
+            redAfterDays.value = String(task.redAfterDays);
+
+            taskDialog.showModal();
+            taskTitle.focus();
+        }
+
+        function closeTaskDialog() {
+            if (taskDialog.open) {
+                taskDialog.close();
+            }
+
+            state.editingTaskId = null;
+            taskForm.reset();
+        }
+
+        function handleTaskSubmit(event) {
+            event.preventDefault();
+
+            const title = taskTitle.value.trim();
+            const details = taskDetails.value.trim();
+            const redDays = Number(redAfterDays.value);
+
+            if (!title) {
+                showToast("Please enter a task name.");
+                return;
+            }
+
+            if (
+                !Number.isFinite(redDays) ||
+                redDays < 1 ||
+                redDays > 365
+            ) {
+                showToast(
+                    "Red deadline must be between 1 and 365 days."
+                );
+                return;
+            }
+
+            if (state.editingTaskId) {
+                const task = findTask(state.editingTaskId);
+
+                if (!task) {
+                    showToast("Task could not be found.");
+                    return;
+                }
+
+                task.title = title;
+                task.details = details;
+                task.scheduledDay = scheduledDay.value;
+                task.receivedDate = receivedDate.value;
+                task.effort = effort.value;
+                task.redAfterDays = redDays;
+
+                saveAndRender();
+                closeTaskDialog();
+                showToast("Task updated.");
+                return;
+            }
+
+            const newTask = {
+                id: createId(),
+                title,
+                details,
+                scheduledDay: scheduledDay.value,
+                receivedDate: receivedDate.value,
+                effort: effort.value,
+                redAfterDays: redDays,
+                completed: false,
+                completedAt: null,
+                createdAt: new Date().toISOString()
+            };
+
+            state.tasks.push(newTask);
+
+            saveAndRender();
+            closeTaskDialog();
+            showToast("Task added.");
+        }
+
+        function handleDeleteEditingTask() {
+            if (!state.editingTaskId) {
+                return;
+            }
+
+            const task = findTask(state.editingTaskId);
+
+            if (!task) {
+                return;
+            }
+
+            const confirmed = window.confirm(
+                `Delete "${task.title}" permanently?`
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            deleteTask(task.id);
+            closeTaskDialog();
+        }
+
+        function moveTask(taskId, newDay) {
+            const task = findTask(taskId);
+
+            if (!task) {
+                showToast("Task could not be found.");
+                return;
+            }
+
+            if (!DAYS.some((day) => day.key === newDay)) {
+                showToast("Invalid destination.");
+                return;
+            }
+
+            task.scheduledDay = newDay;
+
+            saveAndRender();
+
+            const dayLabel = DAYS.find(
+                (day) => day.key === newDay
+            )?.label;
+
+            showToast(
+                `Moved to ${dayLabel}. Age was not reset.`
+            );
+        }
+
+        function completeTask(taskId) {
+            const task = findTask(taskId);
+
+            if (!task) {
+                return;
+            }
+
+            task.completed = true;
+            task.completedAt = new Date().toISOString();
+
+            saveAndRender();
+            showToast("Task completed.");
+        }
+
+        function restoreTask(taskId) {
+            const task = findTask(taskId);
+
+            if (!task) {
+                return;
+            }
+
+            task.completed = false;
+            task.completedAt = null;
+
+            saveAndRender();
+
+            showToast(
+                "Task restored. Its original age is still intact."
+            );
+        }
+
+        function deleteTask(taskId) {
+            const task = findTask(taskId);
+
+            if (!task) {
+                return;
+            }
+
+            const confirmed = window.confirm(
+                `Delete "${task.title}" permanently?`
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            state.tasks = state.tasks.filter(
+                (candidate) => candidate.id !== taskId
+            );
+
+            saveAndRender();
+            showToast("Task deleted.");
+        }
+
+        function toggleCompleted() {
+            state.completedVisible = !state.completedVisible;
+
+            toggleCompletedButton.textContent =
+                state.completedVisible
+                    ? "Hide Completed"
+                    : "Completed";
+
+            renderCompletedTasks();
+        }
+
+        function calculateUrgency(task) {
+            const age = calculateTaskAge(task.receivedDate);
+
+            const redDays = Math.max(
+                1,
+                Number(task.redAfterDays) || 14
+            );
+
+            const progress = (age / redDays) * 100;
+
+            const cappedProgress = Math.min(
+                Math.max(progress, 0),
+                100
+            );
+
+            const hue = Math.round(
+                120 - (cappedProgress * 1.2)
+            );
+
+            let status = "GREEN";
+
+            if (progress >= 100) {
+                status = "RED";
+            } else if (progress >= 75) {
+                status = "ORANGE";
+            } else if (progress >= 50) {
+                status = "YELLOW";
+            }
+
+            return {
+                age,
+                progress,
+                hue,
+                status
+            };
+        }
+
+        function calculateTaskAge(dateString) {
+            if (!dateString) {
+                return 0;
+            }
+
+            const receivedDay = dateStringToDayNumber(dateString);
+            const todayDay = getTodayDayNumber();
+
+            return Math.max(0, todayDay - receivedDay);
+        }
+
+        function getTodayDayNumber() {
+            const today = new Date();
+
+            return Math.floor(
+                Date.UTC(
+                    today.getFullYear(),
+                    today.getMonth(),
+                    today.getDate()
+                ) / 86_400_000
+            );
+        }
+
+        function dateStringToDayNumber(dateString) {
+            const parts = dateString
+                .split("-")
+                .map(Number);
+
+            if (parts.length !== 3) {
+                return getTodayDayNumber();
+            }
+
+            const [year, month, day] = parts;
+
+            return Math.floor(
+                Date.UTC(
+                    year,
+                    month - 1,
+                    day
+                ) / 86_400_000
+            );
+        }
+
+        function getCurrentWeekDates() {
+            const today = new Date();
+
+            const mondayOffset =
+                (today.getDay() + 6) % 7;
+
+            const monday = new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                today.getDate() - mondayOffset
+            );
+
+            return DAYS.map((_, index) => {
+                return new Date(
+                    monday.getFullYear(),
+                    monday.getMonth(),
+                    monday.getDate() + index
+                );
+            });
+        }
+
+        function getCurrentDayKey() {
+            const jsDay = new Date().getDay();
+
+            const mondayBasedIndex =
+                (jsDay + 6) % 7;
+
+            return DAYS[mondayBasedIndex].key;
+        }
+
+        function getTodayDateString() {
+            const today = new Date();
+
+            const year = today.getFullYear();
+
+            const month = String(
+                today.getMonth() + 1
+            ).padStart(2, "0");
+
+            const day = String(
+                today.getDate()
+            ).padStart(2, "0");
+
+            return `${year}-${month}-${day}`;
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) {
+                return "Unknown";
+            }
+
+            const [year, month, day] =
+                dateString.split("-").map(Number);
+
+            const date = new Date(
+                year,
+                month - 1,
+                day
+            );
+
+            return date.toLocaleDateString(
+                undefined,
+                {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                }
+            );
+        }
+
+        function saveAndRender() {
+            saveTasks();
+            render();
+        }
+
+        function saveTasks() {
+            try {
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(state.tasks)
+                );
+            } catch (error) {
+                console.error(error);
+
+                showToast(
+                    "Could not save tasks. Export a backup."
+                );
+            }
+        }
+
+        function loadTasks() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+
+                if (!raw) {
+                    return [];
+                }
+
+                const parsed = JSON.parse(raw);
+
+                if (!Array.isArray(parsed)) {
+                    return [];
+                }
+
+                return parsed
+                    .filter(isValidTask)
+                    .map(normalizeTask);
+            } catch (error) {
+                console.error(error);
+                return [];
+            }
+        }
+
+        function isValidTask(task) {
+            return (
+                task &&
+                typeof task === "object" &&
+                typeof task.id === "string" &&
+                typeof task.title === "string" &&
+                typeof task.receivedDate === "string"
+            );
+        }
+
+        function normalizeTask(task) {
+            const validScheduledDay =
+                DAYS.some(
+                    (day) => day.key === task.scheduledDay
+                )
+                    ? task.scheduledDay
+                    : "monday";
+
+            return {
+                id: task.id,
+                title: task.title,
+                details:
+                    typeof task.details === "string"
+                        ? task.details
+                        : "",
+                scheduledDay: validScheduledDay,
+                receivedDate: task.receivedDate,
+                effort:
+                    EFFORT_LABELS[task.effort]
+                        ? task.effort
+                        : "30m",
+                redAfterDays:
+                    Number(task.redAfterDays) > 0
+                        ? Number(task.redAfterDays)
+                        : 14,
+                completed: Boolean(task.completed),
+                completedAt:
+                    typeof task.completedAt === "string"
+                        ? task.completedAt
+                        : null,
+                createdAt:
+                    typeof task.createdAt === "string"
+                        ? task.createdAt
+                        : new Date().toISOString()
+            };
+        }
+
+        function exportBackup() {
+            const backup = {
+                app: "Urgency Board",
+                version: 1,
+                exportedAt: new Date().toISOString(),
+                tasks: state.tasks
+            };
+
+            const blob = new Blob(
+                [
+                    JSON.stringify(
+                        backup,
+                        null,
+                        2
+                    )
+                ],
+                {
+                    type: "application/json"
+                }
+            );
+
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+
+            link.href = url;
+            link.download =
+                `urgency-board-backup-${getTodayDateString()}.json`;
+
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            URL.revokeObjectURL(url);
+
+            showToast("Backup downloaded.");
+        }
+
+        async function handleImport(event) {
+            const file = event.target.files?.[0];
+
+            if (!file) {
+                return;
+            }
+
+            try {
+                const text = await file.text();
+                const parsed = JSON.parse(text);
+
+                const importedTasks =
+                    Array.isArray(parsed)
+                        ? parsed
+                        : parsed.tasks;
+
+                if (!Array.isArray(importedTasks)) {
+                    throw new Error(
+                        "Backup does not contain a task list."
+                    );
+                }
+
+                const validTasks = importedTasks
+                    .filter(isValidTask)
+                    .map(normalizeTask);
+
+                const confirmed = window.confirm(
+                    `Import ${validTasks.length} tasks? ` +
+                    "This will replace the tasks currently in this browser."
+                );
+
+                if (!confirmed) {
+                    return;
+                }
+
+                state.tasks = validTasks;
+
+                saveAndRender();
+                showToast("Backup imported.");
+            } catch (error) {
+                console.error(error);
+
+                window.alert(
+                    "That file could not be imported. " +
+                    "Please use a valid Urgency Board backup."
+                );
+            } finally {
+                importInput.value = "";
+            }
+        }
+
+        function findTask(taskId) {
+            return state.tasks.find(
+                (task) => task.id === taskId
+            );
+        }
+
+        function createId() {
+            if (
+                typeof crypto !== "undefined" &&
+                typeof crypto.randomUUID === "function"
+            ) {
+                return crypto.randomUUID();
+            }
+
+            return (
+                `${Date.now()}-` +
+                Math.random().toString(36).slice(2)
+            );
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add("visible");
+
+            window.clearTimeout(toastTimer);
+
+            toastTimer = window.setTimeout(() => {
+                toast.classList.remove("visible");
+            }, 2400);
+        }
+    </script>
+</body>
+</html>

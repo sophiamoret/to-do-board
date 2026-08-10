@@ -792,7 +792,7 @@
     <header class="app-header">
         <div class="header-top">
             <div class="brand">
-                <h1>Urgency Board</h1>
+                <h1>to do board</h1>
 
                 <p>
                     Moving a task never resets its age.
@@ -2458,7 +2458,7 @@
 
         function exportBackup() {
             const backup = {
-                app: "Urgency Board",
+                app: "to do board",
                 version: 1,
                 exportedAt:
                     new Date().toISOString(),
@@ -2569,7 +2569,7 @@
 
                 window.alert(
                     "That file could not be imported. " +
-                    "Please use a valid Urgency Board backup."
+                    "Please use a valid to do board backup."
                 );
             } finally {
                 importInput.value =

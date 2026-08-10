@@ -38,11 +38,11 @@
             --danger-background: #2b1111;
             --danger-border: #743636;
 
+            --radius: 12px;
+
             --shadow:
                 0 2px 4px rgb(0 0 0 / 35%),
                 0 10px 30px rgb(0 0 0 / 25%);
-
-            --radius: 12px;
         }
 
         * {
@@ -67,7 +67,6 @@
 
         body {
             margin: 0;
-
             min-height: 100vh;
 
             background: var(--background);
@@ -113,7 +112,6 @@
             justify-content: space-between;
 
             max-width: 1800px;
-
             margin: 0 auto;
         }
 
@@ -148,7 +146,6 @@
             justify-content: center;
 
             min-height: 38px;
-
             padding: 8px 13px;
 
             border: 1px solid var(--primary);
@@ -158,7 +155,6 @@
             color: var(--primary-dark);
 
             font-weight: 750;
-
             text-decoration: none;
 
             transition:
@@ -197,11 +193,10 @@
         }
 
         .button.small {
-            min-height: 31px;
+            min-height: 30px;
+            padding: 5px 8px;
 
-            padding: 5px 9px;
-
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .import-label input {
@@ -213,7 +208,6 @@
             gap: 8px;
 
             max-width: 1800px;
-
             margin: 14px auto 0;
 
             overflow-x: auto;
@@ -243,50 +237,48 @@
             max-width: 1900px;
 
             margin: 0 auto;
-
             padding: 22px 20px 60px;
         }
 
         .board-header {
             display: flex;
             gap: 16px;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
 
             margin-bottom: 14px;
         }
 
-        .board-title-area {
+        .board-controls {
             display: flex;
             flex-wrap: wrap;
-            gap: 14px;
+            gap: 10px;
             align-items: center;
         }
 
         .board-header h2 {
-            margin: 0;
+            margin: 0 8px 0 0;
 
             color: var(--primary);
 
             font-size: 18px;
         }
 
-        .category-filter-wrap {
+        .control-group {
             display: flex;
-            gap: 7px;
+            gap: 6px;
             align-items: center;
         }
 
-        .category-filter-wrap label {
+        .control-group label {
             color: var(--muted);
 
             font-size: 11px;
             font-weight: 750;
         }
 
-        .category-filter {
+        .board-select {
             min-height: 34px;
-
             padding: 5px 9px;
 
             border: 1px solid #4d7056;
@@ -295,22 +287,27 @@
             background: #101c14;
             color: var(--primary);
 
+            font-size: 12px;
             font-weight: 700;
         }
 
-        .rule-reminder {
+        .sort-help {
+            max-width: 430px;
+
             color: var(--muted);
 
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11px;
+            line-height: 1.4;
+            text-align: right;
         }
 
         .board {
             display: grid;
+
             grid-template-columns:
                 repeat(
                     7,
-                    minmax(270px, 1fr)
+                    minmax(275px, 1fr)
                 );
 
             gap: 12px;
@@ -321,7 +318,7 @@
         }
 
         .day-column {
-            min-width: 270px;
+            min-width: 275px;
             min-height: 500px;
 
             overflow: hidden;
@@ -378,14 +375,12 @@
 
             font-size: 9px;
             font-weight: 850;
-            letter-spacing: 0.03em;
 
             text-transform: uppercase;
         }
 
         .drop-zone {
             min-height: 450px;
-
             padding: 9px;
 
             transition:
@@ -430,8 +425,6 @@
             padding: 7px 9px;
 
             border-bottom: 1px solid var(--border);
-
-            background: rgb(255 255 255 / 2.5%);
         }
 
         .category-section-title {
@@ -467,8 +460,6 @@
         }
 
         .category-section-count {
-            flex: 0 0 auto;
-
             color: var(--muted);
 
             font-size: 9px;
@@ -482,7 +473,7 @@
         .task-card {
             position: relative;
 
-            margin-bottom: 8px;
+            margin-bottom: 9px;
             padding: 12px;
 
             border: 1px solid rgb(255 255 255 / 10%);
@@ -526,7 +517,7 @@
         .task-title {
             margin: 0;
 
-            color: #ffffff;
+            color: white;
 
             font-size: 14px;
             line-height: 1.35;
@@ -539,15 +530,32 @@
 
             padding: 3px 7px;
 
-            border: 1px solid rgb(255 255 255 / 14%);
+            border: 1px solid;
             border-radius: 999px;
 
             color: white;
 
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 850;
 
             white-space: nowrap;
+        }
+
+        .smart-badge {
+            display: inline-block;
+
+            margin-top: 7px;
+            margin-right: 5px;
+            padding: 3px 7px;
+
+            border: 1px solid #567361;
+            border-radius: 999px;
+
+            background: #142319;
+            color: var(--primary);
+
+            font-size: 9px;
+            font-weight: 800;
         }
 
         .category-badge {
@@ -557,7 +565,7 @@
 
             max-width: 100%;
 
-            margin-top: 9px;
+            margin-top: 7px;
             padding: 4px 8px;
 
             border: 1px solid;
@@ -614,35 +622,85 @@
             font-weight: 750;
         }
 
-        .urgency-track {
-            height: 6px;
+        .bar-block {
+            margin-top: 11px;
+        }
 
-            margin-top: 10px;
+        .bar-label {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 4px;
+
+            color: #b8c5bb;
+
+            font-size: 9px;
+            font-weight: 750;
+        }
+
+        .bar-track {
+            height: 7px;
 
             overflow: hidden;
 
             border-radius: 999px;
 
-            background: rgb(0 0 0 / 35%);
+            background: #1b211d;
         }
 
         .urgency-fill {
             height: 100%;
 
             border-radius: inherit;
+
+            transition: width 180ms ease;
         }
 
-        .urgency-copy {
-            display: flex;
-            justify-content: space-between;
-            gap: 8px;
+        .rainbow-progress-track {
+            height: 11px;
 
-            margin-top: 4px;
+            overflow: hidden;
 
-            color: #b8c5bb;
+            border: 1px solid rgb(255 255 255 / 14%);
+            border-radius: 999px;
 
-            font-size: 9px;
-            font-weight: 700;
+            background: #151915;
+
+            box-shadow:
+                inset 0 1px 2px rgb(0 0 0 / 55%);
+        }
+
+        .rainbow-progress-fill {
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ff6b6b 0%,
+                    #ff922b 16%,
+                    #ffe066 32%,
+                    #69db7c 48%,
+                    #4dabf7 65%,
+                    #9775fa 82%,
+                    #f06595 100%
+                );
+
+            box-shadow:
+                0 0 10px rgb(255 255 255 / 12%);
+
+            transition:
+                width 220ms ease;
+        }
+
+        .progress-percentage {
+            color: #ffffff;
+
+            font-size: 11px;
+            font-weight: 850;
         }
 
         .task-actions {
@@ -660,8 +718,8 @@
         }
 
         .task-actions select {
-            min-width: 86px;
-            min-height: 31px;
+            min-width: 88px;
+            min-height: 30px;
 
             padding: 4px 6px;
 
@@ -847,13 +905,7 @@
 
         .field input::placeholder,
         .field textarea::placeholder {
-            color: #647068;
-        }
-
-        .field input:hover,
-        .field textarea:hover,
-        .field select:hover {
-            border-color: #5d8066;
+            color: #68736b;
         }
 
         .field textarea {
@@ -874,10 +926,6 @@
             grid-template-columns: 1fr auto;
 
             gap: 8px;
-        }
-
-        .category-input-row .button {
-            white-space: nowrap;
         }
 
         .selected-category-preview {
@@ -904,6 +952,45 @@
             height: 12px;
 
             border-radius: 50%;
+        }
+
+        .progress-field {
+            padding: 13px;
+
+            border: 1px solid #344a3a;
+            border-radius: 9px;
+
+            background: #0b140e;
+        }
+
+        .progress-field[hidden] {
+            display: none;
+        }
+
+        .progress-input-row {
+            display: grid;
+            grid-template-columns: 130px 1fr;
+
+            gap: 10px;
+            align-items: center;
+        }
+
+        .progress-input-wrap {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+
+            color: var(--muted);
+
+            font-weight: 800;
+        }
+
+        .progress-input-wrap input {
+            width: 100%;
+        }
+
+        .progress-preview {
+            margin-top: 10px;
         }
 
         .dialog-actions {
@@ -982,21 +1069,11 @@
                 0 0 10px currentColor;
         }
 
-        .category-row-text {
-            min-width: 0;
-        }
-
         .category-row-name {
             color: var(--text);
 
             font-size: 13px;
             font-weight: 800;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
-
-            white-space: nowrap;
         }
 
         .category-row-count {
@@ -1009,12 +1086,12 @@
 
         .category-row-actions {
             display: flex;
-            flex: 0 0 auto;
             gap: 6px;
         }
 
         .color-options {
             display: grid;
+
             grid-template-columns:
                 repeat(
                     auto-fit,
@@ -1022,8 +1099,6 @@
                 );
 
             gap: 8px;
-
-            margin-top: 8px;
         }
 
         .color-option {
@@ -1054,8 +1129,6 @@
         }
 
         .color-swatch {
-            flex: 0 0 auto;
-
             width: 16px;
             height: 16px;
 
@@ -1089,7 +1162,7 @@
             bottom: 20px;
             z-index: 100;
 
-            max-width: 330px;
+            max-width: 360px;
 
             padding: 11px 14px;
 
@@ -1127,7 +1200,8 @@
                 padding: 14px;
             }
 
-            .header-top {
+            .header-top,
+            .board-header {
                 align-items: flex-start;
                 flex-direction: column;
             }
@@ -1140,31 +1214,19 @@
                 padding: 16px 12px 50px;
             }
 
-            .board-header {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .board-title-area {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .field-grid {
+            .field-grid,
+            .category-input-row,
+            .progress-input-row {
                 grid-template-columns: 1fr;
             }
 
-            .category-input-row {
-                grid-template-columns: 1fr;
+            .sort-help {
+                text-align: left;
             }
 
             .category-row {
                 align-items: flex-start;
                 flex-direction: column;
-            }
-
-            .category-row-actions {
-                width: 100%;
             }
         }
     </style>
@@ -1174,9 +1236,7 @@
     <header class="app-header">
         <div class="header-top">
             <div class="brand">
-                <h1>
-                    to do board
-                </h1>
+                <h1>to do board</h1>
 
                 <p>
                     Moving a task never resets its age.
@@ -1238,25 +1298,36 @@
     <main>
         <section>
             <div class="board-header">
-                <div class="board-title-area">
+                <div class="board-controls">
                     <h2 id="weekLabel"></h2>
 
-                    <div class="category-filter-wrap">
+                    <div class="control-group">
+                        <label for="sortMode">
+                            Sort:
+                        </label>
+
+                        <select
+                            class="board-select"
+                            id="sortMode"
+                        ></select>
+                    </div>
+
+                    <div class="control-group">
                         <label for="categoryFilter">
                             Category:
                         </label>
 
                         <select
-                            class="category-filter"
+                            class="board-select"
                             id="categoryFilter"
                         ></select>
                     </div>
                 </div>
 
-                <div class="rule-reminder">
-                    Category color = organization.
-                    Urgency color = time elapsed.
-                </div>
+                <div
+                    class="sort-help"
+                    id="sortHelp"
+                ></div>
             </div>
 
             <div
@@ -1310,7 +1381,7 @@
                     id="taskTitle"
                     type="text"
                     maxlength="200"
-                    placeholder="e.g. Schedule PET scan"
+                    placeholder="e.g. Finish analysis"
                     required
                 >
             </div>
@@ -1347,24 +1418,16 @@
                     </button>
                 </div>
 
-                <div
-                    class="selected-category-preview"
-                    id="selectedCategoryPreview"
-                >
+                <div class="selected-category-preview">
                     <span
                         class="selected-category-color"
                         id="selectedCategoryColor"
                     ></span>
 
-                    <span id="selectedCategoryName">
-                        Uncategorized
-                    </span>
+                    <span
+                        id="selectedCategoryName"
+                    ></span>
                 </div>
-
-                <p class="field-help">
-                    Categories are completely editable.
-                    Their colors are saved automatically.
-                </p>
             </div>
 
             <div class="field-grid">
@@ -1379,7 +1442,7 @@
                     ></select>
 
                     <p class="field-help">
-                        Moving this later will not reset its age.
+                        Moving this task later does not reset its age.
                     </p>
                 </div>
 
@@ -1393,10 +1456,6 @@
                         type="date"
                         required
                     >
-
-                    <p class="field-help">
-                        Use the real date, even for an old task.
-                    </p>
                 </div>
             </div>
 
@@ -1454,9 +1513,73 @@
                     >
 
                     <p class="field-help">
-                        Default: 14 days.
+                        Number of days before this reaches 100% urgency.
                     </p>
                 </div>
+            </div>
+
+            <div
+                class="field progress-field"
+                id="progressField"
+                hidden
+            >
+                <label for="progressPercentInput">
+                    Progress completed
+                </label>
+
+                <div class="progress-input-row">
+                    <div class="progress-input-wrap">
+                        <input
+                            id="progressPercentInput"
+                            type="number"
+                            min="0"
+                            max="100"
+                            step="1"
+                            placeholder="35"
+                        >
+
+                        <span>%</span>
+                    </div>
+
+                    <div class="field-help">
+                        Optional. Leave blank if you do not want
+                        progress tracking for this project.
+                    </div>
+                </div>
+
+                <div
+                    class="progress-preview"
+                    id="progressPreview"
+                    hidden
+                >
+                    <div class="bar-label">
+                        <span>
+                            Preview
+                        </span>
+
+                        <span
+                            class="progress-percentage"
+                            id="progressPreviewPercentage"
+                        >
+                            0%
+                        </span>
+                    </div>
+
+                    <div class="rainbow-progress-track">
+                        <div
+                            class="rainbow-progress-fill"
+                            id="progressPreviewFill"
+                            style="width: 0%;"
+                        ></div>
+                    </div>
+                </div>
+
+                <p class="field-help">
+                    Only 2-hour and 4+-hour tasks can use this.
+                    It appears only while editing. Enter a percentage
+                    and save to make the rainbow progress bar appear
+                    on the task. Clear the percentage later to remove it.
+                </p>
             </div>
 
             <div class="dialog-actions">
@@ -1506,8 +1629,7 @@
         <div class="category-manager">
             <div class="category-manager-header">
                 <p>
-                    Add categories whenever new projects appear.
-                    Each category can have its own color.
+                    Create categories and choose a color for each.
                 </p>
 
                 <button
@@ -1625,6 +1747,9 @@
         const CATEGORIES_STORAGE_KEY =
             "urgency-board.groups.v1";
 
+        const SORT_STORAGE_KEY =
+            "urgency-board.sort.v1";
+
         const UNCATEGORIZED_ID =
             "uncategorized";
 
@@ -1667,6 +1792,60 @@
             "2h": "●● 2 hrs",
             "4h": "●●● 4+ hrs"
         };
+
+        const EFFORT_MINUTES = {
+            "5m": 5,
+            "15m": 15,
+            "30m": 30,
+            "1h": 60,
+            "2h": 120,
+            "4h": 240
+        };
+
+        const SORT_MODES = [
+            {
+                value: "smart",
+                label: "🧠 Smart Priority",
+                help:
+                    "Urgency and absolute age matter most. Overdue tasks rise sharply. Short tasks receive only a small bonus, so large old projects are not buried."
+            },
+            {
+                value: "urgency",
+                label: "🔥 Urgency / Time to Red",
+                help:
+                    "Tasks closest to turning red appear first. Tasks already overdue appear before tasks that still have time remaining."
+            },
+            {
+                value: "oldest",
+                label: "🕰 Oldest First",
+                help:
+                    "Tasks you have been carrying the longest appear first."
+            },
+            {
+                value: "shortest",
+                label: "⚡ Shortest First",
+                help:
+                    "5 min → 15 min → 30 min → 1 hr → 2 hrs → 4+ hrs."
+            },
+            {
+                value: "longest",
+                label: "🏋 Longest First",
+                help:
+                    "4+ hour projects appear first, followed by progressively shorter tasks."
+            },
+            {
+                value: "category",
+                label: "📁 Category",
+                help:
+                    "Tasks are grouped by their colored category. Within each category, the most urgent task appears first."
+            },
+            {
+                value: "newest",
+                label: "✨ Newest First",
+                help:
+                    "Tasks received most recently appear first."
+            }
+        ];
 
         const CATEGORY_COLORS = [
             {
@@ -1713,7 +1892,8 @@
             editingTaskId: null,
             editingCategoryId: null,
             completedVisible: false,
-            categoryFilter: "all"
+            categoryFilter: "all",
+            sortMode: loadSortMode()
         };
 
         state.tasks =
@@ -1734,6 +1914,16 @@
         const stats =
             document.getElementById(
                 "stats"
+            );
+
+        const sortModeSelect =
+            document.getElementById(
+                "sortMode"
+            );
+
+        const sortHelp =
+            document.getElementById(
+                "sortHelp"
             );
 
         const categoryFilter =
@@ -1799,6 +1989,31 @@
         const redAfterDays =
             document.getElementById(
                 "redAfterDays"
+            );
+
+        const progressField =
+            document.getElementById(
+                "progressField"
+            );
+
+        const progressPercentInput =
+            document.getElementById(
+                "progressPercentInput"
+            );
+
+        const progressPreview =
+            document.getElementById(
+                "progressPreview"
+            );
+
+        const progressPreviewFill =
+            document.getElementById(
+                "progressPreviewFill"
+            );
+
+        const progressPreviewPercentage =
+            document.getElementById(
+                "progressPreviewPercentage"
             );
 
         const deleteTaskButton =
@@ -1892,12 +2107,14 @@
 
         function initialize() {
             populateDaySelect();
+            populateSortSelect();
             bindEvents();
 
             saveCategories();
             saveTasks();
 
             refreshCategoryControls();
+
             render();
         }
 
@@ -1971,7 +2188,7 @@
                 )
                 .addEventListener(
                     "click",
-                    openAddCategoryFromTask
+                    openAddCategoryEditor
                 );
 
             document
@@ -2028,6 +2245,12 @@
                     handleCategoryFilterChange
                 );
 
+            sortModeSelect
+                .addEventListener(
+                    "change",
+                    handleSortModeChange
+                );
+
             taskCategory
                 .addEventListener(
                     "change",
@@ -2038,6 +2261,18 @@
                 .addEventListener(
                     "input",
                     updateCategoryEditorPreview
+                );
+
+            effort
+                .addEventListener(
+                    "change",
+                    updateProgressFieldVisibility
+                );
+
+            progressPercentInput
+                .addEventListener(
+                    "input",
+                    updateProgressPreview
                 );
 
             taskDialog
@@ -2094,110 +2329,27 @@
                     .join("");
         }
 
-        function refreshCategoryControls(
-            preferredTaskCategoryId = null
-        ) {
-            const categories =
-                getSortedCategories();
-
-            const desiredTaskCategory =
-                preferredTaskCategoryId ??
-                taskCategory.value ??
-                UNCATEGORIZED_ID;
-
-            taskCategory.innerHTML =
-                categories
+        function populateSortSelect() {
+            sortModeSelect.innerHTML =
+                SORT_MODES
                     .map(
-                        (category) =>
+                        (mode) =>
                             (
-                                `<option value="${escapeHtml(category.id)}">` +
-                                `${escapeHtml(category.name)}` +
+                                `<option value="${mode.value}">` +
+                                `${mode.label}` +
                                 "</option>"
                             )
                     )
                     .join("");
 
-            if (
-                findCategory(
-                    desiredTaskCategory
-                )
-            ) {
-                taskCategory.value =
-                    desiredTaskCategory;
-            } else {
-                taskCategory.value =
-                    UNCATEGORIZED_ID;
-            }
-
-            categoryFilter.innerHTML =
-                [
-                    '<option value="all">All Categories</option>',
-                    ...categories.map(
-                        (category) =>
-                            (
-                                `<option value="${escapeHtml(category.id)}">` +
-                                `${escapeHtml(category.name)}` +
-                                "</option>"
-                            )
-                    )
-                ].join("");
-
-            if (
-                state.categoryFilter !==
-                    "all" &&
-                !findCategory(
-                    state.categoryFilter
-                )
-            ) {
-                state.categoryFilter =
-                    "all";
-            }
-
-            categoryFilter.value =
-                state.categoryFilter;
-
-            updateSelectedCategoryPreview();
-            renderCategoryManager();
-        }
-
-        function getSortedCategories() {
-            const userCategories =
-                state.categories
-                    .filter(
-                        (category) =>
-                            category.id !==
-                            UNCATEGORIZED_ID
-                    )
-                    .sort(
-                        (
-                            firstCategory,
-                            secondCategory
-                        ) =>
-                            firstCategory.name
-                                .localeCompare(
-                                    secondCategory.name
-                                )
-                    );
-
-            const uncategorized =
-                state.categories.find(
-                    (category) =>
-                        category.id ===
-                        UNCATEGORIZED_ID
-                );
-
-            if (uncategorized) {
-                userCategories.push(
-                    uncategorized
-                );
-            }
-
-            return userCategories;
+            sortModeSelect.value =
+                state.sortMode;
         }
 
         function render() {
             renderWeekLabel();
             renderStats();
+            renderSortHelp();
             renderBoard();
             renderCompletedTasks();
             renderCategoryManager();
@@ -2248,7 +2400,16 @@
                     (task) =>
                         calculateUrgency(
                             task
-                        ).progress >= 100
+                        ).progress >=
+                        100
+                );
+
+            const progressTasks =
+                openTasks.filter(
+                    (task) =>
+                        shouldDisplayProgress(
+                            task
+                        )
                 );
 
             const oldestAge =
@@ -2262,12 +2423,6 @@
                         )
                     )
                     : 0;
-
-            const completedCount =
-                state.tasks.filter(
-                    (task) =>
-                        task.completed
-                ).length;
 
             stats.innerHTML = `
                 <div class="stat">
@@ -2285,20 +2440,33 @@
                 </div>
 
                 <div class="stat">
+                    <strong>
+                        ${progressTasks.length}
+                    </strong>
+                    tracking progress
+                </div>
+
+                <div class="stat">
                     Oldest:
                     <strong>
                         ${oldestAge}
                         day${oldestAge === 1 ? "" : "s"}
                     </strong>
                 </div>
-
-                <div class="stat">
-                    <strong>
-                        ${completedCount}
-                    </strong>
-                    completed
-                </div>
             `;
+        }
+
+        function renderSortHelp() {
+            const sortMode =
+                SORT_MODES.find(
+                    (mode) =>
+                        mode.value ===
+                        state.sortMode
+                );
+
+            sortHelp.textContent =
+                sortMode?.help ??
+                "";
         }
 
         function renderBoard() {
@@ -2386,7 +2554,8 @@
                         );
 
                     if (
-                        dayTasks.length === 0
+                        dayTasks.length ===
+                        0
                     ) {
                         const empty =
                             document.createElement(
@@ -2397,21 +2566,21 @@
                             "empty-day";
 
                         empty.textContent =
-                            state.categoryFilter ===
-                            "all"
-                                ? "Drop tasks here"
-                                : "No tasks in this category";
+                            "No tasks";
 
                         dropZone.appendChild(
                             empty
                         );
-                    } else {
-                        const groupedTasks =
+                    } else if (
+                        state.sortMode ===
+                        "category"
+                    ) {
+                        const categoryGroups =
                             groupTasksByCategory(
                                 dayTasks
                             );
 
-                        groupedTasks.forEach(
+                        categoryGroups.forEach(
                             ({
                                 category,
                                 tasks
@@ -2420,6 +2589,21 @@
                                     createCategorySection(
                                         category,
                                         tasks
+                                    )
+                                );
+                            }
+                        );
+                    } else {
+                        const sortedTasks =
+                            [...dayTasks].sort(
+                                compareTasksForCurrentSort
+                            );
+
+                        sortedTasks.forEach(
+                            (task) => {
+                                dropZone.appendChild(
+                                    createTaskCard(
+                                        task
                                     )
                                 );
                             }
@@ -2434,6 +2618,220 @@
                         column
                     );
                 }
+            );
+        }
+
+        function compareTasksForCurrentSort(
+            firstTask,
+            secondTask
+        ) {
+            switch (
+                state.sortMode
+            ) {
+                case "urgency":
+                    return compareByUrgency(
+                        firstTask,
+                        secondTask
+                    );
+
+                case "oldest":
+                    return compareByOldest(
+                        firstTask,
+                        secondTask
+                    );
+
+                case "shortest":
+                    return compareByEffort(
+                        firstTask,
+                        secondTask,
+                        1
+                    );
+
+                case "longest":
+                    return compareByEffort(
+                        firstTask,
+                        secondTask,
+                        -1
+                    );
+
+                case "newest":
+                    return compareByNewest(
+                        firstTask,
+                        secondTask
+                    );
+
+                case "smart":
+                default:
+                    return compareBySmartPriority(
+                        firstTask,
+                        secondTask
+                    );
+            }
+        }
+
+        function compareBySmartPriority(
+            firstTask,
+            secondTask
+        ) {
+            const first =
+                calculateSmartPriority(
+                    firstTask
+                );
+
+            const second =
+                calculateSmartPriority(
+                    secondTask
+                );
+
+            if (
+                second.score !==
+                first.score
+            ) {
+                return (
+                    second.score -
+                    first.score
+                );
+            }
+
+            return compareByUrgency(
+                firstTask,
+                secondTask
+            );
+        }
+
+        function compareByUrgency(
+            firstTask,
+            secondTask
+        ) {
+            const first =
+                calculateUrgency(
+                    firstTask
+                );
+
+            const second =
+                calculateUrgency(
+                    secondTask
+                );
+
+            if (
+                first.daysRemaining !==
+                second.daysRemaining
+            ) {
+                return (
+                    first.daysRemaining -
+                    second.daysRemaining
+                );
+            }
+
+            if (
+                second.progress !==
+                first.progress
+            ) {
+                return (
+                    second.progress -
+                    first.progress
+                );
+            }
+
+            return compareByOldest(
+                firstTask,
+                secondTask,
+                true
+            );
+        }
+
+        function compareByOldest(
+            firstTask,
+            secondTask,
+            skipUrgencyTieBreak = false
+        ) {
+            const firstAge =
+                calculateTaskAge(
+                    firstTask.receivedDate
+                );
+
+            const secondAge =
+                calculateTaskAge(
+                    secondTask.receivedDate
+                );
+
+            if (
+                secondAge !==
+                firstAge
+            ) {
+                return (
+                    secondAge -
+                    firstAge
+                );
+            }
+
+            if (
+                skipUrgencyTieBreak
+            ) {
+                return firstTask.title.localeCompare(
+                    secondTask.title
+                );
+            }
+
+            return compareByUrgency(
+                firstTask,
+                secondTask
+            );
+        }
+
+        function compareByNewest(
+            firstTask,
+            secondTask
+        ) {
+            const difference =
+                dateStringToDayNumber(
+                    secondTask.receivedDate
+                ) -
+                dateStringToDayNumber(
+                    firstTask.receivedDate
+                );
+
+            if (
+                difference !==
+                0
+            ) {
+                return difference;
+            }
+
+            return compareByUrgency(
+                firstTask,
+                secondTask
+            );
+        }
+
+        function compareByEffort(
+            firstTask,
+            secondTask,
+            direction
+        ) {
+            const firstMinutes =
+                EFFORT_MINUTES[
+                    firstTask.effort
+                ] ?? 30;
+
+            const secondMinutes =
+                EFFORT_MINUTES[
+                    secondTask.effort
+                ] ?? 30;
+
+            if (
+                firstMinutes !==
+                secondMinutes
+            ) {
+                return (
+                    firstMinutes -
+                    secondMinutes
+                ) * direction;
+            }
+
+            return compareByUrgency(
+                firstTask,
+                secondTask
             );
         }
 
@@ -2464,8 +2862,12 @@
                     }
 
                     categoryMap
-                        .get(categoryId)
-                        .push(task);
+                        .get(
+                            categoryId
+                        )
+                        .push(
+                            task
+                        );
                 }
             );
 
@@ -2486,40 +2888,40 @@
 
                         tasks:
                             groupedTasks.sort(
-                                compareTasksByUrgency
+                                compareByUrgency
                             )
                     })
                 )
                 .sort(
                     (
-                        firstGroup,
-                        secondGroup
+                        first,
+                        second
                     ) => {
-                        const firstIsUncategorized =
-                            firstGroup.category.id ===
+                        const firstUncategorized =
+                            first.category.id ===
                             UNCATEGORIZED_ID;
 
-                        const secondIsUncategorized =
-                            secondGroup.category.id ===
+                        const secondUncategorized =
+                            second.category.id ===
                             UNCATEGORIZED_ID;
 
                         if (
-                            firstIsUncategorized &&
-                            !secondIsUncategorized
+                            firstUncategorized &&
+                            !secondUncategorized
                         ) {
                             return 1;
                         }
 
                         if (
-                            !firstIsUncategorized &&
-                            secondIsUncategorized
+                            !firstUncategorized &&
+                            secondUncategorized
                         ) {
                             return -1;
                         }
 
-                        return firstGroup.category.name
+                        return first.category.name
                             .localeCompare(
-                                secondGroup.category.name
+                                second.category.name
                             );
                     }
                 );
@@ -2551,30 +2953,20 @@
             header.className =
                 "category-section-header";
 
-            header.style.borderBottomColor =
-                hexToRgba(
-                    category.color,
-                    0.24
-                );
-
             header.innerHTML = `
                 <div class="category-section-title">
                     <span
                         class="category-color-dot"
                         style="
-                            background:
-                                ${category.color};
-
-                            color:
-                                ${category.color};
+                            background:${category.color};
+                            color:${category.color};
                         "
                     ></span>
 
                     <span
                         class="category-section-name"
                         style="
-                            color:
-                                ${category.color};
+                            color:${category.color};
                         "
                     >
                         ${escapeHtml(category.name)}
@@ -2587,17 +2979,17 @@
                 </span>
             `;
 
-            const taskList =
+            const list =
                 document.createElement(
                     "div"
                 );
 
-            taskList.className =
+            list.className =
                 "category-task-list";
 
             tasks.forEach(
                 (task) => {
-                    taskList.appendChild(
+                    list.appendChild(
                         createTaskCard(
                             task
                         )
@@ -2610,51 +3002,10 @@
             );
 
             section.appendChild(
-                taskList
+                list
             );
 
             return section;
-        }
-
-        function taskMatchesCategoryFilter(
-            task
-        ) {
-            return (
-                state.categoryFilter ===
-                    "all" ||
-                task.categoryId ===
-                    state.categoryFilter
-            );
-        }
-
-        function compareTasksByUrgency(
-            firstTask,
-            secondTask
-        ) {
-            const firstUrgency =
-                calculateUrgency(
-                    firstTask
-                );
-
-            const secondUrgency =
-                calculateUrgency(
-                    secondTask
-                );
-
-            if (
-                secondUrgency.progress !==
-                firstUrgency.progress
-            ) {
-                return (
-                    secondUrgency.progress -
-                    firstUrgency.progress
-                );
-            }
-
-            return firstTask.title
-                .localeCompare(
-                    secondTask.title
-                );
         }
 
         function createTaskCard(
@@ -2670,9 +3021,9 @@
                     task
                 );
 
-            const age =
-                calculateTaskAge(
-                    task.receivedDate
+            const smart =
+                calculateSmartPriority(
+                    task
                 );
 
             const category =
@@ -2681,19 +3032,13 @@
                 ) ??
                 getUncategorizedCategory();
 
-            card.className =
-                "task-card";
+            const effortLabel =
+                EFFORT_LABELS[
+                    task.effort
+                ] ??
+                task.effort;
 
-            card.draggable =
-                true;
-
-            card.dataset.taskId =
-                task.id;
-
-            card.style.borderLeftColor =
-                category.color;
-
-            const details =
+            const detailsMarkup =
                 task.details
                     ? `
                         <p class="task-details">
@@ -2707,6 +3052,32 @@
                             }
                         </p>
                     `
+                    : "";
+
+            const smartMarkup =
+                state.sortMode ===
+                "smart"
+                    ? `
+                        <span
+                            class="smart-badge"
+                            title="${escapeHtml(
+                                getSmartBreakdownText(
+                                    smart
+                                )
+                            )}"
+                        >
+                            🧠 ${Math.round(smart.score)}
+                        </span>
+                    `
+                    : "";
+
+            const progressMarkup =
+                shouldDisplayProgress(
+                    task
+                )
+                    ? createProgressMarkup(
+                        task
+                    )
                     : "";
 
             const moveOptions =
@@ -2728,17 +3099,17 @@
                     )
                     .join("");
 
-            const effortLabel =
-                EFFORT_LABELS[
-                    task.effort
-                ] ??
-                task.effort;
+            card.className =
+                "task-card";
 
-            const categoryBackground =
-                hexToRgba(
-                    category.color,
-                    0.11
-                );
+            card.draggable =
+                true;
+
+            card.dataset.taskId =
+                task.id;
+
+            card.style.borderLeftColor =
+                category.color;
 
             card.innerHTML = `
                 <div class="task-top">
@@ -2759,8 +3130,8 @@
                             border-color:
                                 hsl(
                                     ${urgency.hue}
-                                    78%
-                                    42%
+                                    80%
+                                    45%
                                 );
                         "
                     >
@@ -2771,11 +3142,12 @@
                     </span>
                 </div>
 
+                ${smartMarkup}
+
                 <div
                     class="category-badge"
                     style="
-                        color:
-                            ${category.color};
+                        color:${category.color};
 
                         border-color:
                             ${hexToRgba(
@@ -2784,26 +3156,28 @@
                             )};
 
                         background:
-                            ${categoryBackground};
+                            ${hexToRgba(
+                                category.color,
+                                0.11
+                            )};
                     "
                 >
                     <span
                         class="category-badge-dot"
                         style="
-                            background:
-                                ${category.color};
+                            background:${category.color};
                         "
                     ></span>
 
                     ${escapeHtml(category.name)}
                 </div>
 
-                ${details}
+                ${detailsMarkup}
 
                 <div class="task-meta">
                     <span class="meta-chip">
-                        ${age}
-                        day${age === 1 ? "" : "s"}
+                        ${urgency.age}
+                        day${urgency.age === 1 ? "" : "s"}
                         old
                     </span>
 
@@ -2812,49 +3186,46 @@
                     </span>
 
                     <span class="meta-chip">
-                        Red at
-                        ${task.redAfterDays}
-                        days
-                    </span>
-                </div>
-
-                <div
-                    class="urgency-track"
-                    aria-label="Urgency progress"
-                >
-                    <div
-                        class="urgency-fill"
-                        style="
-                            width:
-                                ${Math.min(
-                                    urgency.progress,
-                                    100
-                                )}%;
-
-                            background:
-                                hsl(
-                                    ${urgency.hue}
-                                    90%
-                                    52%
-                                );
-                        "
-                    ></div>
-                </div>
-
-                <div class="urgency-copy">
-                    <span>
-                        Received
-                        ${formatDate(
-                            task.receivedDate
+                        ${escapeHtml(
+                            urgency.timeLabel
                         )}
                     </span>
+                </div>
 
-                    <span>
-                        ${Math.round(
-                            urgency.progress
-                        )}%
-                        elapsed
-                    </span>
+                ${progressMarkup}
+
+                <div class="bar-block">
+                    <div class="bar-label">
+                        <span>
+                            Urgency
+                        </span>
+
+                        <span>
+                            ${Math.round(
+                                urgency.progress
+                            )}%
+                        </span>
+                    </div>
+
+                    <div class="bar-track">
+                        <div
+                            class="urgency-fill"
+                            style="
+                                width:
+                                    ${Math.min(
+                                        urgency.progress,
+                                        100
+                                    )}%;
+
+                                background:
+                                    hsl(
+                                        ${urgency.hue}
+                                        90%
+                                        52%
+                                    );
+                            "
+                        ></div>
+                    </div>
                 </div>
 
                 <div class="task-actions">
@@ -2874,10 +3245,7 @@
 
                     <select
                         class="move-select"
-                        aria-label="
-                            Move
-                            ${escapeHtml(task.title)}
-                        "
+                        aria-label="Move ${escapeHtml(task.title)}"
                     >
                         ${moveOptions}
                     </select>
@@ -2922,259 +3290,456 @@
                     }
                 );
 
-            card.addEventListener(
-                "dragstart",
-                (event) => {
-                    card.classList.add(
-                        "dragging"
-                    );
+            card
+                .addEventListener(
+                    "dragstart",
+                    (event) => {
+                        card.classList.add(
+                            "dragging"
+                        );
 
-                    event.dataTransfer
-                        .effectAllowed =
-                        "move";
+                        event.dataTransfer.effectAllowed =
+                            "move";
 
-                    event.dataTransfer
-                        .setData(
+                        event.dataTransfer.setData(
                             "text/plain",
                             task.id
                         );
-                }
-            );
+                    }
+                );
 
-            card.addEventListener(
-                "dragend",
-                () => {
-                    card.classList.remove(
-                        "dragging"
-                    );
-                }
-            );
+            card
+                .addEventListener(
+                    "dragend",
+                    () => {
+                        card.classList.remove(
+                            "dragging"
+                        );
+                    }
+                );
 
             return card;
+        }
+
+        function createProgressMarkup(
+            task
+        ) {
+            return `
+                <div class="bar-block">
+                    <div class="bar-label">
+                        <span>
+                            Project progress
+                        </span>
+
+                        <span class="progress-percentage">
+                            ${task.progressPercent}%
+                        </span>
+                    </div>
+
+                    <div class="rainbow-progress-track">
+                        <div
+                            class="rainbow-progress-fill"
+                            style="
+                                width:${task.progressPercent}%;
+                            "
+                        ></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function shouldDisplayProgress(
+            task
+        ) {
+            return (
+                isLongEffort(
+                    task.effort
+                ) &&
+                task.progressTracked ===
+                    true &&
+                task.progressPercent >
+                    0
+            );
+        }
+
+        function isLongEffort(
+            effortValue
+        ) {
+            return (
+                effortValue ===
+                    "2h" ||
+                effortValue ===
+                    "4h"
+            );
         }
 
         function configureDropZone(
             dropZone
         ) {
-            dropZone.addEventListener(
-                "dragover",
-                (event) => {
-                    event.preventDefault();
+            dropZone
+                .addEventListener(
+                    "dragover",
+                    (event) => {
+                        event.preventDefault();
 
-                    event.dataTransfer
-                        .dropEffect =
-                        "move";
+                        event.dataTransfer.dropEffect =
+                            "move";
 
-                    dropZone.classList.add(
-                        "drag-over"
-                    );
-                }
-            );
+                        dropZone.classList.add(
+                            "drag-over"
+                        );
+                    }
+                );
 
-            dropZone.addEventListener(
-                "dragleave",
-                (event) => {
-                    if (
-                        !dropZone.contains(
-                            event.relatedTarget
-                        )
-                    ) {
+            dropZone
+                .addEventListener(
+                    "dragleave",
+                    () => {
                         dropZone.classList.remove(
                             "drag-over"
                         );
                     }
-                }
-            );
+                );
 
-            dropZone.addEventListener(
-                "drop",
-                (event) => {
-                    event.preventDefault();
+            dropZone
+                .addEventListener(
+                    "drop",
+                    (event) => {
+                        event.preventDefault();
 
-                    dropZone.classList.remove(
-                        "drag-over"
-                    );
+                        dropZone.classList.remove(
+                            "drag-over"
+                        );
 
-                    const taskId =
-                        event.dataTransfer
-                            .getData(
+                        const taskId =
+                            event.dataTransfer.getData(
                                 "text/plain"
                             );
 
-                    if (!taskId) {
-                        return;
-                    }
+                        if (!taskId) {
+                            return;
+                        }
 
-                    moveTask(
-                        taskId,
-                        dropZone.dataset.day
-                    );
-                }
-            );
+                        moveTask(
+                            taskId,
+                            dropZone.dataset.day
+                        );
+                    }
+                );
         }
 
-        function renderCompletedTasks() {
-            completedSection.hidden =
-                !state.completedVisible;
+        function calculateSmartPriority(
+            task
+        ) {
+            const urgency =
+                calculateUrgency(
+                    task
+                );
 
-            if (
-                !state.completedVisible
-            ) {
-                return;
-            }
+            const urgencyRatio =
+                Math.max(
+                    0,
+                    urgency.progress /
+                        100
+                );
 
-            const completedTasks =
-                state.tasks
-                    .filter(
-                        (task) =>
-                            task.completed &&
-                            taskMatchesCategoryFilter(
-                                task
-                            )
+            const urgencyScore =
+                105 *
+                Math.pow(
+                    Math.min(
+                        urgencyRatio,
+                        3
+                    ),
+                    1.5
+                );
+
+            const overdueBonus =
+                urgency.progress >=
+                100
+                    ? (
+                        40 +
+                        Math.min(
+                            (
+                                urgency.progress -
+                                100
+                            ) *
+                            0.22,
+                            80
+                        )
                     )
-                    .sort(
-                        (
-                            firstTask,
-                            secondTask
-                        ) =>
-                            new Date(
-                                secondTask.completedAt ??
-                                0
-                            ) -
-                            new Date(
-                                firstTask.completedAt ??
-                                0
-                            )
-                    );
+                    : 0;
+
+            const staleScore =
+                Math.min(
+                    150,
+                    Math.max(
+                        0,
+                        urgency.age -
+                            7
+                    ) *
+                    1.65
+                );
+
+            const minutes =
+                EFFORT_MINUTES[
+                    task.effort
+                ] ?? 30;
+
+            let quickWinBonus =
+                0;
 
             if (
-                completedTasks.length === 0
+                minutes <= 5
             ) {
-                completedList.innerHTML =
-                    (
-                        "<p>" +
-                        "No completed tasks in this category." +
-                        "</p>"
-                    );
-
-                return;
+                quickWinBonus =
+                    14;
+            } else if (
+                minutes <= 15
+            ) {
+                quickWinBonus =
+                    11;
+            } else if (
+                minutes <= 30
+            ) {
+                quickWinBonus =
+                    8;
+            } else if (
+                minutes <= 60
+            ) {
+                quickWinBonus =
+                    5;
+            } else if (
+                minutes <= 120
+            ) {
+                quickWinBonus =
+                    2;
             }
 
-            completedList.innerHTML =
-                "";
+            let finishLineBonus =
+                0;
 
-            completedTasks.forEach(
-                (task) => {
-                    const category =
-                        findCategory(
-                            task.categoryId
-                        ) ??
-                        getUncategorizedCategory();
-
-                    const card =
-                        document.createElement(
-                            "article"
-                        );
-
-                    card.className =
-                        "completed-card";
-
-                    card.style.borderLeftColor =
-                        category.color;
-
-                    const completedText =
-                        task.completedAt
-                            ? new Date(
-                                task.completedAt
-                            )
-                                .toLocaleDateString()
-                            : "Unknown";
-
-                    card.innerHTML = `
-                        <h3>
-                            ${escapeHtml(task.title)}
-                        </h3>
-
-                        <div
-                            class="category-badge"
-                            style="
-                                color:
-                                    ${category.color};
-
-                                border-color:
-                                    ${hexToRgba(
-                                        category.color,
-                                        0.55
-                                    )};
-
-                                background:
-                                    ${hexToRgba(
-                                        category.color,
-                                        0.11
-                                    )};
-                            "
-                        >
-                            <span
-                                class="category-badge-dot"
-                                style="
-                                    background:
-                                        ${category.color};
-                                "
-                            ></span>
-
-                            ${escapeHtml(category.name)}
-                        </div>
-
-                        <p>
-                            Completed
-                            ${completedText}
-                        </p>
-
-                        <div class="completed-actions">
-                            <button
-                                class="button small restore-button"
-                                type="button"
-                            >
-                                Restore
-                            </button>
-
-                            <button
-                                class="button small danger delete-button"
-                                type="button"
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    `;
-
-                    card
-                        .querySelector(
-                            ".restore-button"
-                        )
-                        .addEventListener(
-                            "click",
-                            () =>
-                                restoreTask(
-                                    task.id
-                                )
-                        );
-
-                    card
-                        .querySelector(
-                            ".delete-button"
-                        )
-                        .addEventListener(
-                            "click",
-                            () =>
-                                deleteTask(
-                                    task.id
-                                )
-                        );
-
-                    completedList.appendChild(
-                        card
-                    );
+            if (
+                shouldDisplayProgress(
+                    task
+                )
+            ) {
+                if (
+                    task.progressPercent >=
+                    80
+                ) {
+                    finishLineBonus =
+                        18;
+                } else if (
+                    task.progressPercent >=
+                    50
+                ) {
+                    finishLineBonus =
+                        10;
+                } else if (
+                    task.progressPercent >=
+                    25
+                ) {
+                    finishLineBonus =
+                        5;
                 }
+            }
+
+            const score =
+                urgencyScore +
+                overdueBonus +
+                staleScore +
+                quickWinBonus +
+                finishLineBonus;
+
+            return {
+                score,
+                urgencyScore,
+                overdueBonus,
+                staleScore,
+                quickWinBonus,
+                finishLineBonus
+            };
+        }
+
+        function getSmartBreakdownText(
+            smart
+        ) {
+            return [
+                `Urgency ${Math.round(smart.urgencyScore)}`,
+                `age ${Math.round(smart.staleScore)}`,
+                `overdue ${Math.round(smart.overdueBonus)}`,
+                `quick-task ${Math.round(smart.quickWinBonus)}`,
+                `near-finish ${Math.round(smart.finishLineBonus)}`
+            ].join(" + ");
+        }
+
+        function calculateUrgency(
+            task
+        ) {
+            const age =
+                calculateTaskAge(
+                    task.receivedDate
+                );
+
+            const redDays =
+                Math.max(
+                    1,
+                    Number(
+                        task.redAfterDays
+                    ) || 14
+                );
+
+            const progress =
+                (
+                    age /
+                    redDays
+                ) *
+                100;
+
+            const cappedProgress =
+                Math.min(
+                    Math.max(
+                        progress,
+                        0
+                    ),
+                    100
+                );
+
+            const hue =
+                Math.round(
+                    120 -
+                    (
+                        cappedProgress *
+                        1.2
+                    )
+                );
+
+            const daysRemaining =
+                redDays -
+                age;
+
+            let status =
+                "GREEN";
+
+            if (
+                progress >=
+                100
+            ) {
+                status =
+                    "RED";
+            } else if (
+                progress >=
+                75
+            ) {
+                status =
+                    "ORANGE";
+            } else if (
+                progress >=
+                50
+            ) {
+                status =
+                    "YELLOW";
+            }
+
+            let timeLabel;
+
+            if (
+                daysRemaining <
+                0
+            ) {
+                const overdueDays =
+                    Math.abs(
+                        daysRemaining
+                    );
+
+                timeLabel =
+                    `${overdueDays} day${overdueDays === 1 ? "" : "s"} overdue`;
+            } else if (
+                daysRemaining ===
+                0
+            ) {
+                timeLabel =
+                    "Turns red today";
+            } else {
+                timeLabel =
+                    `${daysRemaining} day${daysRemaining === 1 ? "" : "s"} to red`;
+            }
+
+            return {
+                age,
+                redDays,
+                progress,
+                hue,
+                status,
+                daysRemaining,
+                timeLabel
+            };
+        }
+
+        function handleSortModeChange(
+            event
+        ) {
+            state.sortMode =
+                event.target.value;
+
+            try {
+                localStorage.setItem(
+                    SORT_STORAGE_KEY,
+                    state.sortMode
+                );
+            } catch (
+                error
+            ) {
+                console.error(
+                    error
+                );
+            }
+
+            render();
+        }
+
+        function loadSortMode() {
+            try {
+                const stored =
+                    localStorage.getItem(
+                        SORT_STORAGE_KEY
+                    );
+
+                return SORT_MODES.some(
+                    (mode) =>
+                        mode.value ===
+                        stored
+                )
+                    ? stored
+                    : "smart";
+            } catch (
+                error
+            ) {
+                console.error(
+                    error
+                );
+
+                return "smart";
+            }
+        }
+
+        function handleCategoryFilterChange(
+            event
+        ) {
+            state.categoryFilter =
+                event.target.value;
+
+            render();
+        }
+
+        function taskMatchesCategoryFilter(
+            task
+        ) {
+            return (
+                state.categoryFilter ===
+                    "all" ||
+                task.categoryId ===
+                    state.categoryFilter
             );
         }
 
@@ -3192,19 +3757,16 @@
 
             refreshCategoryControls();
 
-            if (
-                state.categoryFilter !==
-                    "all" &&
-                findCategory(
-                    state.categoryFilter
+            taskCategory.value =
+                (
+                    state.categoryFilter !==
+                        "all" &&
+                    findCategory(
+                        state.categoryFilter
+                    )
                 )
-            ) {
-                taskCategory.value =
-                    state.categoryFilter;
-            } else {
-                taskCategory.value =
-                    UNCATEGORIZED_ID;
-            }
+                    ? state.categoryFilter
+                    : UNCATEGORIZED_ID;
 
             scheduledDay.value =
                 getCurrentDayKey();
@@ -3217,6 +3779,15 @@
 
             redAfterDays.value =
                 "14";
+
+            progressPercentInput.value =
+                "";
+
+            progressField.hidden =
+                true;
+
+            progressPreview.hidden =
+                true;
 
             updateSelectedCategoryPreview();
 
@@ -3277,44 +3848,117 @@
                     task.redAfterDays
                 );
 
+            if (
+                task.progressTracked &&
+                isLongEffort(
+                    task.effort
+                )
+            ) {
+                progressPercentInput.value =
+                    String(
+                        task.progressPercent
+                    );
+            } else {
+                progressPercentInput.value =
+                    "";
+            }
+
             updateSelectedCategoryPreview();
+            updateProgressFieldVisibility();
+            updateProgressPreview();
 
             taskDialog.showModal();
 
             taskTitle.focus();
         }
 
-        function closeTaskDialog() {
+        function updateProgressFieldVisibility() {
+            const editingExistingTask =
+                Boolean(
+                    state.editingTaskId
+                );
+
+            const eligibleEffort =
+                isLongEffort(
+                    effort.value
+                );
+
+            progressField.hidden =
+                !(
+                    editingExistingTask &&
+                    eligibleEffort
+                );
+
             if (
-                taskDialog.open
+                progressField.hidden
             ) {
-                taskDialog.close();
+                progressPreview.hidden =
+                    true;
+            } else {
+                updateProgressPreview();
             }
-
-            state.editingTaskId =
-                null;
-
-            taskForm.reset();
         }
 
-        function updateSelectedCategoryPreview() {
-            const category =
-                findCategory(
-                    taskCategory.value
-                ) ??
-                getUncategorizedCategory();
+        function updateProgressPreview() {
+            if (
+                progressField.hidden
+            ) {
+                progressPreview.hidden =
+                    true;
 
-            selectedCategoryColor
-                .style.background =
-                category.color;
+                return;
+            }
 
-            selectedCategoryColor
-                .style.boxShadow =
-                `0 0 8px ${category.color}`;
+            const rawValue =
+                progressPercentInput.value.trim();
 
-            selectedCategoryName
-                .textContent =
-                category.name;
+            if (
+                rawValue ===
+                ""
+            ) {
+                progressPreview.hidden =
+                    true;
+
+                return;
+            }
+
+            const numericValue =
+                Number(
+                    rawValue
+                );
+
+            if (
+                !Number.isFinite(
+                    numericValue
+                ) ||
+                numericValue <=
+                    0 ||
+                numericValue >
+                    100
+            ) {
+                progressPreview.hidden =
+                    true;
+
+                return;
+            }
+
+            const normalizedValue =
+                clampNumber(
+                    Math.round(
+                        numericValue
+                    ),
+                    0,
+                    100
+                );
+
+            progressPreview.hidden =
+                false;
+
+            progressPreviewFill.style.width =
+                `${normalizedValue}%`;
+
+            progressPreviewPercentage.textContent =
+                `${normalizedValue}%`;
         }
 
         function handleTaskSubmit(
@@ -3332,13 +3976,6 @@
                 Number(
                     redAfterDays.value
                 );
-
-            const selectedCategoryId =
-                findCategory(
-                    taskCategory.value
-                )
-                    ? taskCategory.value
-                    : UNCATEGORIZED_ID;
 
             if (!title) {
                 showToast(
@@ -3362,18 +3999,24 @@
                 !Number.isFinite(
                     redDays
                 ) ||
-                redDays < 1 ||
-                redDays > 365
+                redDays <
+                    1 ||
+                redDays >
+                    365
             ) {
                 showToast(
-                    (
-                        "Red deadline must be " +
-                        "between 1 and 365 days."
-                    )
+                    "Red deadline must be between 1 and 365 days."
                 );
 
                 return;
             }
+
+            const selectedCategoryId =
+                findCategory(
+                    taskCategory.value
+                )
+                    ? taskCategory.value
+                    : UNCATEGORIZED_ID;
 
             if (
                 state.editingTaskId
@@ -3389,6 +4032,60 @@
                     );
 
                     return;
+                }
+
+                let progressTracked =
+                    false;
+
+                let progressPercent =
+                    0;
+
+                if (
+                    isLongEffort(
+                        effort.value
+                    )
+                ) {
+                    const rawProgress =
+                        progressPercentInput.value.trim();
+
+                    if (
+                        rawProgress !==
+                        ""
+                    ) {
+                        const numericProgress =
+                            Number(
+                                rawProgress
+                            );
+
+                        if (
+                            !Number.isFinite(
+                                numericProgress
+                            ) ||
+                            numericProgress <
+                                0 ||
+                            numericProgress >
+                                100
+                        ) {
+                            showToast(
+                                "Progress must be between 0 and 100."
+                            );
+
+                            return;
+                        }
+
+                        if (
+                            numericProgress >
+                            0
+                        ) {
+                            progressTracked =
+                                true;
+
+                            progressPercent =
+                                Math.round(
+                                    numericProgress
+                                );
+                        }
+                    }
                 }
 
                 task.title =
@@ -3412,12 +4109,22 @@
                 task.redAfterDays =
                     redDays;
 
+                task.progressTracked =
+                    progressTracked;
+
+                task.progressPercent =
+                    progressPercent;
+
                 saveAndRender();
 
                 closeTaskDialog();
 
                 showToast(
-                    "Task updated."
+                    progressTracked
+                        ? (
+                            `Task updated — ${progressPercent}% complete.`
+                        )
+                        : "Task updated."
                 );
 
                 return;
@@ -3446,6 +4153,12 @@
                 redAfterDays:
                     redDays,
 
+                progressTracked:
+                    false,
+
+                progressPercent:
+                    0,
+
                 completed:
                     false,
 
@@ -3470,6 +4183,28 @@
             );
         }
 
+        function closeTaskDialog() {
+            if (
+                taskDialog.open
+            ) {
+                taskDialog.close();
+            }
+
+            state.editingTaskId =
+                null;
+
+            progressPercentInput.value =
+                "";
+
+            progressField.hidden =
+                true;
+
+            progressPreview.hidden =
+                true;
+
+            taskForm.reset();
+        }
+
         function handleDeleteEditingTask() {
             if (
                 !state.editingTaskId
@@ -3482,61 +4217,11 @@
                     state.editingTaskId
                 );
 
-            if (deleted) {
+            if (
+                deleted
+            ) {
                 closeTaskDialog();
             }
-        }
-
-        function moveTask(
-            taskId,
-            newDay
-        ) {
-            const task =
-                findTask(
-                    taskId
-                );
-
-            if (!task) {
-                showToast(
-                    "Task could not be found."
-                );
-
-                return;
-            }
-
-            const day =
-                DAYS.find(
-                    (candidate) =>
-                        candidate.key ===
-                        newDay
-                );
-
-            if (!day) {
-                showToast(
-                    "Invalid destination."
-                );
-
-                return;
-            }
-
-            if (
-                task.scheduledDay ===
-                newDay
-            ) {
-                return;
-            }
-
-            task.scheduledDay =
-                newDay;
-
-            saveAndRender();
-
-            showToast(
-                (
-                    `Moved to ${day.label}. ` +
-                    "Age was not reset."
-                )
-            );
         }
 
         function completeTask(
@@ -3586,10 +4271,7 @@
             saveAndRender();
 
             showToast(
-                (
-                    "Task restored. " +
-                    "Original age is still intact."
-                )
+                "Task restored. Age and progress were preserved."
             );
         }
 
@@ -3607,10 +4289,7 @@
 
             const confirmed =
                 window.confirm(
-                    (
-                        `Delete "${task.title}" ` +
-                        "permanently?"
-                    )
+                    `Delete "${task.title}" permanently?`
                 );
 
             if (!confirmed) {
@@ -3633,6 +4312,46 @@
             return true;
         }
 
+        function moveTask(
+            taskId,
+            newDay
+        ) {
+            const task =
+                findTask(
+                    taskId
+                );
+
+            const day =
+                DAYS.find(
+                    (candidate) =>
+                        candidate.key ===
+                        newDay
+                );
+
+            if (
+                !task ||
+                !day
+            ) {
+                return;
+            }
+
+            if (
+                task.scheduledDay ===
+                newDay
+            ) {
+                return;
+            }
+
+            task.scheduledDay =
+                newDay;
+
+            saveAndRender();
+
+            showToast(
+                `Moved to ${day.label}. Age and progress were not reset.`
+            );
+        }
+
         function toggleCompleted() {
             state.completedVisible =
                 !state.completedVisible;
@@ -3645,14 +4364,236 @@
             renderCompletedTasks();
         }
 
-        function handleCategoryFilterChange(
-            event
-        ) {
-            state.categoryFilter =
-                event.target.value;
+        function renderCompletedTasks() {
+            completedSection.hidden =
+                !state.completedVisible;
 
-            renderBoard();
-            renderCompletedTasks();
+            if (
+                !state.completedVisible
+            ) {
+                return;
+            }
+
+            const completedTasks =
+                state.tasks
+                    .filter(
+                        (task) =>
+                            task.completed &&
+                            taskMatchesCategoryFilter(
+                                task
+                            )
+                    )
+                    .sort(
+                        (
+                            firstTask,
+                            secondTask
+                        ) =>
+                            new Date(
+                                secondTask.completedAt ??
+                                0
+                            ) -
+                            new Date(
+                                firstTask.completedAt ??
+                                0
+                            )
+                    );
+
+            completedList.innerHTML =
+                "";
+
+            if (
+                completedTasks.length ===
+                0
+            ) {
+                completedList.innerHTML =
+                    "<p>No completed tasks.</p>";
+
+                return;
+            }
+
+            completedTasks.forEach(
+                (task) => {
+                    const category =
+                        findCategory(
+                            task.categoryId
+                        ) ??
+                        getUncategorizedCategory();
+
+                    const card =
+                        document.createElement(
+                            "article"
+                        );
+
+                    card.className =
+                        "completed-card";
+
+                    card.style.borderLeftColor =
+                        category.color;
+
+                    const completedDate =
+                        task.completedAt
+                            ? new Date(
+                                task.completedAt
+                            )
+                                .toLocaleDateString()
+                            : "";
+
+                    card.innerHTML = `
+                        <h3>
+                            ${escapeHtml(task.title)}
+                        </h3>
+
+                        <div
+                            class="category-badge"
+                            style="
+                                color:${category.color};
+
+                                border-color:
+                                    ${hexToRgba(
+                                        category.color,
+                                        0.55
+                                    )};
+
+                                background:
+                                    ${hexToRgba(
+                                        category.color,
+                                        0.11
+                                    )};
+                            "
+                        >
+                            ${escapeHtml(category.name)}
+                        </div>
+
+                        <p>
+                            Completed
+                            ${completedDate}
+                        </p>
+
+                        <div class="completed-actions">
+                            <button
+                                class="button small restore-button"
+                                type="button"
+                            >
+                                Restore
+                            </button>
+
+                            <button
+                                class="button small danger delete-button"
+                                type="button"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    `;
+
+                    card
+                        .querySelector(
+                            ".restore-button"
+                        )
+                        .addEventListener(
+                            "click",
+                            () =>
+                                restoreTask(
+                                    task.id
+                                )
+                        );
+
+                    card
+                        .querySelector(
+                            ".delete-button"
+                        )
+                        .addEventListener(
+                            "click",
+                            () =>
+                                deleteTask(
+                                    task.id
+                                )
+                        );
+
+                    completedList.appendChild(
+                        card
+                    );
+                }
+            );
+        }
+
+        function refreshCategoryControls(
+            preferredId = null
+        ) {
+            const categories =
+                getSortedCategories();
+
+            const desiredId =
+                preferredId ??
+                taskCategory.value ??
+                UNCATEGORIZED_ID;
+
+            taskCategory.innerHTML =
+                categories
+                    .map(
+                        (category) =>
+                            (
+                                `<option value="${escapeHtml(category.id)}">` +
+                                `${escapeHtml(category.name)}` +
+                                "</option>"
+                            )
+                    )
+                    .join("");
+
+            taskCategory.value =
+                findCategory(
+                    desiredId
+                )
+                    ? desiredId
+                    : UNCATEGORIZED_ID;
+
+            categoryFilter.innerHTML =
+                [
+                    '<option value="all">All Categories</option>',
+
+                    ...categories.map(
+                        (category) =>
+                            (
+                                `<option value="${escapeHtml(category.id)}">` +
+                                `${escapeHtml(category.name)}` +
+                                "</option>"
+                            )
+                    )
+                ].join("");
+
+            if (
+                state.categoryFilter !==
+                    "all" &&
+                !findCategory(
+                    state.categoryFilter
+                )
+            ) {
+                state.categoryFilter =
+                    "all";
+            }
+
+            categoryFilter.value =
+                state.categoryFilter;
+
+            updateSelectedCategoryPreview();
+            renderCategoryManager();
+        }
+
+        function updateSelectedCategoryPreview() {
+            const category =
+                findCategory(
+                    taskCategory.value
+                ) ??
+                getUncategorizedCategory();
+
+            selectedCategoryColor.style.background =
+                category.color;
+
+            selectedCategoryColor.style.boxShadow =
+                `0 0 8px ${category.color}`;
+
+            selectedCategoryName.textContent =
+                category.name;
         }
 
         function openCategoriesDialog() {
@@ -3674,139 +4615,141 @@
                 return;
             }
 
-            const categories =
-                getSortedCategories();
-
             categoryList.innerHTML =
                 "";
 
-            categories.forEach(
-                (category) => {
-                    const row =
-                        document.createElement(
-                            "div"
-                        );
+            getSortedCategories()
+                .forEach(
+                    (category) => {
+                        const row =
+                            document.createElement(
+                                "div"
+                            );
 
-                    row.className =
-                        "category-row";
+                        const taskCount =
+                            state.tasks.filter(
+                                (task) =>
+                                    task.categoryId ===
+                                    category.id
+                            ).length;
 
-                    row.style.borderLeftColor =
-                        category.color;
+                        const protectedCategory =
+                            category.id ===
+                            UNCATEGORIZED_ID;
 
-                    const taskCount =
-                        state.tasks.filter(
-                            (task) =>
-                                task.categoryId ===
-                                category.id
-                        ).length;
+                        row.className =
+                            "category-row";
 
-                    const isUncategorized =
-                        category.id ===
-                        UNCATEGORIZED_ID;
+                        row.style.borderLeftColor =
+                            category.color;
 
-                    row.innerHTML = `
-                        <div class="category-row-info">
-                            <span
-                                class="category-manager-swatch"
-                                style="
-                                    background:
-                                        ${category.color};
+                        row.innerHTML = `
+                            <div class="category-row-info">
+                                <span
+                                    class="category-manager-swatch"
+                                    style="
+                                        background:${category.color};
+                                        color:${category.color};
+                                    "
+                                ></span>
 
-                                    color:
-                                        ${category.color};
-                                "
-                            ></span>
+                                <div>
+                                    <div class="category-row-name">
+                                        ${escapeHtml(category.name)}
+                                    </div>
 
-                            <div class="category-row-text">
-                                <div class="category-row-name">
-                                    ${escapeHtml(category.name)}
-                                </div>
-
-                                <div class="category-row-count">
-                                    ${taskCount}
-                                    task${taskCount === 1 ? "" : "s"}
+                                    <div class="category-row-count">
+                                        ${taskCount}
+                                        task${taskCount === 1 ? "" : "s"}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="category-row-actions">
-                            <button
-                                class="button small secondary edit-category-button"
-                                type="button"
-                            >
+                            <div class="category-row-actions">
+                                <button
+                                    class="button small secondary edit-category-button"
+                                    type="button"
+                                >
+                                    ${
+                                        protectedCategory
+                                            ? "Color"
+                                            : "Edit"
+                                    }
+                                </button>
+
                                 ${
-                                    isUncategorized
-                                        ? "Color"
-                                        : "Edit"
+                                    protectedCategory
+                                        ? ""
+                                        : `
+                                            <button
+                                                class="button small danger delete-category-button"
+                                                type="button"
+                                            >
+                                                Delete
+                                            </button>
+                                        `
                                 }
-                            </button>
+                            </div>
+                        `;
 
-                            ${
-                                isUncategorized
-                                    ? ""
-                                    : `
-                                        <button
-                                            class="button small danger delete-category-button"
-                                            type="button"
-                                        >
-                                            Delete
-                                        </button>
-                                    `
-                            }
-                        </div>
-                    `;
-
-                    row
-                        .querySelector(
-                            ".edit-category-button"
-                        )
-                        .addEventListener(
-                            "click",
-                            () =>
-                                openEditCategoryEditor(
-                                    category.id
-                                )
-                        );
-
-                    if (
-                        !isUncategorized
-                    ) {
                         row
                             .querySelector(
-                                ".delete-category-button"
+                                ".edit-category-button"
                             )
                             .addEventListener(
+                                "click",
+                                () =>
+                                    openEditCategoryEditor(
+                                        category.id
+                                    )
+                            );
+
+                        const deleteButton =
+                            row.querySelector(
+                                ".delete-category-button"
+                            );
+
+                        if (
+                            deleteButton
+                        ) {
+                            deleteButton.addEventListener(
                                 "click",
                                 () =>
                                     deleteCategory(
                                         category.id
                                     )
                             );
+                        }
+
+                        categoryList.appendChild(
+                            row
+                        );
                     }
-
-                    categoryList.appendChild(
-                        row
-                    );
-                }
-            );
-        }
-
-        function openAddCategoryFromTask() {
-            state.editingCategoryId =
-                null;
-
-            openCategoryEditor(
-                null
-            );
+                );
         }
 
         function openAddCategoryEditor() {
             state.editingCategoryId =
                 null;
 
-            openCategoryEditor(
-                null
-            );
+            categoryEditorTitle.textContent =
+                "Add Category";
+
+            categoryNameInput.disabled =
+                false;
+
+            categoryNameInput.value =
+                "";
+
+            categoryColorInput.value =
+                getNextSuggestedCategoryColor();
+
+            renderColorOptions();
+            updateCategoryEditorPreview();
+
+            categoryEditorDialog.showModal();
+
+            categoryNameInput.focus();
         }
 
         function openEditCategoryEditor(
@@ -3824,60 +4767,23 @@
             state.editingCategoryId =
                 category.id;
 
-            openCategoryEditor(
-                category
-            );
-        }
-
-        function openCategoryEditor(
-            category
-        ) {
-            categoryEditorForm.reset();
-
-            const isEditing =
-                Boolean(
-                    category
-                );
-
             categoryEditorTitle.textContent =
-                isEditing
-                    ? "Edit Category"
-                    : "Add Category";
+                "Edit Category";
 
-            if (
-                category &&
+            categoryNameInput.value =
+                category.name;
+
+            categoryNameInput.disabled =
                 category.id ===
-                    UNCATEGORIZED_ID
-            ) {
-                categoryNameInput.value =
-                    category.name;
-
-                categoryNameInput.disabled =
-                    true;
-            } else {
-                categoryNameInput.disabled =
-                    false;
-
-                categoryNameInput.value =
-                    category?.name ??
-                    "";
-            }
+                UNCATEGORIZED_ID;
 
             categoryColorInput.value =
-                category?.color ??
-                getNextSuggestedCategoryColor();
+                category.color;
 
             renderColorOptions();
-
             updateCategoryEditorPreview();
 
             categoryEditorDialog.showModal();
-
-            if (
-                !categoryNameInput.disabled
-            ) {
-                categoryNameInput.focus();
-            }
         }
 
         function closeCategoryEditor() {
@@ -3892,8 +4798,6 @@
 
             categoryNameInput.disabled =
                 false;
-
-            categoryEditorForm.reset();
         }
 
         function renderColorOptions() {
@@ -3901,7 +4805,7 @@
                 "";
 
             CATEGORY_COLORS.forEach(
-                (colorOption) => {
+                (option) => {
                     const button =
                         document.createElement(
                             "button"
@@ -3914,9 +4818,8 @@
                         "color-option";
 
                     if (
+                        option.value.toUpperCase() ===
                         categoryColorInput.value
-                            .toUpperCase() ===
-                        colorOption.value
                             .toUpperCase()
                     ) {
                         button.classList.add(
@@ -3924,29 +4827,26 @@
                         );
 
                         button.style.borderColor =
-                            colorOption.value;
+                            option.value;
                     }
 
                     button.innerHTML = `
                         <span
                             class="color-swatch"
                             style="
-                                background:
-                                    ${colorOption.value};
-
-                                color:
-                                    ${colorOption.value};
+                                background:${option.value};
+                                color:${option.value};
                             "
                         ></span>
 
-                        ${escapeHtml(colorOption.name)}
+                        ${escapeHtml(option.name)}
                     `;
 
                     button.addEventListener(
                         "click",
                         () => {
                             categoryColorInput.value =
-                                colorOption.value;
+                                option.value;
 
                             renderColorOptions();
                             updateCategoryEditorPreview();
@@ -3967,38 +4867,28 @@
                 );
 
             const name =
-                categoryNameInput.value
-                    .trim() ||
+                categoryNameInput.value.trim() ||
                 "Category Preview";
 
-            categoryPreviewBox
-                .style.borderColor =
-                hexToRgba(
-                    color,
-                    0.65
-                );
-
-            categoryPreviewBox
-                .style.borderLeftColor =
+            categoryPreviewBox.style.borderColor =
                 color;
 
-            categoryPreviewBox
-                .style.color =
+            categoryPreviewBox.style.borderLeftColor =
                 color;
 
-            categoryPreviewBox
-                .style.background =
+            categoryPreviewBox.style.color =
+                color;
+
+            categoryPreviewBox.style.background =
                 hexToRgba(
                     color,
                     0.08
                 );
 
-            categoryPreviewDot
-                .style.background =
+            categoryPreviewDot.style.background =
                 color;
 
-            categoryPreviewDot
-                .style.color =
+            categoryPreviewDot.style.color =
                 color;
 
             categoryPreviewName.textContent =
@@ -4017,12 +4907,12 @@
                     )
                     : null;
 
-            const isUncategorized =
+            const protectedCategory =
                 existingCategory?.id ===
                 UNCATEGORIZED_ID;
 
             const name =
-                isUncategorized
+                protectedCategory
                     ? existingCategory.name
                     : normalizeCategoryName(
                         categoryNameInput.value
@@ -4048,15 +4938,14 @@
                             state.editingCategoryId &&
                         category.name
                             .toLowerCase() ===
-                        name.toLowerCase()
+                            name.toLowerCase()
                 );
 
-            if (duplicate) {
+            if (
+                duplicate
+            ) {
                 showToast(
-                    (
-                        `"${duplicate.name}" ` +
-                        "already exists."
-                    )
+                    "That category already exists."
                 );
 
                 return;
@@ -4111,24 +5000,17 @@
                 category.id
             );
 
+            taskCategory.value =
+                category.id;
+
+            updateSelectedCategoryPreview();
+
             render();
-
-            if (
-                taskDialog.open
-            ) {
-                taskCategory.value =
-                    category.id;
-
-                updateSelectedCategoryPreview();
-            }
 
             closeCategoryEditor();
 
             showToast(
-                (
-                    `Category "${name}" ` +
-                    "created."
-                )
+                `Category "${name}" created.`
             );
         }
 
@@ -4200,70 +5082,46 @@
             saveCategories();
 
             refreshCategoryControls();
-
             render();
 
             showToast(
-                (
-                    "Category deleted. " +
-                    "Tasks moved to Uncategorized."
-                )
+                "Category deleted."
             );
         }
 
-        function normalizeCategoryName(
-            value
-        ) {
-            return String(
-                value
-            )
-                .trim()
-                .replace(
-                    /\s+/g,
-                    " "
-                )
-                .slice(
-                    0,
-                    60
-                );
-        }
+        function getSortedCategories() {
+            const categories =
+                state.categories
+                    .filter(
+                        (category) =>
+                            category.id !==
+                            UNCATEGORIZED_ID
+                    )
+                    .sort(
+                        (
+                            firstCategory,
+                            secondCategory
+                        ) =>
+                            firstCategory.name
+                                .localeCompare(
+                                    secondCategory.name
+                                )
+                    );
 
-        function normalizeColor(
-            value
-        ) {
-            const upperValue =
-                String(
-                    value ?? ""
-                ).toUpperCase();
-
-            const matchingColor =
-                CATEGORY_COLORS.find(
-                    (color) =>
-                        color.value
-                            .toUpperCase() ===
-                        upperValue
+            const uncategorized =
+                findCategory(
+                    UNCATEGORIZED_ID
                 );
 
-            return matchingColor
-                ? matchingColor.value
-                : CATEGORY_COLORS[0].value;
-        }
+            if (
+                uncategorized
+            ) {
+                categories.push(
+                    uncategorized
+                );
+            }
 
-        function getNextSuggestedCategoryColor() {
-            const userCategoryCount =
-                state.categories.filter(
-                    (category) =>
-                        category.id !==
-                        UNCATEGORIZED_ID
-                ).length;
-
-            const index =
-                userCategoryCount %
-                CATEGORY_COLORS.length;
-
-            return CATEGORY_COLORS[
-                index
-            ].value;
+            return categories;
         }
 
         function findCategory(
@@ -4341,7 +5199,9 @@
                 return normalizeCategories(
                     parsed
                 );
-            } catch (error) {
+            } catch (
+                error
+            ) {
                 console.error(
                     error
                 );
@@ -4353,7 +5213,7 @@
         function normalizeCategories(
             rawCategories
         ) {
-            const normalized =
+            const result =
                 getDefaultCategories();
 
             const seenIds =
@@ -4366,7 +5226,7 @@
                     "uncategorized"
                 ]);
 
-            let automaticColorIndex =
+            let colorIndex =
                 0;
 
             rawCategories.forEach(
@@ -4383,10 +5243,7 @@
                         category.id ===
                         UNCATEGORIZED_ID
                     ) {
-                        const uncategorized =
-                            normalized[0];
-
-                        uncategorized.color =
+                        result[0].color =
                             normalizeImportedColor(
                                 category.color,
                                 "#98A79C"
@@ -4397,7 +5254,8 @@
 
                     const name =
                         normalizeCategoryName(
-                            category.name ?? ""
+                            category.name ??
+                            ""
                         );
 
                     if (!name) {
@@ -4432,22 +5290,17 @@
                         return;
                     }
 
-                    let color =
+                    const color =
                         normalizeImportedColor(
                             category.color,
-                            null
+                            CATEGORY_COLORS[
+                                colorIndex %
+                                CATEGORY_COLORS.length
+                            ].value
                         );
 
-                    if (!color) {
-                        color =
-                            CATEGORY_COLORS[
-                                automaticColorIndex %
-                                CATEGORY_COLORS.length
-                            ].value;
-
-                        automaticColorIndex +=
-                            1;
-                    }
+                    colorIndex +=
+                        1;
 
                     seenIds.add(
                         id
@@ -4457,7 +5310,7 @@
                         normalizedName
                     );
 
-                    normalized.push({
+                    result.push({
                         id,
                         name,
                         color,
@@ -4472,7 +5325,46 @@
                 }
             );
 
-            return normalized;
+            return result;
+        }
+
+        function normalizeCategoryName(
+            value
+        ) {
+            return String(
+                value
+            )
+                .trim()
+                .replace(
+                    /\s+/g,
+                    " "
+                )
+                .slice(
+                    0,
+                    60
+                );
+        }
+
+        function normalizeColor(
+            value
+        ) {
+            const stringValue =
+                String(
+                    value ??
+                    ""
+                )
+                    .trim()
+                    .toUpperCase();
+
+            if (
+                /^#[0-9A-F]{6}$/.test(
+                    stringValue
+                )
+            ) {
+                return stringValue;
+            }
+
+            return CATEGORY_COLORS[0].value;
         }
 
         function normalizeImportedColor(
@@ -4481,19 +5373,35 @@
         ) {
             const stringValue =
                 String(
-                    value ?? ""
-                );
+                    value ??
+                    ""
+                )
+                    .trim()
+                    .toUpperCase();
 
             if (
-                /^#[0-9A-Fa-f]{6}$/.test(
+                /^#[0-9A-F]{6}$/.test(
                     stringValue
                 )
             ) {
-                return stringValue
-                    .toUpperCase();
+                return stringValue;
             }
 
             return fallback;
+        }
+
+        function getNextSuggestedCategoryColor() {
+            const categoryCount =
+                state.categories.filter(
+                    (category) =>
+                        category.id !==
+                        UNCATEGORIZED_ID
+                ).length;
+
+            return CATEGORY_COLORS[
+                categoryCount %
+                CATEGORY_COLORS.length
+            ].value;
         }
 
         function saveCategories() {
@@ -4504,7 +5412,9 @@
                         state.categories
                     )
                 );
-            } catch (error) {
+            } catch (
+                error
+            ) {
                 console.error(
                     error
                 );
@@ -4515,94 +5425,15 @@
             }
         }
 
-        function calculateUrgency(
-            task
-        ) {
-            const age =
-                calculateTaskAge(
-                    task.receivedDate
-                );
-
-            const redDays =
-                Math.max(
-                    1,
-                    Number(
-                        task.redAfterDays
-                    ) ||
-                    14
-                );
-
-            const progress =
-                (
-                    age /
-                    redDays
-                ) * 100;
-
-            const cappedProgress =
-                Math.min(
-                    Math.max(
-                        progress,
-                        0
-                    ),
-                    100
-                );
-
-            const hue =
-                Math.round(
-                    120 -
-                    (
-                        cappedProgress *
-                        1.2
-                    )
-                );
-
-            let status =
-                "GREEN";
-
-            if (
-                progress >= 100
-            ) {
-                status =
-                    "RED";
-            } else if (
-                progress >= 75
-            ) {
-                status =
-                    "ORANGE";
-            } else if (
-                progress >= 50
-            ) {
-                status =
-                    "YELLOW";
-            }
-
-            return {
-                age,
-                progress,
-                hue,
-                status
-            };
-        }
-
         function calculateTaskAge(
             dateString
         ) {
-            if (!dateString) {
-                return 0;
-            }
-
-            const receivedDay =
-                dateStringToDayNumber(
-                    dateString
-                );
-
-            const todayDay =
-                getTodayDayNumber();
-
             return Math.max(
                 0,
-                todayDay -
-                    receivedDay
+                getTodayDayNumber() -
+                    dateStringToDayNumber(
+                        dateString
+                    )
             );
         }
 
@@ -4624,14 +5455,17 @@
             dateString
         ) {
             const parts =
-                dateString
+                String(
+                    dateString
+                )
                     .split("-")
                     .map(
                         Number
                     );
 
             if (
-                parts.length !== 3 ||
+                parts.length !==
+                    3 ||
                 parts.some(
                     Number.isNaN
                 )
@@ -4643,12 +5477,14 @@
                 year,
                 month,
                 day
-            ] = parts;
+            ] =
+                parts;
 
             return Math.floor(
                 Date.UTC(
                     year,
-                    month - 1,
+                    month -
+                        1,
                     day
                 ) /
                 86_400_000
@@ -4659,22 +5495,26 @@
             const today =
                 new Date();
 
-            const mondayOffset =
+            const offset =
                 (
                     today.getDay() +
                     6
-                ) % 7;
+                ) %
+                7;
 
             const monday =
                 new Date(
                     today.getFullYear(),
                     today.getMonth(),
                     today.getDate() -
-                        mondayOffset
+                        offset
                 );
 
             return DAYS.map(
-                (_, index) =>
+                (
+                    _,
+                    index
+                ) =>
                     new Date(
                         monday.getFullYear(),
                         monday.getMonth(),
@@ -4685,18 +5525,16 @@
         }
 
         function getCurrentDayKey() {
-            const jsDay =
-                new Date()
-                    .getDay();
-
-            const mondayBasedIndex =
+            const index =
                 (
-                    jsDay +
+                    new Date()
+                        .getDay() +
                     6
-                ) % 7;
+                ) %
+                7;
 
             return DAYS[
-                mondayBasedIndex
+                index
             ].key;
         }
 
@@ -4729,47 +5567,6 @@
             );
         }
 
-        function formatDate(
-            dateString
-        ) {
-            if (!dateString) {
-                return "Unknown";
-            }
-
-            const [
-                year,
-                month,
-                day
-            ] =
-                dateString
-                    .split("-")
-                    .map(
-                        Number
-                    );
-
-            const date =
-                new Date(
-                    year,
-                    month - 1,
-                    day
-                );
-
-            return date
-                .toLocaleDateString(
-                    undefined,
-                    {
-                        month:
-                            "short",
-
-                        day:
-                            "numeric",
-
-                        year:
-                            "numeric"
-                    }
-                );
-        }
-
         function saveAndRender() {
             saveTasks();
             saveCategories();
@@ -4784,16 +5581,15 @@
                         state.tasks
                     )
                 );
-            } catch (error) {
+            } catch (
+                error
+            ) {
                 console.error(
                     error
                 );
 
                 showToast(
-                    (
-                        "Could not save tasks. " +
-                        "Export a backup."
-                    )
+                    "Could not save tasks. Export a backup."
                 );
             }
         }
@@ -4835,7 +5631,9 @@
                                 categories
                             )
                     );
-            } catch (error) {
+            } catch (
+                error
+            ) {
                 console.error(
                     error
                 );
@@ -4854,8 +5652,6 @@
                 typeof task.id ===
                     "string" &&
                 typeof task.title ===
-                    "string" &&
-                typeof task.receivedDate ===
                     "string"
             );
         }
@@ -4864,7 +5660,20 @@
             task,
             categories
         ) {
-            const validScheduledDay =
+            const legacyCategoryId =
+                task.categoryId ??
+                task.groupId;
+
+            const categoryId =
+                categories.some(
+                    (category) =>
+                        category.id ===
+                        legacyCategoryId
+                )
+                    ? legacyCategoryId
+                    : UNCATEGORIZED_ID;
+
+            const scheduledDay =
                 DAYS.some(
                     (day) =>
                         day.key ===
@@ -4873,18 +5682,33 @@
                     ? task.scheduledDay
                     : "monday";
 
-            const legacyCategoryId =
-                task.categoryId ??
-                task.groupId;
+            const normalizedEffort =
+                EFFORT_LABELS[
+                    task.effort
+                ]
+                    ? task.effort
+                    : "30m";
 
-            const validCategoryId =
-                categories.some(
-                    (category) =>
-                        category.id ===
-                        legacyCategoryId
-                )
-                    ? legacyCategoryId
-                    : UNCATEGORIZED_ID;
+            const legacyProgress =
+                clampNumber(
+                    Number(
+                        task.progressPercent
+                    ) ||
+                    0,
+                    0,
+                    100
+                );
+
+            const progressTracked =
+                isLongEffort(
+                    normalizedEffort
+                ) &&
+                (
+                    task.progressTracked ===
+                        true ||
+                    legacyProgress >
+                        0
+                );
 
             return {
                 id:
@@ -4899,30 +5723,37 @@
                         ? task.details
                         : "",
 
-                categoryId:
-                    validCategoryId,
+                categoryId,
 
-                scheduledDay:
-                    validScheduledDay,
+                scheduledDay,
 
                 receivedDate:
-                    task.receivedDate,
+                    typeof task.receivedDate ===
+                    "string"
+                        ? task.receivedDate
+                        : getTodayDateString(),
 
                 effort:
-                    EFFORT_LABELS[
-                        task.effort
-                    ]
-                        ? task.effort
-                        : "30m",
+                    normalizedEffort,
 
                 redAfterDays:
                     Number(
                         task.redAfterDays
-                    ) > 0
+                    ) >
+                    0
                         ? Number(
                             task.redAfterDays
                         )
                         : 14,
+
+                progressTracked,
+
+                progressPercent:
+                    progressTracked
+                        ? Math.round(
+                            legacyProgress
+                        )
+                        : 0,
 
                 completed:
                     Boolean(
@@ -4950,7 +5781,7 @@
                     "To Do Board",
 
                 version:
-                    3,
+                    6,
 
                 exportedAt:
                     new Date()
@@ -4961,6 +5792,9 @@
 
                 groups:
                     state.categories,
+
+                sortMode:
+                    state.sortMode,
 
                 tasks:
                     state.tasks
@@ -5005,7 +5839,6 @@
             );
 
             link.click();
-
             link.remove();
 
             URL.revokeObjectURL(
@@ -5049,10 +5882,7 @@
                     )
                 ) {
                     throw new Error(
-                        (
-                            "Backup does not " +
-                            "contain tasks."
-                        )
+                        "No task list found."
                     );
                 }
 
@@ -5088,10 +5918,8 @@
                 const confirmed =
                     window.confirm(
                         (
-                            `Import ${importedTasks.length} tasks ` +
-                            `and ${importedCategories.length} categories?\n\n` +
-                            "This replaces the board currently " +
-                            "stored in this browser."
+                            `Import ${importedTasks.length} tasks? ` +
+                            "This replaces the board stored in this browser."
                         )
                     );
 
@@ -5108,26 +5936,49 @@
                 state.categoryFilter =
                     "all";
 
+                if (
+                    SORT_MODES.some(
+                        (mode) =>
+                            mode.value ===
+                            parsed.sortMode
+                    )
+                ) {
+                    state.sortMode =
+                        parsed.sortMode;
+                }
+
                 saveTasks();
                 saveCategories();
 
-                refreshCategoryControls();
+                try {
+                    localStorage.setItem(
+                        SORT_STORAGE_KEY,
+                        state.sortMode
+                    );
+                } catch (
+                    error
+                ) {
+                    console.error(
+                        error
+                    );
+                }
 
+                populateSortSelect();
+                refreshCategoryControls();
                 render();
 
                 showToast(
                     "Backup imported."
                 );
-            } catch (error) {
+            } catch (
+                error
+            ) {
                 console.error(
                     error
                 );
 
                 window.alert(
-                    (
-                        "That file could not be imported. " +
-                        "Please use a valid To Do Board backup."
-                    )
+                    "That file could not be imported."
                 );
             } finally {
                 importInput.value =
@@ -5158,8 +6009,34 @@
             return (
                 `${Date.now()}-` +
                 Math.random()
-                    .toString(36)
-                    .slice(2)
+                    .toString(
+                        36
+                    )
+                    .slice(
+                        2
+                    )
+            );
+        }
+
+        function clampNumber(
+            value,
+            minimum,
+            maximum
+        ) {
+            if (
+                !Number.isFinite(
+                    value
+                )
+            ) {
+                return minimum;
+            }
+
+            return Math.min(
+                maximum,
+                Math.max(
+                    minimum,
+                    value
+                )
             );
         }
 
@@ -5167,7 +6044,7 @@
             hex,
             alpha
         ) {
-            const normalizedHex =
+            const value =
                 String(
                     hex
                 )
@@ -5179,7 +6056,7 @@
 
             if (
                 !/^[0-9A-Fa-f]{6}$/.test(
-                    normalizedHex
+                    value
                 )
             ) {
                 return (
@@ -5189,7 +6066,7 @@
 
             const red =
                 parseInt(
-                    normalizedHex.slice(
+                    value.slice(
                         0,
                         2
                     ),
@@ -5198,7 +6075,7 @@
 
             const green =
                 parseInt(
-                    normalizedHex.slice(
+                    value.slice(
                         2,
                         4
                     ),
@@ -5207,7 +6084,7 @@
 
             const blue =
                 parseInt(
-                    normalizedHex.slice(
+                    value.slice(
                         4,
                         6
                     ),

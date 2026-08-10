@@ -9,14 +9,13 @@
     >
     <meta name="theme-color" content="#050806">
 
-    <title>to-do board</title>
+    <title>To Do Board</title>
 
     <style>
         :root {
             --background: #050806;
             --surface: #0a100c;
             --surface-secondary: #101a13;
-            --surface-hover: #17251b;
             --column: #080d0a;
 
             --border: #243329;
@@ -29,7 +28,7 @@
             --primary-hover: #91e8a7;
             --primary-dark: #08130a;
 
-            --danger: #ff8f8f;
+            --danger: #ff9797;
             --danger-background: #2b1111;
             --danger-border: #743636;
 
@@ -165,14 +164,15 @@
             transform: translateY(-1px);
         }
 
-        .button.primary {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: var(--primary-dark);
+        .button.secondary {
+            background: #132219;
+            border-color: #45634d;
+            color: var(--primary);
         }
 
-        .button.primary:hover {
-            background: var(--primary-hover);
+        .button.secondary:hover {
+            background: #1a2d21;
+            border-color: #5e866a;
         }
 
         .button.danger {
@@ -236,11 +236,18 @@
 
         .board-header {
             display: flex;
-            gap: 12px;
+            gap: 16px;
             align-items: center;
             justify-content: space-between;
 
             margin-bottom: 14px;
+        }
+
+        .board-title-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
         }
 
         .board-header h2 {
@@ -249,6 +256,32 @@
             color: var(--primary);
 
             font-size: 18px;
+        }
+
+        .group-filter-wrap {
+            display: flex;
+            gap: 7px;
+            align-items: center;
+        }
+
+        .group-filter-wrap label {
+            color: var(--muted);
+
+            font-size: 11px;
+            font-weight: 750;
+        }
+
+        .group-filter {
+            min-height: 34px;
+            padding: 5px 9px;
+
+            border: 1px solid #4d7056;
+            border-radius: 8px;
+
+            background: #101c14;
+            color: var(--primary);
+
+            font-weight: 700;
         }
 
         .rule-reminder {
@@ -344,8 +377,7 @@
         .drop-zone.drag-over {
             background: #122319;
 
-            box-shadow:
-                inset 0 0 0 2px var(--primary);
+            box-shadow: inset 0 0 0 2px var(--primary);
         }
 
         .empty-day {
@@ -421,6 +453,29 @@
             font-size: 10px;
             font-weight: 850;
 
+            white-space: nowrap;
+        }
+
+        .group-badge {
+            display: inline-flex;
+            align-items: center;
+
+            max-width: 100%;
+
+            margin-top: 9px;
+            padding: 4px 8px;
+
+            border: 1px solid #5b8165;
+            border-radius: 999px;
+
+            background: #183120;
+            color: var(--primary);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
             white-space: nowrap;
         }
 
@@ -501,10 +556,6 @@
             color: var(--primary-dark);
         }
 
-        .task-actions .button:hover {
-            background: var(--primary-hover);
-        }
-
         .task-actions select {
             min-width: 86px;
             min-height: 31px;
@@ -583,7 +634,7 @@
         }
 
         dialog {
-            width: min(560px, calc(100vw - 28px));
+            width: min(600px, calc(100vw - 28px));
             max-height: calc(100vh - 40px);
 
             padding: 0;
@@ -706,6 +757,17 @@
             gap: 12px;
         }
 
+        .group-input-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+
+            gap: 8px;
+        }
+
+        .group-input-row .button {
+            white-space: nowrap;
+        }
+
         .dialog-actions {
             display: flex;
             gap: 8px;
@@ -717,6 +779,77 @@
 
         .dialog-actions .danger {
             margin-right: auto;
+        }
+
+        .group-manager {
+            padding: 20px;
+        }
+
+        .group-manager-header {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 14px;
+        }
+
+        .group-manager-header p {
+            margin: 0;
+
+            color: var(--muted);
+
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .group-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .group-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 10px;
+
+            border: 1px solid var(--border);
+            border-radius: 9px;
+
+            background: #0d1710;
+        }
+
+        .group-row-info {
+            min-width: 0;
+        }
+
+        .group-row-name {
+            color: var(--text);
+
+            font-size: 13px;
+            font-weight: 800;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .group-row-count {
+            margin-top: 2px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .group-row-actions {
+            display: flex;
+            flex: 0 0 auto;
+            gap: 6px;
         }
 
         .toast {
@@ -781,8 +914,22 @@
                 flex-direction: column;
             }
 
+            .board-title-area {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
             .field-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .group-input-row {
+                grid-template-columns: 1fr;
+            }
+
+            .group-row {
+                align-items: flex-start;
+                flex-direction: column;
             }
         }
     </style>
@@ -801,11 +948,19 @@
 
             <div class="toolbar">
                 <button
-                    class="button primary"
+                    class="button"
                     id="addTaskButton"
                     type="button"
                 >
                     + Add Task
+                </button>
+
+                <button
+                    class="button secondary"
+                    id="manageGroupsButton"
+                    type="button"
+                >
+                    Manage Groups
                 </button>
 
                 <button
@@ -846,7 +1001,20 @@
     <main>
         <section>
             <div class="board-header">
-                <h2 id="weekLabel"></h2>
+                <div class="board-title-area">
+                    <h2 id="weekLabel"></h2>
+
+                    <div class="group-filter-wrap">
+                        <label for="groupFilter">
+                            Group:
+                        </label>
+
+                        <select
+                            class="group-filter"
+                            id="groupFilter"
+                        ></select>
+                    </div>
+                </div>
 
                 <div class="rule-reminder">
                     Task age is based on received date — not scheduled day.
@@ -881,7 +1049,7 @@
 
             <button
                 class="icon-button"
-                id="closeDialogButton"
+                id="closeTaskDialogButton"
                 type="button"
                 aria-label="Close"
             >
@@ -900,10 +1068,9 @@
 
                 <input
                     id="taskTitle"
-                    name="title"
                     type="text"
                     maxlength="200"
-                    placeholder="e.g. Email Sarah the revised proposal"
+                    placeholder="e.g. Schedule PET scan"
                     required
                 >
             </div>
@@ -915,10 +1082,34 @@
 
                 <textarea
                     id="taskDetails"
-                    name="details"
                     maxlength="2000"
                     placeholder="Optional details..."
                 ></textarea>
+            </div>
+
+            <div class="field">
+                <label for="taskGroup">
+                    Group / Category
+                </label>
+
+                <div class="group-input-row">
+                    <select
+                        id="taskGroup"
+                        required
+                    ></select>
+
+                    <button
+                        class="button secondary"
+                        id="newGroupFromTaskButton"
+                        type="button"
+                    >
+                        + New Group
+                    </button>
+                </div>
+
+                <p class="field-help">
+                    Groups are editable. Add new ones whenever a new project appears.
+                </p>
             </div>
 
             <div class="field-grid">
@@ -929,7 +1120,6 @@
 
                     <select
                         id="scheduledDay"
-                        name="scheduledDay"
                         required
                     ></select>
 
@@ -945,7 +1135,6 @@
 
                     <input
                         id="receivedDate"
-                        name="receivedDate"
                         type="date"
                         required
                     >
@@ -964,7 +1153,6 @@
 
                     <select
                         id="effort"
-                        name="effort"
                         required
                     >
                         <option value="5m">
@@ -1003,7 +1191,6 @@
 
                     <input
                         id="redAfterDays"
-                        name="redAfterDays"
                         type="number"
                         min="1"
                         max="365"
@@ -1012,7 +1199,7 @@
                     >
 
                     <p class="field-help">
-                        Default: 14 days. Yellow begins around halfway.
+                        Default: 14 days.
                     </p>
                 </div>
             </div>
@@ -1028,21 +1215,59 @@
                 </button>
 
                 <button
-                    class="button"
-                    id="cancelButton"
+                    class="button secondary"
+                    id="cancelTaskButton"
                     type="button"
                 >
                     Cancel
                 </button>
 
                 <button
-                    class="button primary"
+                    class="button"
                     type="submit"
                 >
                     Save Task
                 </button>
             </div>
         </form>
+    </dialog>
+
+    <dialog id="groupsDialog">
+        <div class="dialog-header">
+            <h2>
+                Manage Groups
+            </h2>
+
+            <button
+                class="icon-button"
+                id="closeGroupsDialogButton"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+        </div>
+
+        <div class="group-manager">
+            <div class="group-manager-header">
+                <p>
+                    Create, rename, or delete groups whenever your projects change.
+                </p>
+
+                <button
+                    class="button"
+                    id="addGroupButton"
+                    type="button"
+                >
+                    + Add Group
+                </button>
+            </div>
+
+            <div
+                class="group-list"
+                id="groupList"
+            ></div>
+        </div>
     </dialog>
 
     <div
@@ -1056,6 +1281,9 @@
         "use strict";
 
         const STORAGE_KEY = "urgency-board.tasks.v1";
+        const GROUPS_STORAGE_KEY = "urgency-board.groups.v1";
+
+        const UNCATEGORIZED_GROUP_ID = "uncategorized";
 
         const DAYS = [
             { key: "monday", label: "Monday" },
@@ -1077,25 +1305,59 @@
         };
 
         const state = {
-            tasks: loadTasks(),
+            groups: loadGroups(),
+            tasks: [],
             editingTaskId: null,
-            completedVisible: false
+            completedVisible: false,
+            groupFilter: "all"
         };
 
-        const board = document.getElementById("board");
-        const weekLabel = document.getElementById("weekLabel");
-        const stats = document.getElementById("stats");
+        state.tasks = loadTasks(state.groups);
 
-        const taskDialog = document.getElementById("taskDialog");
-        const dialogTitle = document.getElementById("dialogTitle");
-        const taskForm = document.getElementById("taskForm");
+        const board =
+            document.getElementById("board");
 
-        const taskTitle = document.getElementById("taskTitle");
-        const taskDetails = document.getElementById("taskDetails");
-        const scheduledDay = document.getElementById("scheduledDay");
-        const receivedDate = document.getElementById("receivedDate");
-        const effort = document.getElementById("effort");
-        const redAfterDays = document.getElementById("redAfterDays");
+        const weekLabel =
+            document.getElementById("weekLabel");
+
+        const stats =
+            document.getElementById("stats");
+
+        const groupFilter =
+            document.getElementById("groupFilter");
+
+        const taskDialog =
+            document.getElementById("taskDialog");
+
+        const groupsDialog =
+            document.getElementById("groupsDialog");
+
+        const dialogTitle =
+            document.getElementById("dialogTitle");
+
+        const taskForm =
+            document.getElementById("taskForm");
+
+        const taskTitle =
+            document.getElementById("taskTitle");
+
+        const taskDetails =
+            document.getElementById("taskDetails");
+
+        const taskGroup =
+            document.getElementById("taskGroup");
+
+        const scheduledDay =
+            document.getElementById("scheduledDay");
+
+        const receivedDate =
+            document.getElementById("receivedDate");
+
+        const effort =
+            document.getElementById("effort");
+
+        const redAfterDays =
+            document.getElementById("redAfterDays");
 
         const deleteTaskButton =
             document.getElementById("deleteTaskButton");
@@ -1112,6 +1374,9 @@
         const importInput =
             document.getElementById("importInput");
 
+        const groupList =
+            document.getElementById("groupList");
+
         const toast =
             document.getElementById("toast");
 
@@ -1122,6 +1387,7 @@
         function initialize() {
             populateDaySelect();
             bindEvents();
+            refreshGroupControls();
             render();
         }
 
@@ -1134,17 +1400,10 @@
                 );
 
             document
-                .getElementById("closeDialogButton")
+                .getElementById("manageGroupsButton")
                 .addEventListener(
                     "click",
-                    closeTaskDialog
-                );
-
-            document
-                .getElementById("cancelButton")
-                .addEventListener(
-                    "click",
-                    closeTaskDialog
+                    openGroupsDialog
                 );
 
             document
@@ -1152,6 +1411,41 @@
                 .addEventListener(
                     "click",
                     exportBackup
+                );
+
+            document
+                .getElementById("closeTaskDialogButton")
+                .addEventListener(
+                    "click",
+                    closeTaskDialog
+                );
+
+            document
+                .getElementById("cancelTaskButton")
+                .addEventListener(
+                    "click",
+                    closeTaskDialog
+                );
+
+            document
+                .getElementById("closeGroupsDialogButton")
+                .addEventListener(
+                    "click",
+                    closeGroupsDialog
+                );
+
+            document
+                .getElementById("addGroupButton")
+                .addEventListener(
+                    "click",
+                    () => addGroupWithPrompt()
+                );
+
+            document
+                .getElementById("newGroupFromTaskButton")
+                .addEventListener(
+                    "click",
+                    addGroupFromTaskForm
                 );
 
             toggleCompletedButton.addEventListener(
@@ -1174,6 +1468,11 @@
                 handleTaskSubmit
             );
 
+            groupFilter.addEventListener(
+                "change",
+                handleGroupFilterChange
+            );
+
             taskDialog.addEventListener(
                 "click",
                 (event) => {
@@ -1182,15 +1481,107 @@
                     }
                 }
             );
+
+            groupsDialog.addEventListener(
+                "click",
+                (event) => {
+                    if (event.target === groupsDialog) {
+                        closeGroupsDialog();
+                    }
+                }
+            );
         }
 
         function populateDaySelect() {
-            scheduledDay.innerHTML = DAYS
-                .map(
-                    (day) =>
-                        `<option value="${day.key}">${day.label}</option>`
+            scheduledDay.innerHTML =
+                DAYS
+                    .map(
+                        (day) =>
+                            `<option value="${day.key}">${day.label}</option>`
+                    )
+                    .join("");
+        }
+
+        function refreshGroupControls(
+            preferredTaskGroupId = null
+        ) {
+            const groups =
+                getSortedGroups();
+
+            const taskGroupValue =
+                preferredTaskGroupId ??
+                taskGroup.value ??
+                UNCATEGORIZED_GROUP_ID;
+
+            taskGroup.innerHTML =
+                groups
+                    .map(
+                        (group) =>
+                            `<option value="${escapeHtml(group.id)}">${escapeHtml(group.name)}</option>`
+                    )
+                    .join("");
+
+            if (
+                state.groups.some(
+                    (group) =>
+                        group.id === taskGroupValue
                 )
-                .join("");
+            ) {
+                taskGroup.value =
+                    taskGroupValue;
+            } else {
+                taskGroup.value =
+                    UNCATEGORIZED_GROUP_ID;
+            }
+
+            groupFilter.innerHTML = [
+                '<option value="all">All Groups</option>',
+                ...groups.map(
+                    (group) =>
+                        `<option value="${escapeHtml(group.id)}">${escapeHtml(group.name)}</option>`
+                )
+            ].join("");
+
+            if (
+                state.groupFilter !== "all" &&
+                !state.groups.some(
+                    (group) =>
+                        group.id === state.groupFilter
+                )
+            ) {
+                state.groupFilter =
+                    "all";
+            }
+
+            groupFilter.value =
+                state.groupFilter;
+
+            renderGroupManager();
+        }
+
+        function getSortedGroups() {
+            const uncategorized =
+                state.groups.find(
+                    (group) =>
+                        group.id === UNCATEGORIZED_GROUP_ID
+                );
+
+            const userGroups =
+                state.groups
+                    .filter(
+                        (group) =>
+                            group.id !== UNCATEGORIZED_GROUP_ID
+                    )
+                    .sort(
+                        (firstGroup, secondGroup) =>
+                            firstGroup.name.localeCompare(
+                                secondGroup.name
+                            )
+                    );
+
+            return uncategorized
+                ? [uncategorized, ...userGroups]
+                : userGroups;
         }
 
         function render() {
@@ -1198,13 +1589,18 @@
             renderStats();
             renderBoard();
             renderCompletedTasks();
+            renderGroupManager();
         }
 
         function renderWeekLabel() {
-            const weekDates = getCurrentWeekDates();
+            const weekDates =
+                getCurrentWeekDates();
 
-            const first = weekDates[0];
-            const last = weekDates[6];
+            const first =
+                weekDates[0];
+
+            const last =
+                weekDates[6];
 
             const firstText =
                 first.toLocaleDateString(
@@ -1232,10 +1628,11 @@
         function renderStats() {
             const openTasks =
                 state.tasks.filter(
-                    (task) => !task.completed
+                    (task) =>
+                        !task.completed
                 );
 
-            const urgentTasks =
+            const redTasks =
                 openTasks.filter(
                     (task) =>
                         calculateUrgency(task).progress >= 100
@@ -1255,7 +1652,8 @@
 
             const completedCount =
                 state.tasks.filter(
-                    (task) => task.completed
+                    (task) =>
+                        task.completed
                 ).length;
 
             stats.innerHTML = `
@@ -1265,7 +1663,7 @@
                 </div>
 
                 <div class="stat">
-                    <strong>${urgentTasks.length}</strong>
+                    <strong>${redTasks.length}</strong>
                     red
                 </div>
 
@@ -1285,7 +1683,8 @@
         }
 
         function renderBoard() {
-            board.innerHTML = "";
+            board.innerHTML =
+                "";
 
             const weekDates =
                 getCurrentWeekDates();
@@ -1296,16 +1695,21 @@
             DAYS.forEach(
                 (day, index) => {
                     const column =
-                        document.createElement("section");
+                        document.createElement(
+                            "section"
+                        );
 
                     const isToday =
-                        day.key === currentDayKey;
+                        day.key ===
+                        currentDayKey;
 
                     column.className =
                         `day-column${isToday ? " today" : ""}`;
 
                     const dateText =
-                        weekDates[index].toLocaleDateString(
+                        weekDates[
+                            index
+                        ].toLocaleDateString(
                             undefined,
                             {
                                 month: "short",
@@ -1334,7 +1738,9 @@
                     `;
 
                     const dropZone =
-                        document.createElement("div");
+                        document.createElement(
+                            "div"
+                        );
 
                     dropZone.className =
                         "drop-zone";
@@ -1351,21 +1757,28 @@
                             .filter(
                                 (task) =>
                                     !task.completed &&
-                                    task.scheduledDay === day.key
+                                    task.scheduledDay === day.key &&
+                                    taskMatchesGroupFilter(task)
                             )
                             .sort(
                                 compareTasksByUrgency
                             );
 
-                    if (dayTasks.length === 0) {
+                    if (
+                        dayTasks.length === 0
+                    ) {
                         const empty =
-                            document.createElement("div");
+                            document.createElement(
+                                "div"
+                            );
 
                         empty.className =
                             "empty-day";
 
                         empty.textContent =
-                            "Drop tasks here";
+                            state.groupFilter === "all"
+                                ? "Drop tasks here"
+                                : "No tasks in this group";
 
                         dropZone.appendChild(
                             empty
@@ -1374,7 +1787,9 @@
                         dayTasks.forEach(
                             (task) => {
                                 dropZone.appendChild(
-                                    createTaskCard(task)
+                                    createTaskCard(
+                                        task
+                                    )
                                 );
                             }
                         );
@@ -1391,15 +1806,28 @@
             );
         }
 
+        function taskMatchesGroupFilter(
+            task
+        ) {
+            return (
+                state.groupFilter === "all" ||
+                task.groupId === state.groupFilter
+            );
+        }
+
         function compareTasksByUrgency(
             firstTask,
             secondTask
         ) {
             const firstUrgency =
-                calculateUrgency(firstTask);
+                calculateUrgency(
+                    firstTask
+                );
 
             const secondUrgency =
-                calculateUrgency(secondTask);
+                calculateUrgency(
+                    secondTask
+                );
 
             if (
                 secondUrgency.progress !==
@@ -1416,22 +1844,38 @@
             );
         }
 
-        function createTaskCard(task) {
+        function createTaskCard(
+            task
+        ) {
             const card =
-                document.createElement("article");
+                document.createElement(
+                    "article"
+                );
 
             const urgency =
-                calculateUrgency(task);
+                calculateUrgency(
+                    task
+                );
 
             const age =
                 calculateTaskAge(
                     task.receivedDate
                 );
 
+            const group =
+                findGroup(
+                    task.groupId
+                );
+
+            const groupName =
+                group?.name ??
+                "Uncategorized";
+
             card.className =
                 "task-card";
 
-            card.draggable = true;
+            card.draggable =
+                true;
 
             card.dataset.taskId =
                 task.id;
@@ -1477,7 +1921,9 @@
                     .join("");
 
             const effortLabel =
-                EFFORT_LABELS[task.effort] ??
+                EFFORT_LABELS[
+                    task.effort
+                ] ??
                 task.effort;
 
             card.innerHTML = `
@@ -1500,6 +1946,10 @@
                         ${urgency.status}
                         ${Math.round(urgency.progress)}%
                     </span>
+                </div>
+
+                <div class="group-badge">
+                    ${escapeHtml(groupName)}
                 </div>
 
                 ${details}
@@ -1548,11 +1998,15 @@
                 <div class="urgency-copy">
                     <span>
                         Received
-                        ${formatDate(task.receivedDate)}
+                        ${formatDate(
+                            task.receivedDate
+                        )}
                     </span>
 
                     <span>
-                        ${Math.round(urgency.progress)}%
+                        ${Math.round(
+                            urgency.progress
+                        )}%
                         elapsed
                     </span>
                 </div>
@@ -1582,21 +2036,33 @@
             `;
 
             card
-                .querySelector(".complete-button")
+                .querySelector(
+                    ".complete-button"
+                )
                 .addEventListener(
                     "click",
-                    () => completeTask(task.id)
+                    () =>
+                        completeTask(
+                            task.id
+                        )
                 );
 
             card
-                .querySelector(".edit-button")
+                .querySelector(
+                    ".edit-button"
+                )
                 .addEventListener(
                     "click",
-                    () => openEditTaskDialog(task.id)
+                    () =>
+                        openEditTaskDialog(
+                            task.id
+                        )
                 );
 
             card
-                .querySelector(".move-select")
+                .querySelector(
+                    ".move-select"
+                )
                 .addEventListener(
                     "change",
                     (event) => {
@@ -1636,7 +2102,9 @@
             return card;
         }
 
-        function configureDropZone(dropZone) {
+        function configureDropZone(
+            dropZone
+        ) {
             dropZone.addEventListener(
                 "dragover",
                 (event) => {
@@ -1696,7 +2164,9 @@
             completedSection.hidden =
                 !state.completedVisible;
 
-            if (!state.completedVisible) {
+            if (
+                !state.completedVisible
+            ) {
                 return;
             }
 
@@ -1704,7 +2174,10 @@
                 state.tasks
                     .filter(
                         (task) =>
-                            task.completed
+                            task.completed &&
+                            taskMatchesGroupFilter(
+                                task
+                            )
                     )
                     .sort(
                         (
@@ -1719,19 +2192,24 @@
                             )
                     );
 
-            if (completedTasks.length === 0) {
+            if (
+                completedTasks.length === 0
+            ) {
                 completedList.innerHTML =
-                    "<p>No completed tasks yet.</p>";
+                    "<p>No completed tasks in this group.</p>";
 
                 return;
             }
 
-            completedList.innerHTML = "";
+            completedList.innerHTML =
+                "";
 
             completedTasks.forEach(
                 (task) => {
                     const card =
-                        document.createElement("article");
+                        document.createElement(
+                            "article"
+                        );
 
                     card.className =
                         "completed-card";
@@ -1743,10 +2221,20 @@
                             ).toLocaleDateString()
                             : "Unknown";
 
+                    const groupName =
+                        findGroup(
+                            task.groupId
+                        )?.name ??
+                        "Uncategorized";
+
                     card.innerHTML = `
                         <h3>
                             ${escapeHtml(task.title)}
                         </h3>
+
+                        <div class="group-badge">
+                            ${escapeHtml(groupName)}
+                        </div>
 
                         <p>
                             Completed ${completedText}
@@ -1770,17 +2258,27 @@
                     `;
 
                     card
-                        .querySelector(".restore-button")
+                        .querySelector(
+                            ".restore-button"
+                        )
                         .addEventListener(
                             "click",
-                            () => restoreTask(task.id)
+                            () =>
+                                restoreTask(
+                                    task.id
+                                )
                         );
 
                     card
-                        .querySelector(".delete-button")
+                        .querySelector(
+                            ".delete-button"
+                        )
                         .addEventListener(
                             "click",
-                            () => deleteTask(task.id)
+                            () =>
+                                deleteTask(
+                                    task.id
+                                )
                         );
 
                     completedList.appendChild(
@@ -1791,7 +2289,8 @@
         }
 
         function openAddTaskDialog() {
-            state.editingTaskId = null;
+            state.editingTaskId =
+                null;
 
             dialogTitle.textContent =
                 "Add Task";
@@ -1800,6 +2299,13 @@
                 true;
 
             taskForm.reset();
+
+            refreshGroupControls();
+
+            taskGroup.value =
+                state.groupFilter !== "all"
+                    ? state.groupFilter
+                    : UNCATEGORIZED_GROUP_ID;
 
             scheduledDay.value =
                 getCurrentDayKey();
@@ -1818,9 +2324,13 @@
             taskTitle.focus();
         }
 
-        function openEditTaskDialog(taskId) {
+        function openEditTaskDialog(
+            taskId
+        ) {
             const task =
-                findTask(taskId);
+                findTask(
+                    taskId
+                );
 
             if (!task) {
                 showToast(
@@ -1839,11 +2349,18 @@
             deleteTaskButton.hidden =
                 false;
 
+            refreshGroupControls(
+                task.groupId
+            );
+
             taskTitle.value =
                 task.title;
 
             taskDetails.value =
                 task.details;
+
+            taskGroup.value =
+                task.groupId;
 
             scheduledDay.value =
                 task.scheduledDay;
@@ -1855,7 +2372,9 @@
                 task.effort;
 
             redAfterDays.value =
-                String(task.redAfterDays);
+                String(
+                    task.redAfterDays
+                );
 
             taskDialog.showModal();
 
@@ -1863,7 +2382,9 @@
         }
 
         function closeTaskDialog() {
-            if (taskDialog.open) {
+            if (
+                taskDialog.open
+            ) {
                 taskDialog.close();
             }
 
@@ -1873,7 +2394,9 @@
             taskForm.reset();
         }
 
-        function handleTaskSubmit(event) {
+        function handleTaskSubmit(
+            event
+        ) {
             event.preventDefault();
 
             const title =
@@ -1883,7 +2406,16 @@
                 taskDetails.value.trim();
 
             const redDays =
-                Number(redAfterDays.value);
+                Number(
+                    redAfterDays.value
+                );
+
+            const selectedGroupId =
+                findGroup(
+                    taskGroup.value
+                )
+                    ? taskGroup.value
+                    : UNCATEGORIZED_GROUP_ID;
 
             if (!title) {
                 showToast(
@@ -1904,7 +2436,9 @@
             }
 
             if (
-                !Number.isFinite(redDays) ||
+                !Number.isFinite(
+                    redDays
+                ) ||
                 redDays < 1 ||
                 redDays > 365
             ) {
@@ -1915,7 +2449,9 @@
                 return;
             }
 
-            if (state.editingTaskId) {
+            if (
+                state.editingTaskId
+            ) {
                 const task =
                     findTask(
                         state.editingTaskId
@@ -1934,6 +2470,9 @@
 
                 task.details =
                     details;
+
+                task.groupId =
+                    selectedGroupId;
 
                 task.scheduledDay =
                     scheduledDay.value;
@@ -1959,21 +2498,34 @@
             }
 
             const newTask = {
-                id: createId(),
+                id:
+                    createId(),
+
                 title,
+
                 details,
+
+                groupId:
+                    selectedGroupId,
+
                 scheduledDay:
                     scheduledDay.value,
+
                 receivedDate:
                     receivedDate.value,
+
                 effort:
                     effort.value,
+
                 redAfterDays:
                     redDays,
+
                 completed:
                     false,
+
                 completedAt:
                     null,
+
                 createdAt:
                     new Date().toISOString()
             };
@@ -1992,7 +2544,9 @@
         }
 
         function handleDeleteEditingTask() {
-            if (!state.editingTaskId) {
+            if (
+                !state.editingTaskId
+            ) {
                 return;
             }
 
@@ -2001,7 +2555,9 @@
                     state.editingTaskId
                 );
 
-            if (deleted) {
+            if (
+                deleted
+            ) {
                 closeTaskDialog();
             }
         }
@@ -2011,7 +2567,9 @@
             newDay
         ) {
             const task =
-                findTask(taskId);
+                findTask(
+                    taskId
+                );
 
             if (!task) {
                 showToast(
@@ -2024,7 +2582,8 @@
             const day =
                 DAYS.find(
                     (candidate) =>
-                        candidate.key === newDay
+                        candidate.key ===
+                        newDay
                 );
 
             if (!day) {
@@ -2036,7 +2595,8 @@
             }
 
             if (
-                task.scheduledDay === newDay
+                task.scheduledDay ===
+                newDay
             ) {
                 return;
             }
@@ -2051,9 +2611,13 @@
             );
         }
 
-        function completeTask(taskId) {
+        function completeTask(
+            taskId
+        ) {
             const task =
-                findTask(taskId);
+                findTask(
+                    taskId
+                );
 
             if (!task) {
                 return;
@@ -2072,9 +2636,13 @@
             );
         }
 
-        function restoreTask(taskId) {
+        function restoreTask(
+            taskId
+        ) {
             const task =
-                findTask(taskId);
+                findTask(
+                    taskId
+                );
 
             if (!task) {
                 return;
@@ -2093,9 +2661,13 @@
             );
         }
 
-        function deleteTask(taskId) {
+        function deleteTask(
+            taskId
+        ) {
             const task =
-                findTask(taskId);
+                findTask(
+                    taskId
+                );
 
             if (!task) {
                 return false;
@@ -2113,7 +2685,8 @@
             state.tasks =
                 state.tasks.filter(
                     (candidate) =>
-                        candidate.id !== taskId
+                        candidate.id !==
+                        taskId
                 );
 
             saveAndRender();
@@ -2137,7 +2710,562 @@
             renderCompletedTasks();
         }
 
-        function calculateUrgency(task) {
+        function handleGroupFilterChange(
+            event
+        ) {
+            state.groupFilter =
+                event.target.value;
+
+            renderBoard();
+            renderCompletedTasks();
+        }
+
+        function openGroupsDialog() {
+            renderGroupManager();
+
+            groupsDialog.showModal();
+        }
+
+        function closeGroupsDialog() {
+            if (
+                groupsDialog.open
+            ) {
+                groupsDialog.close();
+            }
+        }
+
+        function renderGroupManager() {
+            if (!groupList) {
+                return;
+            }
+
+            const groups =
+                getSortedGroups();
+
+            groupList.innerHTML =
+                "";
+
+            groups.forEach(
+                (group) => {
+                    const row =
+                        document.createElement(
+                            "div"
+                        );
+
+                    row.className =
+                        "group-row";
+
+                    const taskCount =
+                        state.tasks.filter(
+                            (task) =>
+                                task.groupId ===
+                                group.id
+                        ).length;
+
+                    const isUncategorized =
+                        group.id ===
+                        UNCATEGORIZED_GROUP_ID;
+
+                    row.innerHTML = `
+                        <div class="group-row-info">
+                            <div class="group-row-name">
+                                ${escapeHtml(group.name)}
+                            </div>
+
+                            <div class="group-row-count">
+                                ${taskCount}
+                                task${taskCount === 1 ? "" : "s"}
+                            </div>
+                        </div>
+
+                        <div class="group-row-actions">
+                            ${
+                                isUncategorized
+                                    ? ""
+                                    : `
+                                        <button
+                                            class="button small secondary rename-group-button"
+                                            type="button"
+                                        >
+                                            Rename
+                                        </button>
+
+                                        <button
+                                            class="button small danger delete-group-button"
+                                            type="button"
+                                        >
+                                            Delete
+                                        </button>
+                                    `
+                            }
+                        </div>
+                    `;
+
+                    if (
+                        !isUncategorized
+                    ) {
+                        row
+                            .querySelector(
+                                ".rename-group-button"
+                            )
+                            .addEventListener(
+                                "click",
+                                () =>
+                                    renameGroup(
+                                        group.id
+                                    )
+                            );
+
+                        row
+                            .querySelector(
+                                ".delete-group-button"
+                            )
+                            .addEventListener(
+                                "click",
+                                () =>
+                                    deleteGroup(
+                                        group.id
+                                    )
+                            );
+                    }
+
+                    groupList.appendChild(
+                        row
+                    );
+                }
+            );
+        }
+
+        function addGroupFromTaskForm() {
+            const group =
+                addGroupWithPrompt();
+
+            if (!group) {
+                return;
+            }
+
+            refreshGroupControls(
+                group.id
+            );
+
+            taskGroup.value =
+                group.id;
+        }
+
+        function addGroupWithPrompt() {
+            const input =
+                window.prompt(
+                    "Name your new group / category:"
+                );
+
+            if (
+                input === null
+            ) {
+                return null;
+            }
+
+            const name =
+                normalizeGroupName(
+                    input
+                );
+
+            if (!name) {
+                showToast(
+                    "Group name cannot be empty."
+                );
+
+                return null;
+            }
+
+            const existing =
+                state.groups.find(
+                    (group) =>
+                        group.name.toLowerCase() ===
+                        name.toLowerCase()
+                );
+
+            if (
+                existing
+            ) {
+                showToast(
+                    `"${existing.name}" already exists.`
+                );
+
+                return existing;
+            }
+
+            const group = {
+                id:
+                    createId(),
+
+                name,
+
+                createdAt:
+                    new Date().toISOString()
+            };
+
+            state.groups.push(
+                group
+            );
+
+            saveGroups();
+
+            refreshGroupControls(
+                group.id
+            );
+
+            render();
+
+            showToast(
+                `Group "${name}" created.`
+            );
+
+            return group;
+        }
+
+        function renameGroup(
+            groupId
+        ) {
+            const group =
+                findGroup(
+                    groupId
+                );
+
+            if (
+                !group ||
+                group.id === UNCATEGORIZED_GROUP_ID
+            ) {
+                return;
+            }
+
+            const input =
+                window.prompt(
+                    "Rename group:",
+                    group.name
+                );
+
+            if (
+                input === null
+            ) {
+                return;
+            }
+
+            const newName =
+                normalizeGroupName(
+                    input
+                );
+
+            if (!newName) {
+                showToast(
+                    "Group name cannot be empty."
+                );
+
+                return;
+            }
+
+            const duplicate =
+                state.groups.find(
+                    (candidate) =>
+                        candidate.id !==
+                            group.id &&
+                        candidate.name.toLowerCase() ===
+                            newName.toLowerCase()
+                );
+
+            if (
+                duplicate
+            ) {
+                showToast(
+                    `"${duplicate.name}" already exists.`
+                );
+
+                return;
+            }
+
+            group.name =
+                newName;
+
+            saveGroups();
+
+            refreshGroupControls();
+
+            render();
+
+            showToast(
+                "Group renamed."
+            );
+        }
+
+        function deleteGroup(
+            groupId
+        ) {
+            const group =
+                findGroup(
+                    groupId
+                );
+
+            if (
+                !group ||
+                group.id === UNCATEGORIZED_GROUP_ID
+            ) {
+                return;
+            }
+
+            const affectedTasks =
+                state.tasks.filter(
+                    (task) =>
+                        task.groupId ===
+                        group.id
+                ).length;
+
+            const confirmed =
+                window.confirm(
+                    `Delete "${group.name}"?\n\n` +
+                    `${affectedTasks} task${affectedTasks === 1 ? "" : "s"} ` +
+                    "will be moved to Uncategorized."
+                );
+
+            if (
+                !confirmed
+            ) {
+                return;
+            }
+
+            state.tasks.forEach(
+                (task) => {
+                    if (
+                        task.groupId ===
+                        group.id
+                    ) {
+                        task.groupId =
+                            UNCATEGORIZED_GROUP_ID;
+                    }
+                }
+            );
+
+            state.groups =
+                state.groups.filter(
+                    (candidate) =>
+                        candidate.id !==
+                        group.id
+                );
+
+            if (
+                state.groupFilter ===
+                group.id
+            ) {
+                state.groupFilter =
+                    "all";
+            }
+
+            saveTasks();
+            saveGroups();
+
+            refreshGroupControls();
+
+            render();
+
+            showToast(
+                "Group deleted. Tasks moved to Uncategorized."
+            );
+        }
+
+        function normalizeGroupName(
+            value
+        ) {
+            return String(
+                value
+            )
+                .trim()
+                .replace(
+                    /\s+/g,
+                    " "
+                )
+                .slice(
+                    0,
+                    60
+                );
+        }
+
+        function findGroup(
+            groupId
+        ) {
+            return state.groups.find(
+                (group) =>
+                    group.id ===
+                    groupId
+            );
+        }
+
+        function getDefaultGroups() {
+            return [
+                {
+                    id:
+                        UNCATEGORIZED_GROUP_ID,
+
+                    name:
+                        "Uncategorized",
+
+                    createdAt:
+                        null
+                }
+            ];
+        }
+
+        function loadGroups() {
+            try {
+                const raw =
+                    localStorage.getItem(
+                        GROUPS_STORAGE_KEY
+                    );
+
+                if (!raw) {
+                    return getDefaultGroups();
+                }
+
+                const parsed =
+                    JSON.parse(
+                        raw
+                    );
+
+                if (
+                    !Array.isArray(
+                        parsed
+                    )
+                ) {
+                    return getDefaultGroups();
+                }
+
+                return normalizeGroups(
+                    parsed
+                );
+            } catch (error) {
+                console.error(
+                    error
+                );
+
+                return getDefaultGroups();
+            }
+        }
+
+        function normalizeGroups(
+            rawGroups
+        ) {
+            const normalized = [];
+            const seenIds =
+                new Set();
+
+            const seenNames =
+                new Set();
+
+            normalized.push(
+                ...getDefaultGroups()
+            );
+
+            seenIds.add(
+                UNCATEGORIZED_GROUP_ID
+            );
+
+            seenNames.add(
+                "uncategorized"
+            );
+
+            rawGroups.forEach(
+                (group) => {
+                    if (
+                        !group ||
+                        typeof group !==
+                            "object"
+                    ) {
+                        return;
+                    }
+
+                    if (
+                        group.id ===
+                        UNCATEGORIZED_GROUP_ID
+                    ) {
+                        return;
+                    }
+
+                    const name =
+                        normalizeGroupName(
+                            group.name ?? ""
+                        );
+
+                    if (!name) {
+                        return;
+                    }
+
+                    const id =
+                        typeof group.id ===
+                            "string" &&
+                        group.id.trim()
+                            ? group.id
+                            : createId();
+
+                    const normalizedName =
+                        name.toLowerCase();
+
+                    if (
+                        seenIds.has(
+                            id
+                        ) ||
+                        seenNames.has(
+                            normalizedName
+                        )
+                    ) {
+                        return;
+                    }
+
+                    seenIds.add(
+                        id
+                    );
+
+                    seenNames.add(
+                        normalizedName
+                    );
+
+                    normalized.push(
+                        {
+                            id,
+
+                            name,
+
+                            createdAt:
+                                typeof group.createdAt ===
+                                "string"
+                                    ? group.createdAt
+                                    : new Date().toISOString()
+                        }
+                    );
+                }
+            );
+
+            return normalized;
+        }
+
+        function saveGroups() {
+            try {
+                localStorage.setItem(
+                    GROUPS_STORAGE_KEY,
+                    JSON.stringify(
+                        state.groups
+                    )
+                );
+            } catch (error) {
+                console.error(
+                    error
+                );
+
+                showToast(
+                    "Could not save groups."
+                );
+            }
+        }
+
+        function calculateUrgency(
+            task
+        ) {
             const age =
                 calculateTaskAge(
                     task.receivedDate
@@ -2146,34 +3274,51 @@
             const redDays =
                 Math.max(
                     1,
-                    Number(task.redAfterDays) || 14
+                    Number(
+                        task.redAfterDays
+                    ) || 14
                 );
 
             const progress =
-                (age / redDays) * 100;
+                (
+                    age /
+                    redDays
+                ) * 100;
 
             const cappedProgress =
                 Math.min(
-                    Math.max(progress, 0),
+                    Math.max(
+                        progress,
+                        0
+                    ),
                     100
                 );
 
             const hue =
                 Math.round(
                     120 -
-                    (cappedProgress * 1.2)
+                    (
+                        cappedProgress *
+                        1.2
+                    )
                 );
 
             let status =
                 "GREEN";
 
-            if (progress >= 100) {
+            if (
+                progress >= 100
+            ) {
                 status =
                     "RED";
-            } else if (progress >= 75) {
+            } else if (
+                progress >= 75
+            ) {
                 status =
                     "ORANGE";
-            } else if (progress >= 50) {
+            } else if (
+                progress >= 50
+            ) {
                 status =
                     "YELLOW";
             }
@@ -2186,7 +3331,9 @@
             };
         }
 
-        function calculateTaskAge(dateString) {
+        function calculateTaskAge(
+            dateString
+        ) {
             if (!dateString) {
                 return 0;
             }
@@ -2201,7 +3348,8 @@
 
             return Math.max(
                 0,
-                todayDay - receivedDay
+                todayDay -
+                    receivedDay
             );
         }
 
@@ -2219,15 +3367,21 @@
             );
         }
 
-        function dateStringToDayNumber(dateString) {
+        function dateStringToDayNumber(
+            dateString
+        ) {
             const parts =
                 dateString
                     .split("-")
-                    .map(Number);
+                    .map(
+                        Number
+                    );
 
             if (
                 parts.length !== 3 ||
-                parts.some(Number.isNaN)
+                parts.some(
+                    Number.isNaN
+                )
             ) {
                 return getTodayDayNumber();
             }
@@ -2236,7 +3390,8 @@
                 year,
                 month,
                 day
-            ] = parts;
+            ] =
+                parts;
 
             return Math.floor(
                 Date.UTC(
@@ -2253,7 +3408,10 @@
                 new Date();
 
             const mondayOffset =
-                (today.getDay() + 6) % 7;
+                (
+                    today.getDay() +
+                    6
+                ) % 7;
 
             const monday =
                 new Date(
@@ -2279,7 +3437,10 @@
                 new Date().getDay();
 
             const mondayBasedIndex =
-                (jsDay + 6) % 7;
+                (
+                    jsDay +
+                    6
+                ) % 7;
 
             return DAYS[
                 mondayBasedIndex
@@ -2295,7 +3456,8 @@
 
             const month =
                 String(
-                    today.getMonth() + 1
+                    today.getMonth() +
+                    1
                 ).padStart(
                     2,
                     "0"
@@ -2309,10 +3471,14 @@
                     "0"
                 );
 
-            return `${year}-${month}-${day}`;
+            return (
+                `${year}-${month}-${day}`
+            );
         }
 
-        function formatDate(dateString) {
+        function formatDate(
+            dateString
+        ) {
             if (!dateString) {
                 return "Unknown";
             }
@@ -2324,7 +3490,9 @@
             ] =
                 dateString
                     .split("-")
-                    .map(Number);
+                    .map(
+                        Number
+                    );
 
             const date =
                 new Date(
@@ -2336,15 +3504,21 @@
             return date.toLocaleDateString(
                 undefined,
                 {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric"
+                    month:
+                        "short",
+
+                    day:
+                        "numeric",
+
+                    year:
+                        "numeric"
                 }
             );
         }
 
         function saveAndRender() {
             saveTasks();
+            saveGroups();
             render();
         }
 
@@ -2357,7 +3531,9 @@
                     )
                 );
             } catch (error) {
-                console.error(error);
+                console.error(
+                    error
+                );
 
                 showToast(
                     "Could not save tasks. Export a backup."
@@ -2365,7 +3541,9 @@
             }
         }
 
-        function loadTasks() {
+        function loadTasks(
+            groups
+        ) {
             try {
                 const raw =
                     localStorage.getItem(
@@ -2377,33 +3555,58 @@
                 }
 
                 const parsed =
-                    JSON.parse(raw);
+                    JSON.parse(
+                        raw
+                    );
 
-                if (!Array.isArray(parsed)) {
+                if (
+                    !Array.isArray(
+                        parsed
+                    )
+                ) {
                     return [];
                 }
 
                 return parsed
-                    .filter(isValidTask)
-                    .map(normalizeTask);
+                    .filter(
+                        isValidTask
+                    )
+                    .map(
+                        (task) =>
+                            normalizeTask(
+                                task,
+                                groups
+                            )
+                    );
             } catch (error) {
-                console.error(error);
+                console.error(
+                    error
+                );
 
                 return [];
             }
         }
 
-        function isValidTask(task) {
+        function isValidTask(
+            task
+        ) {
             return (
                 task &&
-                typeof task === "object" &&
-                typeof task.id === "string" &&
-                typeof task.title === "string" &&
-                typeof task.receivedDate === "string"
+                typeof task ===
+                    "object" &&
+                typeof task.id ===
+                    "string" &&
+                typeof task.title ===
+                    "string" &&
+                typeof task.receivedDate ===
+                    "string"
             );
         }
 
-        function normalizeTask(task) {
+        function normalizeTask(
+            task,
+            groups
+        ) {
             const validScheduledDay =
                 DAYS.some(
                     (day) =>
@@ -2413,6 +3616,15 @@
                     ? task.scheduledDay
                     : "monday";
 
+            const validGroupId =
+                groups.some(
+                    (group) =>
+                        group.id ===
+                        task.groupId
+                )
+                    ? task.groupId
+                    : UNCATEGORIZED_GROUP_ID;
+
             return {
                 id:
                     task.id,
@@ -2421,9 +3633,13 @@
                     task.title,
 
                 details:
-                    typeof task.details === "string"
+                    typeof task.details ===
+                    "string"
                         ? task.details
                         : "",
+
+                groupId:
+                    validGroupId,
 
                 scheduledDay:
                     validScheduledDay,
@@ -2432,25 +3648,35 @@
                     task.receivedDate,
 
                 effort:
-                    EFFORT_LABELS[task.effort]
+                    EFFORT_LABELS[
+                        task.effort
+                    ]
                         ? task.effort
                         : "30m",
 
                 redAfterDays:
-                    Number(task.redAfterDays) > 0
-                        ? Number(task.redAfterDays)
+                    Number(
+                        task.redAfterDays
+                    ) > 0
+                        ? Number(
+                            task.redAfterDays
+                        )
                         : 14,
 
                 completed:
-                    Boolean(task.completed),
+                    Boolean(
+                        task.completed
+                    ),
 
                 completedAt:
-                    typeof task.completedAt === "string"
+                    typeof task.completedAt ===
+                    "string"
                         ? task.completedAt
                         : null,
 
                 createdAt:
-                    typeof task.createdAt === "string"
+                    typeof task.createdAt ===
+                    "string"
                         ? task.createdAt
                         : new Date().toISOString()
             };
@@ -2458,11 +3684,20 @@
 
         function exportBackup() {
             const backup = {
-                app: "to do board",
-                version: 1,
+                app:
+                    "To Do Board",
+
+                version:
+                    2,
+
                 exportedAt:
                     new Date().toISOString(),
-                tasks: state.tasks
+
+                groups:
+                    state.groups,
+
+                tasks:
+                    state.tasks
             };
 
             const blob =
@@ -2486,13 +3721,15 @@
                 );
 
             const link =
-                document.createElement("a");
+                document.createElement(
+                    "a"
+                );
 
             link.href =
                 url;
 
             link.download =
-                `urgency-board-backup-${getTodayDateString()}.json`;
+                `to-do-board-backup-${getTodayDateString()}.json`;
 
             document.body.appendChild(
                 link
@@ -2511,7 +3748,9 @@
             );
         }
 
-        async function handleImport(event) {
+        async function handleImport(
+            event
+        ) {
             const file =
                 event.target.files?.[0];
 
@@ -2524,52 +3763,89 @@
                     await file.text();
 
                 const parsed =
-                    JSON.parse(text);
+                    JSON.parse(
+                        text
+                    );
 
-                const importedTasks =
-                    Array.isArray(parsed)
+                const rawTasks =
+                    Array.isArray(
+                        parsed
+                    )
                         ? parsed
                         : parsed.tasks;
 
                 if (
                     !Array.isArray(
-                        importedTasks
+                        rawTasks
                     )
                 ) {
                     throw new Error(
-                        "Backup does not contain a task list."
+                        "Backup does not contain tasks."
                     );
                 }
 
-                const validTasks =
-                    importedTasks
-                        .filter(isValidTask)
-                        .map(normalizeTask);
+                const importedGroups =
+                    Array.isArray(
+                        parsed.groups
+                    )
+                        ? normalizeGroups(
+                            parsed.groups
+                        )
+                        : getDefaultGroups();
+
+                const importedTasks =
+                    rawTasks
+                        .filter(
+                            isValidTask
+                        )
+                        .map(
+                            (task) =>
+                                normalizeTask(
+                                    task,
+                                    importedGroups
+                                )
+                        );
 
                 const confirmed =
                     window.confirm(
-                        `Import ${validTasks.length} tasks? ` +
-                        "This will replace the tasks currently stored in this browser."
+                        `Import ${importedTasks.length} tasks and ` +
+                        `${importedGroups.length} groups?\n\n` +
+                        "This will replace the board currently stored in this browser."
                     );
 
-                if (!confirmed) {
+                if (
+                    !confirmed
+                ) {
                     return;
                 }
 
-                state.tasks =
-                    validTasks;
+                state.groups =
+                    importedGroups;
 
-                saveAndRender();
+                state.tasks =
+                    importedTasks;
+
+                state.groupFilter =
+                    "all";
+
+                saveTasks();
+                saveGroups();
+
+                refreshGroupControls();
+
+                render();
 
                 showToast(
                     "Backup imported."
                 );
             } catch (error) {
-                console.error(error);
+                console.error(
+                    error
+                );
 
                 window.alert(
                     "That file could not be imported. " +
-                    "Please use a valid to do board backup."
+                    "Please use a valid To Do Board backup."
                 );
             } finally {
                 importInput.value =
@@ -2577,17 +3853,22 @@
             }
         }
 
-        function findTask(taskId) {
+        function findTask(
+            taskId
+        ) {
             return state.tasks.find(
                 (task) =>
-                    task.id === taskId
+                    task.id ===
+                    taskId
             );
         }
 
         function createId() {
             if (
-                typeof crypto !== "undefined" &&
-                typeof crypto.randomUUID === "function"
+                typeof crypto !==
+                    "undefined" &&
+                typeof crypto.randomUUID ===
+                    "function"
             ) {
                 return crypto.randomUUID();
             }
@@ -2600,8 +3881,12 @@
             );
         }
 
-        function escapeHtml(value) {
-            return String(value)
+        function escapeHtml(
+            value
+        ) {
+            return String(
+                value
+            )
                 .replaceAll(
                     "&",
                     "&amp;"
@@ -2624,7 +3909,9 @@
                 );
         }
 
-        function showToast(message) {
+        function showToast(
+            message
+        ) {
             toast.textContent =
                 message;
 

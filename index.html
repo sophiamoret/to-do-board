@@ -1,4 +1,4 @@
-<!-- index.html -->
+<!-- /index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,26 +7,36 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
-    <meta
-        name="theme-color"
-        content="#f5f6f8"
-    >
+    <meta name="theme-color" content="#050806">
+
     <title>Urgency Board</title>
 
     <style>
         :root {
-            --background: #f5f6f8;
-            --surface: #ffffff;
-            --surface-secondary: #f0f2f5;
-            --border: #dfe3e8;
-            --text: #18202a;
-            --muted: #697586;
-            --primary: #1f6feb;
-            --primary-hover: #1759be;
-            --danger: #c62828;
+            --background: #050806;
+            --surface: #0a100c;
+            --surface-secondary: #101a13;
+            --surface-hover: #17251b;
+            --column: #080d0a;
+
+            --border: #243329;
+            --border-bright: #3d5a46;
+
+            --text: #edf7ef;
+            --muted: #98a79c;
+
+            --primary: #b8f7c7;
+            --primary-hover: #91e8a7;
+            --primary-dark: #08130a;
+
+            --danger: #ff8f8f;
+            --danger-background: #2b1111;
+            --danger-border: #743636;
+
             --shadow:
-                0 1px 2px rgb(0 0 0 / 5%),
-                0 4px 14px rgb(0 0 0 / 5%);
+                0 2px 4px rgb(0 0 0 / 35%),
+                0 10px 30px rgb(0 0 0 / 25%);
+
             --radius: 12px;
         }
 
@@ -35,6 +45,8 @@
         }
 
         html {
+            color-scheme: dark;
+
             font-family:
                 Inter,
                 ui-sans-serif,
@@ -43,6 +55,7 @@
                 BlinkMacSystemFont,
                 "Segoe UI",
                 sans-serif;
+
             color: var(--text);
             background: var(--background);
         }
@@ -50,6 +63,8 @@
         body {
             margin: 0;
             min-height: 100vh;
+
+            background: var(--background);
         }
 
         button,
@@ -68,7 +83,7 @@
         input:focus-visible,
         textarea:focus-visible,
         select:focus-visible {
-            outline: 3px solid rgb(31 111 235 / 25%);
+            outline: 3px solid rgb(184 247 199 / 30%);
             outline-offset: 2px;
         }
 
@@ -76,9 +91,12 @@
             position: sticky;
             top: 0;
             z-index: 20;
+
             padding: 18px 24px;
-            background: rgb(255 255 255 / 94%);
+
+            background: rgb(5 8 6 / 95%);
             border-bottom: 1px solid var(--border);
+
             backdrop-filter: blur(12px);
         }
 
@@ -87,19 +105,25 @@
             gap: 18px;
             align-items: center;
             justify-content: space-between;
+
             max-width: 1800px;
             margin: 0 auto;
         }
 
         .brand h1 {
             margin: 0;
+
+            color: var(--primary);
+
             font-size: 24px;
             line-height: 1.1;
         }
 
         .brand p {
             margin: 5px 0 0;
+
             color: var(--muted);
+
             font-size: 13px;
         }
 
@@ -115,24 +139,36 @@
             gap: 6px;
             align-items: center;
             justify-content: center;
+
             min-height: 38px;
             padding: 8px 13px;
-            border: 1px solid var(--border);
+
+            border: 1px solid var(--primary);
             border-radius: 8px;
-            background: var(--surface);
-            color: var(--text);
-            font-weight: 650;
+
+            background: var(--primary);
+            color: var(--primary-dark);
+
+            font-weight: 750;
             text-decoration: none;
+
+            transition:
+                background 120ms ease,
+                border-color 120ms ease,
+                transform 120ms ease;
         }
 
         .button:hover {
-            background: var(--surface-secondary);
+            background: var(--primary-hover);
+            border-color: var(--primary-hover);
+
+            transform: translateY(-1px);
         }
 
         .button.primary {
-            border-color: var(--primary);
             background: var(--primary);
-            color: white;
+            border-color: var(--primary);
+            color: var(--primary-dark);
         }
 
         .button.primary:hover {
@@ -140,13 +176,20 @@
         }
 
         .button.danger {
-            border-color: #efcaca;
+            background: var(--danger-background);
+            border-color: var(--danger-border);
             color: var(--danger);
+        }
+
+        .button.danger:hover {
+            background: #3c1717;
+            border-color: #9a4848;
         }
 
         .button.small {
             min-height: 31px;
             padding: 5px 9px;
+
             font-size: 12px;
         }
 
@@ -157,28 +200,36 @@
         .stats {
             display: flex;
             gap: 8px;
+
             max-width: 1800px;
             margin: 14px auto 0;
+
             overflow-x: auto;
         }
 
         .stat {
             flex: 0 0 auto;
+
             padding: 6px 10px;
+
+            border: 1px solid #45634d;
             border-radius: 999px;
-            background: var(--surface-secondary);
-            color: var(--muted);
+
+            background: #142319;
+            color: #b8c8bc;
+
             font-size: 12px;
             font-weight: 700;
         }
 
         .stat strong {
-            color: var(--text);
+            color: var(--primary);
         }
 
         main {
             width: 100%;
             max-width: 1900px;
+
             margin: 0 auto;
             padding: 22px 20px 60px;
         }
@@ -188,16 +239,21 @@
             gap: 12px;
             align-items: center;
             justify-content: space-between;
+
             margin-bottom: 14px;
         }
 
         .board-header h2 {
             margin: 0;
+
+            color: var(--primary);
+
             font-size: 18px;
         }
 
         .rule-reminder {
             color: var(--muted);
+
             font-size: 12px;
             font-weight: 600;
         }
@@ -205,85 +261,117 @@
         .board {
             display: grid;
             grid-template-columns: repeat(7, minmax(250px, 1fr));
+
             gap: 12px;
+
             overflow-x: auto;
+
             padding-bottom: 14px;
         }
 
         .day-column {
             min-width: 250px;
             min-height: 500px;
+
+            overflow: hidden;
+
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            background: #eceff3;
-            overflow: hidden;
+
+            background: var(--column);
         }
 
         .day-column.today {
             border: 2px solid var(--primary);
+
+            box-shadow:
+                0 0 0 1px rgb(184 247 199 / 10%),
+                0 0 28px rgb(184 247 199 / 8%);
         }
 
         .day-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             padding: 12px;
-            background: var(--surface);
+
+            background: var(--surface-secondary);
             border-bottom: 1px solid var(--border);
         }
 
         .day-name {
+            color: var(--text);
+
             font-size: 14px;
             font-weight: 800;
         }
 
         .day-date {
             color: var(--muted);
+
             font-size: 12px;
             font-weight: 650;
         }
 
         .today-badge {
             display: inline-block;
+
             margin-left: 6px;
             padding: 2px 6px;
+
             border-radius: 999px;
+
             background: var(--primary);
-            color: white;
+            color: var(--primary-dark);
+
             font-size: 9px;
-            font-weight: 800;
+            font-weight: 850;
             letter-spacing: 0.03em;
+
             text-transform: uppercase;
         }
 
         .drop-zone {
             min-height: 450px;
             padding: 9px;
+
             transition:
                 background 120ms ease,
                 box-shadow 120ms ease;
         }
 
         .drop-zone.drag-over {
-            background: #dce8fa;
-            box-shadow: inset 0 0 0 2px var(--primary);
+            background: #122319;
+
+            box-shadow:
+                inset 0 0 0 2px var(--primary);
         }
 
         .empty-day {
             padding: 24px 10px;
-            color: #8a94a3;
+
+            color: #657068;
+
             text-align: center;
+
             font-size: 12px;
         }
 
         .task-card {
             position: relative;
+
             margin-bottom: 9px;
             padding: 12px;
-            border: 1px solid rgb(0 0 0 / 8%);
+
+            border: 1px solid rgb(255 255 255 / 10%);
             border-left: 6px solid;
             border-radius: 10px;
+
+            color: var(--text);
+
             box-shadow: var(--shadow);
+
             transition:
                 transform 120ms ease,
                 box-shadow 120ms ease,
@@ -292,9 +380,10 @@
 
         .task-card:hover {
             transform: translateY(-1px);
+
             box-shadow:
-                0 2px 5px rgb(0 0 0 / 8%),
-                0 8px 18px rgb(0 0 0 / 7%);
+                0 3px 8px rgb(0 0 0 / 40%),
+                0 14px 35px rgb(0 0 0 / 30%);
         }
 
         .task-card.dragging {
@@ -310,26 +399,39 @@
 
         .task-title {
             margin: 0;
+
+            color: #ffffff;
+
             font-size: 14px;
             line-height: 1.35;
+
             overflow-wrap: anywhere;
         }
 
         .urgency-badge {
             flex: 0 0 auto;
+
             padding: 3px 7px;
-            border: 1px solid rgb(0 0 0 / 8%);
+
+            border: 1px solid rgb(255 255 255 / 14%);
             border-radius: 999px;
+
+            color: white;
+
             font-size: 10px;
             font-weight: 850;
+
             white-space: nowrap;
         }
 
         .task-details {
             margin: 8px 0 0;
-            color: #4d5866;
+
+            color: #c7d2ca;
+
             font-size: 12px;
             line-height: 1.45;
+
             overflow-wrap: anywhere;
         }
 
@@ -337,29 +439,38 @@
             display: flex;
             flex-wrap: wrap;
             gap: 5px;
+
             margin-top: 10px;
         }
 
         .meta-chip {
             padding: 3px 6px;
-            border: 1px solid rgb(0 0 0 / 8%);
+
+            border: 1px solid rgb(255 255 255 / 12%);
             border-radius: 6px;
-            background: rgb(255 255 255 / 55%);
-            color: #46515e;
+
+            background: rgb(0 0 0 / 22%);
+            color: #d8e2da;
+
             font-size: 10px;
             font-weight: 750;
         }
 
         .urgency-track {
             height: 6px;
+
             margin-top: 10px;
+
             overflow: hidden;
+
             border-radius: 999px;
-            background: rgb(0 0 0 / 10%);
+
+            background: rgb(0 0 0 / 35%);
         }
 
         .urgency-fill {
             height: 100%;
+
             border-radius: inherit;
         }
 
@@ -367,8 +478,11 @@
             display: flex;
             justify-content: space-between;
             gap: 8px;
+
             margin-top: 4px;
-            color: #46515e;
+
+            color: #b8c5bb;
+
             font-size: 9px;
             font-weight: 700;
         }
@@ -377,16 +491,32 @@
             display: flex;
             flex-wrap: wrap;
             gap: 5px;
+
             margin-top: 11px;
+        }
+
+        .task-actions .button {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+        }
+
+        .task-actions .button:hover {
+            background: var(--primary-hover);
         }
 
         .task-actions select {
             min-width: 86px;
             min-height: 31px;
+
             padding: 4px 6px;
-            border: 1px solid rgb(0 0 0 / 16%);
+
+            border: 1px solid #63806a;
             border-radius: 7px;
-            background: rgb(255 255 255 / 75%);
+
+            background: #101c14;
+            color: var(--primary);
+
             font-size: 11px;
             font-weight: 650;
         }
@@ -394,85 +524,120 @@
         .completed-section {
             margin-top: 28px;
             padding: 18px;
+
             border: 1px solid var(--border);
             border-radius: var(--radius);
+
             background: var(--surface);
         }
 
         .completed-section h2 {
             margin: 0 0 12px;
+
+            color: var(--primary);
+
             font-size: 18px;
         }
 
         .completed-list {
             display: grid;
+
             grid-template-columns:
                 repeat(auto-fill, minmax(260px, 1fr));
+
             gap: 9px;
         }
 
         .completed-card {
             padding: 12px;
+
             border: 1px solid var(--border);
             border-radius: 9px;
+
             background: var(--surface-secondary);
         }
 
         .completed-card h3 {
             margin: 0;
+
+            color: #c6d2c9;
+
             font-size: 13px;
+
             text-decoration: line-through;
         }
 
         .completed-card p {
             margin: 5px 0 0;
+
             color: var(--muted);
+
             font-size: 11px;
         }
 
         .completed-actions {
             display: flex;
             gap: 6px;
+
             margin-top: 9px;
         }
 
         dialog {
             width: min(560px, calc(100vw - 28px));
             max-height: calc(100vh - 40px);
+
             padding: 0;
+
             overflow: auto;
-            border: 0;
+
+            border: 1px solid var(--border-bright);
             border-radius: 14px;
+
             background: var(--surface);
-            box-shadow: 0 20px 70px rgb(0 0 0 / 22%);
+            color: var(--text);
+
+            box-shadow:
+                0 20px 70px rgb(0 0 0 / 70%);
         }
 
         dialog::backdrop {
-            background: rgb(15 20 26 / 55%);
-            backdrop-filter: blur(2px);
+            background: rgb(0 0 0 / 76%);
+
+            backdrop-filter: blur(3px);
         }
 
         .dialog-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             padding: 18px 20px;
+
             border-bottom: 1px solid var(--border);
         }
 
         .dialog-header h2 {
             margin: 0;
+
+            color: var(--primary);
+
             font-size: 19px;
         }
 
         .icon-button {
             width: 34px;
             height: 34px;
+
             padding: 0;
-            border: 1px solid var(--border);
+
+            border: 1px solid var(--primary);
             border-radius: 8px;
-            background: var(--surface);
+
+            background: var(--primary);
+            color: var(--primary-dark);
+
             font-size: 20px;
+            font-weight: 800;
         }
 
         .task-form {
@@ -485,14 +650,20 @@
 
         .field label {
             display: block;
+
             margin-bottom: 5px;
+
+            color: var(--primary);
+
             font-size: 12px;
             font-weight: 750;
         }
 
         .field-help {
             margin: 4px 0 0;
+
             color: var(--muted);
+
             font-size: 10px;
             line-height: 1.4;
         }
@@ -501,21 +672,37 @@
         .field textarea,
         .field select {
             width: 100%;
+
             padding: 10px;
-            border: 1px solid #cdd3da;
+
+            border: 1px solid #38503e;
             border-radius: 8px;
-            background: white;
+
+            background: #060a07;
             color: var(--text);
+        }
+
+        .field input::placeholder,
+        .field textarea::placeholder {
+            color: #647068;
+        }
+
+        .field input:hover,
+        .field textarea:hover,
+        .field select:hover {
+            border-color: #5d8066;
         }
 
         .field textarea {
             min-height: 90px;
+
             resize: vertical;
         }
 
         .field-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
+
             gap: 12px;
         }
 
@@ -524,6 +711,7 @@
             gap: 8px;
             align-items: center;
             justify-content: flex-end;
+
             padding-top: 5px;
         }
 
@@ -536,17 +724,29 @@
             right: 20px;
             bottom: 20px;
             z-index: 100;
+
             max-width: 330px;
+
             padding: 11px 14px;
+
+            border: 1px solid #54725c;
             border-radius: 9px;
-            background: #17212b;
-            color: white;
-            box-shadow: 0 10px 30px rgb(0 0 0 / 20%);
+
+            background: #142219;
+            color: var(--primary);
+
+            box-shadow:
+                0 10px 30px rgb(0 0 0 / 50%);
+
             font-size: 12px;
             font-weight: 650;
+
             opacity: 0;
+
             pointer-events: none;
+
             transform: translateY(8px);
+
             transition:
                 opacity 160ms ease,
                 transform 160ms ease;
@@ -554,6 +754,7 @@
 
         .toast.visible {
             opacity: 1;
+
             transform: translateY(0);
         }
 
@@ -592,6 +793,7 @@
         <div class="header-top">
             <div class="brand">
                 <h1>Urgency Board</h1>
+
                 <p>
                     Moving a task never resets its age.
                 </p>
@@ -616,6 +818,7 @@
 
                 <label class="button import-label">
                     Import Backup
+
                     <input
                         id="importInput"
                         type="file"
@@ -672,7 +875,9 @@
 
     <dialog id="taskDialog">
         <div class="dialog-header">
-            <h2 id="dialogTitle">Add Task</h2>
+            <h2 id="dialogTitle">
+                Add Task
+            </h2>
 
             <button
                 class="icon-button"
@@ -729,7 +934,7 @@
                     ></select>
 
                     <p class="field-help">
-                        You can move this later without resetting its age.
+                        Moving this later will not reset its age.
                     </p>
                 </div>
 
@@ -762,12 +967,32 @@
                         name="effort"
                         required
                     >
-                        <option value="5m">⚡ 5 minutes</option>
-                        <option value="15m">⚡ 15 minutes</option>
-                        <option value="30m" selected>● 30 minutes</option>
-                        <option value="1h">●● 1 hour</option>
-                        <option value="2h">●● 2 hours</option>
-                        <option value="4h">●●● 4+ hours</option>
+                        <option value="5m">
+                            ⚡ 5 minutes
+                        </option>
+
+                        <option value="15m">
+                            ⚡ 15 minutes
+                        </option>
+
+                        <option
+                            value="30m"
+                            selected
+                        >
+                            ● 30 minutes
+                        </option>
+
+                        <option value="1h">
+                            ●● 1 hour
+                        </option>
+
+                        <option value="2h">
+                            ●● 2 hours
+                        </option>
+
+                        <option value="4h">
+                            ●●● 4+ hours
+                        </option>
                     </select>
                 </div>
 
@@ -860,26 +1085,35 @@
         const board = document.getElementById("board");
         const weekLabel = document.getElementById("weekLabel");
         const stats = document.getElementById("stats");
+
         const taskDialog = document.getElementById("taskDialog");
         const dialogTitle = document.getElementById("dialogTitle");
         const taskForm = document.getElementById("taskForm");
+
         const taskTitle = document.getElementById("taskTitle");
         const taskDetails = document.getElementById("taskDetails");
         const scheduledDay = document.getElementById("scheduledDay");
         const receivedDate = document.getElementById("receivedDate");
         const effort = document.getElementById("effort");
         const redAfterDays = document.getElementById("redAfterDays");
+
         const deleteTaskButton =
             document.getElementById("deleteTaskButton");
+
         const completedSection =
             document.getElementById("completedSection");
+
         const completedList =
             document.getElementById("completedList");
+
         const toggleCompletedButton =
             document.getElementById("toggleCompletedButton");
+
         const importInput =
             document.getElementById("importInput");
-        const toast = document.getElementById("toast");
+
+        const toast =
+            document.getElementById("toast");
 
         let toastTimer = null;
 
@@ -894,19 +1128,31 @@
         function bindEvents() {
             document
                 .getElementById("addTaskButton")
-                .addEventListener("click", openAddTaskDialog);
+                .addEventListener(
+                    "click",
+                    openAddTaskDialog
+                );
 
             document
                 .getElementById("closeDialogButton")
-                .addEventListener("click", closeTaskDialog);
+                .addEventListener(
+                    "click",
+                    closeTaskDialog
+                );
 
             document
                 .getElementById("cancelButton")
-                .addEventListener("click", closeTaskDialog);
+                .addEventListener(
+                    "click",
+                    closeTaskDialog
+                );
 
             document
                 .getElementById("exportButton")
-                .addEventListener("click", exportBackup);
+                .addEventListener(
+                    "click",
+                    exportBackup
+                );
 
             toggleCompletedButton.addEventListener(
                 "click",
@@ -928,18 +1174,22 @@
                 handleTaskSubmit
             );
 
-            taskDialog.addEventListener("click", (event) => {
-                if (event.target === taskDialog) {
-                    closeTaskDialog();
+            taskDialog.addEventListener(
+                "click",
+                (event) => {
+                    if (event.target === taskDialog) {
+                        closeTaskDialog();
+                    }
                 }
-            });
+            );
         }
 
         function populateDaySelect() {
             scheduledDay.innerHTML = DAYS
-                .map((day) => (
-                    `<option value="${day.key}">${day.label}</option>`
-                ))
+                .map(
+                    (day) =>
+                        `<option value="${day.key}">${day.label}</option>`
+                )
                 .join("");
         }
 
@@ -952,65 +1202,83 @@
 
         function renderWeekLabel() {
             const weekDates = getCurrentWeekDates();
+
             const first = weekDates[0];
             const last = weekDates[6];
 
-            const firstText = first.toLocaleDateString(
-                undefined,
-                {
-                    month: "short",
-                    day: "numeric"
-                }
-            );
+            const firstText =
+                first.toLocaleDateString(
+                    undefined,
+                    {
+                        month: "short",
+                        day: "numeric"
+                    }
+                );
 
-            const lastText = last.toLocaleDateString(
-                undefined,
-                {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric"
-                }
-            );
+            const lastText =
+                last.toLocaleDateString(
+                    undefined,
+                    {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric"
+                    }
+                );
 
             weekLabel.textContent =
                 `Week of ${firstText} – ${lastText}`;
         }
 
         function renderStats() {
-            const openTasks = state.tasks.filter(
-                (task) => !task.completed
-            );
+            const openTasks =
+                state.tasks.filter(
+                    (task) => !task.completed
+                );
 
-            const urgentTasks = openTasks.filter(
-                (task) => calculateUrgency(task).progress >= 100
-            );
+            const urgentTasks =
+                openTasks.filter(
+                    (task) =>
+                        calculateUrgency(task).progress >= 100
+                );
 
-            const oldestAge = openTasks.length
-                ? Math.max(
-                    ...openTasks.map(
-                        (task) => calculateTaskAge(task.receivedDate)
+            const oldestAge =
+                openTasks.length > 0
+                    ? Math.max(
+                        ...openTasks.map(
+                            (task) =>
+                                calculateTaskAge(
+                                    task.receivedDate
+                                )
+                        )
                     )
-                )
-                : 0;
+                    : 0;
+
+            const completedCount =
+                state.tasks.filter(
+                    (task) => task.completed
+                ).length;
 
             stats.innerHTML = `
                 <div class="stat">
-                    <strong>${openTasks.length}</strong> open
+                    <strong>${openTasks.length}</strong>
+                    open
                 </div>
 
                 <div class="stat">
-                    <strong>${urgentTasks.length}</strong> red
+                    <strong>${urgentTasks.length}</strong>
+                    red
                 </div>
 
                 <div class="stat">
                     Oldest:
-                    <strong>${oldestAge} day${oldestAge === 1 ? "" : "s"}</strong>
+                    <strong>
+                        ${oldestAge}
+                        day${oldestAge === 1 ? "" : "s"}
+                    </strong>
                 </div>
 
                 <div class="stat">
-                    <strong>${state.tasks.filter(
-                        (task) => task.completed
-                    ).length}</strong>
+                    <strong>${completedCount}</strong>
                     completed
                 </div>
             `;
@@ -1019,120 +1287,198 @@
         function renderBoard() {
             board.innerHTML = "";
 
-            const weekDates = getCurrentWeekDates();
-            const currentDayKey = getCurrentDayKey();
+            const weekDates =
+                getCurrentWeekDates();
 
-            DAYS.forEach((day, index) => {
-                const column = document.createElement("section");
-                const isToday = day.key === currentDayKey;
+            const currentDayKey =
+                getCurrentDayKey();
 
-                column.className =
-                    `day-column${isToday ? " today" : ""}`;
+            DAYS.forEach(
+                (day, index) => {
+                    const column =
+                        document.createElement("section");
 
-                const dateText = weekDates[index].toLocaleDateString(
-                    undefined,
-                    {
-                        month: "short",
-                        day: "numeric"
-                    }
-                );
+                    const isToday =
+                        day.key === currentDayKey;
 
-                column.innerHTML = `
-                    <header class="day-header">
-                        <div>
-                            <span class="day-name">
-                                ${day.label}
-                            </span>
+                    column.className =
+                        `day-column${isToday ? " today" : ""}`;
 
-                            ${isToday
-                                ? '<span class="today-badge">Today</span>'
-                                : ""
+                    const dateText =
+                        weekDates[index].toLocaleDateString(
+                            undefined,
+                            {
+                                month: "short",
+                                day: "numeric"
                             }
-                        </div>
+                        );
 
-                        <span class="day-date">
-                            ${dateText}
-                        </span>
-                    </header>
-                `;
+                    column.innerHTML = `
+                        <header class="day-header">
+                            <div>
+                                <span class="day-name">
+                                    ${day.label}
+                                </span>
 
-                const dropZone = document.createElement("div");
-                dropZone.className = "drop-zone";
-                dropZone.dataset.day = day.key;
+                                ${
+                                    isToday
+                                        ? '<span class="today-badge">Today</span>'
+                                        : ""
+                                }
+                            </div>
 
-                configureDropZone(dropZone);
+                            <span class="day-date">
+                                ${dateText}
+                            </span>
+                        </header>
+                    `;
 
-                const dayTasks = state.tasks
-                    .filter(
-                        (task) =>
-                            !task.completed &&
-                            task.scheduledDay === day.key
-                    )
-                    .sort(compareTasksByUrgency);
+                    const dropZone =
+                        document.createElement("div");
 
-                if (dayTasks.length === 0) {
-                    const empty = document.createElement("div");
-                    empty.className = "empty-day";
-                    empty.textContent = "Drop tasks here";
-                    dropZone.appendChild(empty);
-                } else {
-                    dayTasks.forEach((task) => {
-                        dropZone.appendChild(createTaskCard(task));
-                    });
+                    dropZone.className =
+                        "drop-zone";
+
+                    dropZone.dataset.day =
+                        day.key;
+
+                    configureDropZone(
+                        dropZone
+                    );
+
+                    const dayTasks =
+                        state.tasks
+                            .filter(
+                                (task) =>
+                                    !task.completed &&
+                                    task.scheduledDay === day.key
+                            )
+                            .sort(
+                                compareTasksByUrgency
+                            );
+
+                    if (dayTasks.length === 0) {
+                        const empty =
+                            document.createElement("div");
+
+                        empty.className =
+                            "empty-day";
+
+                        empty.textContent =
+                            "Drop tasks here";
+
+                        dropZone.appendChild(
+                            empty
+                        );
+                    } else {
+                        dayTasks.forEach(
+                            (task) => {
+                                dropZone.appendChild(
+                                    createTaskCard(task)
+                                );
+                            }
+                        );
+                    }
+
+                    column.appendChild(
+                        dropZone
+                    );
+
+                    board.appendChild(
+                        column
+                    );
                 }
-
-                column.appendChild(dropZone);
-                board.appendChild(column);
-            });
+            );
         }
 
-        function compareTasksByUrgency(firstTask, secondTask) {
-            const firstUrgency = calculateUrgency(firstTask);
-            const secondUrgency = calculateUrgency(secondTask);
+        function compareTasksByUrgency(
+            firstTask,
+            secondTask
+        ) {
+            const firstUrgency =
+                calculateUrgency(firstTask);
 
-            if (secondUrgency.progress !== firstUrgency.progress) {
-                return secondUrgency.progress - firstUrgency.progress;
+            const secondUrgency =
+                calculateUrgency(secondTask);
+
+            if (
+                secondUrgency.progress !==
+                firstUrgency.progress
+            ) {
+                return (
+                    secondUrgency.progress -
+                    firstUrgency.progress
+                );
             }
 
-            return firstTask.title.localeCompare(secondTask.title);
+            return firstTask.title.localeCompare(
+                secondTask.title
+            );
         }
 
         function createTaskCard(task) {
-            const card = document.createElement("article");
-            const urgency = calculateUrgency(task);
-            const age = calculateTaskAge(task.receivedDate);
+            const card =
+                document.createElement("article");
 
-            card.className = "task-card";
+            const urgency =
+                calculateUrgency(task);
+
+            const age =
+                calculateTaskAge(
+                    task.receivedDate
+                );
+
+            card.className =
+                "task-card";
+
             card.draggable = true;
-            card.dataset.taskId = task.id;
+
+            card.dataset.taskId =
+                task.id;
 
             card.style.backgroundColor =
-                `hsl(${urgency.hue} 82% 94%)`;
+                `hsl(${urgency.hue} 58% 13%)`;
 
             card.style.borderLeftColor =
-                `hsl(${urgency.hue} 78% 38%)`;
+                `hsl(${urgency.hue} 90% 58%)`;
 
-            const details = task.details
-                ? `
-                    <p class="task-details">
-                        ${escapeHtml(task.details).replace(/\n/g, "<br>")}
-                    </p>
-                `
-                : "";
+            const details =
+                task.details
+                    ? `
+                        <p class="task-details">
+                            ${
+                                escapeHtml(
+                                    task.details
+                                ).replace(
+                                    /\n/g,
+                                    "<br>"
+                                )
+                            }
+                        </p>
+                    `
+                    : "";
 
-            const moveOptions = DAYS
-                .map((day) => `
-                    <option
-                        value="${day.key}"
-                        ${day.key === task.scheduledDay
-                            ? "selected"
-                            : ""
-                        }
-                    >
-                        ${day.label}
-                    </option>
-                `)
-                .join("");
+            const moveOptions =
+                DAYS
+                    .map(
+                        (day) => `
+                            <option
+                                value="${day.key}"
+                                ${
+                                    day.key === task.scheduledDay
+                                        ? "selected"
+                                        : ""
+                                }
+                            >
+                                ${day.label}
+                            </option>
+                        `
+                    )
+                    .join("");
+
+            const effortLabel =
+                EFFORT_LABELS[task.effort] ??
+                task.effort;
 
             card.innerHTML = `
                 <div class="task-top">
@@ -1144,10 +1490,15 @@
                         class="urgency-badge"
                         style="
                             background:
-                                hsl(${urgency.hue} 82% 84%);
+                                hsl(
+                                    ${urgency.hue}
+                                    72%
+                                    25%
+                                );
                         "
                     >
-                        ${urgency.status} ${Math.round(urgency.progress)}%
+                        ${urgency.status}
+                        ${Math.round(urgency.progress)}%
                     </span>
                 </div>
 
@@ -1155,15 +1506,19 @@
 
                 <div class="task-meta">
                     <span class="meta-chip">
-                        ${age} day${age === 1 ? "" : "s"} old
+                        ${age}
+                        day${age === 1 ? "" : "s"}
+                        old
                     </span>
 
                     <span class="meta-chip">
-                        ${EFFORT_LABELS[task.effort] ?? task.effort}
+                        ${effortLabel}
                     </span>
 
                     <span class="meta-chip">
-                        Red at ${task.redAfterDays} days
+                        Red at
+                        ${task.redAfterDays}
+                        days
                     </span>
                 </div>
 
@@ -1174,20 +1529,31 @@
                     <div
                         class="urgency-fill"
                         style="
-                            width: ${Math.min(urgency.progress, 100)}%;
+                            width:
+                                ${Math.min(
+                                    urgency.progress,
+                                    100
+                                )}%;
+
                             background:
-                                hsl(${urgency.hue} 80% 40%);
+                                hsl(
+                                    ${urgency.hue}
+                                    90%
+                                    52%
+                                );
                         "
                     ></div>
                 </div>
 
                 <div class="urgency-copy">
                     <span>
-                        Received ${formatDate(task.receivedDate)}
+                        Received
+                        ${formatDate(task.receivedDate)}
                     </span>
 
                     <span>
-                        ${Math.round(urgency.progress)}% elapsed
+                        ${Math.round(urgency.progress)}%
+                        elapsed
                     </span>
                 </div>
 
@@ -1217,175 +1583,282 @@
 
             card
                 .querySelector(".complete-button")
-                .addEventListener("click", () => completeTask(task.id));
+                .addEventListener(
+                    "click",
+                    () => completeTask(task.id)
+                );
 
             card
                 .querySelector(".edit-button")
-                .addEventListener("click", () => openEditTaskDialog(task.id));
+                .addEventListener(
+                    "click",
+                    () => openEditTaskDialog(task.id)
+                );
 
             card
                 .querySelector(".move-select")
-                .addEventListener("change", (event) => {
-                    moveTask(task.id, event.target.value);
-                });
-
-            card.addEventListener("dragstart", (event) => {
-                card.classList.add("dragging");
-
-                event.dataTransfer.effectAllowed = "move";
-                event.dataTransfer.setData(
-                    "text/plain",
-                    task.id
+                .addEventListener(
+                    "change",
+                    (event) => {
+                        moveTask(
+                            task.id,
+                            event.target.value
+                        );
+                    }
                 );
-            });
 
-            card.addEventListener("dragend", () => {
-                card.classList.remove("dragging");
-            });
+            card.addEventListener(
+                "dragstart",
+                (event) => {
+                    card.classList.add(
+                        "dragging"
+                    );
+
+                    event.dataTransfer.effectAllowed =
+                        "move";
+
+                    event.dataTransfer.setData(
+                        "text/plain",
+                        task.id
+                    );
+                }
+            );
+
+            card.addEventListener(
+                "dragend",
+                () => {
+                    card.classList.remove(
+                        "dragging"
+                    );
+                }
+            );
 
             return card;
         }
 
         function configureDropZone(dropZone) {
-            dropZone.addEventListener("dragover", (event) => {
-                event.preventDefault();
-                event.dataTransfer.dropEffect = "move";
-                dropZone.classList.add("drag-over");
-            });
+            dropZone.addEventListener(
+                "dragover",
+                (event) => {
+                    event.preventDefault();
 
-            dropZone.addEventListener("dragleave", (event) => {
-                if (!dropZone.contains(event.relatedTarget)) {
-                    dropZone.classList.remove("drag-over");
+                    event.dataTransfer.dropEffect =
+                        "move";
+
+                    dropZone.classList.add(
+                        "drag-over"
+                    );
                 }
-            });
+            );
 
-            dropZone.addEventListener("drop", (event) => {
-                event.preventDefault();
-                dropZone.classList.remove("drag-over");
-
-                const taskId =
-                    event.dataTransfer.getData("text/plain");
-
-                if (!taskId) {
-                    return;
+            dropZone.addEventListener(
+                "dragleave",
+                (event) => {
+                    if (
+                        !dropZone.contains(
+                            event.relatedTarget
+                        )
+                    ) {
+                        dropZone.classList.remove(
+                            "drag-over"
+                        );
+                    }
                 }
+            );
 
-                moveTask(taskId, dropZone.dataset.day);
-            });
+            dropZone.addEventListener(
+                "drop",
+                (event) => {
+                    event.preventDefault();
+
+                    dropZone.classList.remove(
+                        "drag-over"
+                    );
+
+                    const taskId =
+                        event.dataTransfer.getData(
+                            "text/plain"
+                        );
+
+                    if (!taskId) {
+                        return;
+                    }
+
+                    moveTask(
+                        taskId,
+                        dropZone.dataset.day
+                    );
+                }
+            );
         }
 
         function renderCompletedTasks() {
-            completedSection.hidden = !state.completedVisible;
+            completedSection.hidden =
+                !state.completedVisible;
 
             if (!state.completedVisible) {
                 return;
             }
 
-            const completedTasks = state.tasks
-                .filter((task) => task.completed)
-                .sort((firstTask, secondTask) => {
-                    return (
-                        new Date(secondTask.completedAt ?? 0) -
-                        new Date(firstTask.completedAt ?? 0)
+            const completedTasks =
+                state.tasks
+                    .filter(
+                        (task) =>
+                            task.completed
+                    )
+                    .sort(
+                        (
+                            firstTask,
+                            secondTask
+                        ) =>
+                            new Date(
+                                secondTask.completedAt ?? 0
+                            ) -
+                            new Date(
+                                firstTask.completedAt ?? 0
+                            )
                     );
-                });
 
             if (completedTasks.length === 0) {
                 completedList.innerHTML =
                     "<p>No completed tasks yet.</p>";
+
                 return;
             }
 
             completedList.innerHTML = "";
 
-            completedTasks.forEach((task) => {
-                const card = document.createElement("article");
-                card.className = "completed-card";
+            completedTasks.forEach(
+                (task) => {
+                    const card =
+                        document.createElement("article");
 
-                const completedText = task.completedAt
-                    ? new Date(task.completedAt).toLocaleDateString()
-                    : "Unknown";
+                    card.className =
+                        "completed-card";
 
-                card.innerHTML = `
-                    <h3>${escapeHtml(task.title)}</h3>
+                    const completedText =
+                        task.completedAt
+                            ? new Date(
+                                task.completedAt
+                            ).toLocaleDateString()
+                            : "Unknown";
 
-                    <p>
-                        Completed ${completedText}
-                    </p>
+                    card.innerHTML = `
+                        <h3>
+                            ${escapeHtml(task.title)}
+                        </h3>
 
-                    <div class="completed-actions">
-                        <button
-                            class="button small restore-button"
-                            type="button"
-                        >
-                            Restore
-                        </button>
+                        <p>
+                            Completed ${completedText}
+                        </p>
 
-                        <button
-                            class="button small danger delete-button"
-                            type="button"
-                        >
-                            Delete
-                        </button>
-                    </div>
-                `;
+                        <div class="completed-actions">
+                            <button
+                                class="button small restore-button"
+                                type="button"
+                            >
+                                Restore
+                            </button>
 
-                card
-                    .querySelector(".restore-button")
-                    .addEventListener(
-                        "click",
-                        () => restoreTask(task.id)
+                            <button
+                                class="button small danger delete-button"
+                                type="button"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    `;
+
+                    card
+                        .querySelector(".restore-button")
+                        .addEventListener(
+                            "click",
+                            () => restoreTask(task.id)
+                        );
+
+                    card
+                        .querySelector(".delete-button")
+                        .addEventListener(
+                            "click",
+                            () => deleteTask(task.id)
+                        );
+
+                    completedList.appendChild(
+                        card
                     );
-
-                card
-                    .querySelector(".delete-button")
-                    .addEventListener(
-                        "click",
-                        () => deleteTask(task.id)
-                    );
-
-                completedList.appendChild(card);
-            });
+                }
+            );
         }
 
         function openAddTaskDialog() {
             state.editingTaskId = null;
 
-            dialogTitle.textContent = "Add Task";
-            deleteTaskButton.hidden = true;
+            dialogTitle.textContent =
+                "Add Task";
+
+            deleteTaskButton.hidden =
+                true;
 
             taskForm.reset();
 
-            scheduledDay.value = getCurrentDayKey();
-            receivedDate.value = getTodayDateString();
-            effort.value = "30m";
-            redAfterDays.value = "14";
+            scheduledDay.value =
+                getCurrentDayKey();
+
+            receivedDate.value =
+                getTodayDateString();
+
+            effort.value =
+                "30m";
+
+            redAfterDays.value =
+                "14";
 
             taskDialog.showModal();
+
             taskTitle.focus();
         }
 
         function openEditTaskDialog(taskId) {
-            const task = findTask(taskId);
+            const task =
+                findTask(taskId);
 
             if (!task) {
-                showToast("Task could not be found.");
+                showToast(
+                    "Task could not be found."
+                );
+
                 return;
             }
 
-            state.editingTaskId = task.id;
+            state.editingTaskId =
+                task.id;
 
-            dialogTitle.textContent = "Edit Task";
-            deleteTaskButton.hidden = false;
+            dialogTitle.textContent =
+                "Edit Task";
 
-            taskTitle.value = task.title;
-            taskDetails.value = task.details;
-            scheduledDay.value = task.scheduledDay;
-            receivedDate.value = task.receivedDate;
-            effort.value = task.effort;
-            redAfterDays.value = String(task.redAfterDays);
+            deleteTaskButton.hidden =
+                false;
+
+            taskTitle.value =
+                task.title;
+
+            taskDetails.value =
+                task.details;
+
+            scheduledDay.value =
+                task.scheduledDay;
+
+            receivedDate.value =
+                task.receivedDate;
+
+            effort.value =
+                task.effort;
+
+            redAfterDays.value =
+                String(task.redAfterDays);
 
             taskDialog.showModal();
+
             taskTitle.focus();
         }
 
@@ -1394,19 +1867,39 @@
                 taskDialog.close();
             }
 
-            state.editingTaskId = null;
+            state.editingTaskId =
+                null;
+
             taskForm.reset();
         }
 
         function handleTaskSubmit(event) {
             event.preventDefault();
 
-            const title = taskTitle.value.trim();
-            const details = taskDetails.value.trim();
-            const redDays = Number(redAfterDays.value);
+            const title =
+                taskTitle.value.trim();
+
+            const details =
+                taskDetails.value.trim();
+
+            const redDays =
+                Number(redAfterDays.value);
 
             if (!title) {
-                showToast("Please enter a task name.");
+                showToast(
+                    "Please enter a task name."
+                );
+
+                return;
+            }
+
+            if (
+                !receivedDate.value
+            ) {
+                showToast(
+                    "Please choose the received date."
+                );
+
                 return;
             }
 
@@ -1418,27 +1911,50 @@
                 showToast(
                     "Red deadline must be between 1 and 365 days."
                 );
+
                 return;
             }
 
             if (state.editingTaskId) {
-                const task = findTask(state.editingTaskId);
+                const task =
+                    findTask(
+                        state.editingTaskId
+                    );
 
                 if (!task) {
-                    showToast("Task could not be found.");
+                    showToast(
+                        "Task could not be found."
+                    );
+
                     return;
                 }
 
-                task.title = title;
-                task.details = details;
-                task.scheduledDay = scheduledDay.value;
-                task.receivedDate = receivedDate.value;
-                task.effort = effort.value;
-                task.redAfterDays = redDays;
+                task.title =
+                    title;
+
+                task.details =
+                    details;
+
+                task.scheduledDay =
+                    scheduledDay.value;
+
+                task.receivedDate =
+                    receivedDate.value;
+
+                task.effort =
+                    effort.value;
+
+                task.redAfterDays =
+                    redDays;
 
                 saveAndRender();
+
                 closeTaskDialog();
-                showToast("Task updated.");
+
+                showToast(
+                    "Task updated."
+                );
+
                 return;
             }
 
@@ -1446,20 +1962,33 @@
                 id: createId(),
                 title,
                 details,
-                scheduledDay: scheduledDay.value,
-                receivedDate: receivedDate.value,
-                effort: effort.value,
-                redAfterDays: redDays,
-                completed: false,
-                completedAt: null,
-                createdAt: new Date().toISOString()
+                scheduledDay:
+                    scheduledDay.value,
+                receivedDate:
+                    receivedDate.value,
+                effort:
+                    effort.value,
+                redAfterDays:
+                    redDays,
+                completed:
+                    false,
+                completedAt:
+                    null,
+                createdAt:
+                    new Date().toISOString()
             };
 
-            state.tasks.push(newTask);
+            state.tasks.push(
+                newTask
+            );
 
             saveAndRender();
+
             closeTaskDialog();
-            showToast("Task added.");
+
+            showToast(
+                "Task added."
+            );
         }
 
         function handleDeleteEditingTask() {
@@ -1467,106 +1996,138 @@
                 return;
             }
 
-            const task = findTask(state.editingTaskId);
+            const deleted =
+                deleteTask(
+                    state.editingTaskId
+                );
 
-            if (!task) {
-                return;
+            if (deleted) {
+                closeTaskDialog();
             }
-
-            const confirmed = window.confirm(
-                `Delete "${task.title}" permanently?`
-            );
-
-            if (!confirmed) {
-                return;
-            }
-
-            deleteTask(task.id);
-            closeTaskDialog();
         }
 
-        function moveTask(taskId, newDay) {
-            const task = findTask(taskId);
+        function moveTask(
+            taskId,
+            newDay
+        ) {
+            const task =
+                findTask(taskId);
 
             if (!task) {
-                showToast("Task could not be found.");
+                showToast(
+                    "Task could not be found."
+                );
+
                 return;
             }
 
-            if (!DAYS.some((day) => day.key === newDay)) {
-                showToast("Invalid destination.");
+            const day =
+                DAYS.find(
+                    (candidate) =>
+                        candidate.key === newDay
+                );
+
+            if (!day) {
+                showToast(
+                    "Invalid destination."
+                );
+
                 return;
             }
 
-            task.scheduledDay = newDay;
+            if (
+                task.scheduledDay === newDay
+            ) {
+                return;
+            }
+
+            task.scheduledDay =
+                newDay;
 
             saveAndRender();
 
-            const dayLabel = DAYS.find(
-                (day) => day.key === newDay
-            )?.label;
-
             showToast(
-                `Moved to ${dayLabel}. Age was not reset.`
+                `Moved to ${day.label}. Age was not reset.`
             );
         }
 
         function completeTask(taskId) {
-            const task = findTask(taskId);
+            const task =
+                findTask(taskId);
 
             if (!task) {
                 return;
             }
 
-            task.completed = true;
-            task.completedAt = new Date().toISOString();
+            task.completed =
+                true;
 
-            saveAndRender();
-            showToast("Task completed.");
-        }
-
-        function restoreTask(taskId) {
-            const task = findTask(taskId);
-
-            if (!task) {
-                return;
-            }
-
-            task.completed = false;
-            task.completedAt = null;
+            task.completedAt =
+                new Date().toISOString();
 
             saveAndRender();
 
             showToast(
-                "Task restored. Its original age is still intact."
+                "Task completed."
             );
         }
 
-        function deleteTask(taskId) {
-            const task = findTask(taskId);
+        function restoreTask(taskId) {
+            const task =
+                findTask(taskId);
 
             if (!task) {
                 return;
             }
 
-            const confirmed = window.confirm(
-                `Delete "${task.title}" permanently?`
-            );
+            task.completed =
+                false;
 
-            if (!confirmed) {
-                return;
-            }
-
-            state.tasks = state.tasks.filter(
-                (candidate) => candidate.id !== taskId
-            );
+            task.completedAt =
+                null;
 
             saveAndRender();
-            showToast("Task deleted.");
+
+            showToast(
+                "Task restored. Original age is still intact."
+            );
+        }
+
+        function deleteTask(taskId) {
+            const task =
+                findTask(taskId);
+
+            if (!task) {
+                return false;
+            }
+
+            const confirmed =
+                window.confirm(
+                    `Delete "${task.title}" permanently?`
+                );
+
+            if (!confirmed) {
+                return false;
+            }
+
+            state.tasks =
+                state.tasks.filter(
+                    (candidate) =>
+                        candidate.id !== taskId
+                );
+
+            saveAndRender();
+
+            showToast(
+                "Task deleted."
+            );
+
+            return true;
         }
 
         function toggleCompleted() {
-            state.completedVisible = !state.completedVisible;
+            state.completedVisible =
+                !state.completedVisible;
 
             toggleCompletedButton.textContent =
                 state.completedVisible
@@ -1577,32 +2138,44 @@
         }
 
         function calculateUrgency(task) {
-            const age = calculateTaskAge(task.receivedDate);
+            const age =
+                calculateTaskAge(
+                    task.receivedDate
+                );
 
-            const redDays = Math.max(
-                1,
-                Number(task.redAfterDays) || 14
-            );
+            const redDays =
+                Math.max(
+                    1,
+                    Number(task.redAfterDays) || 14
+                );
 
-            const progress = (age / redDays) * 100;
+            const progress =
+                (age / redDays) * 100;
 
-            const cappedProgress = Math.min(
-                Math.max(progress, 0),
-                100
-            );
+            const cappedProgress =
+                Math.min(
+                    Math.max(progress, 0),
+                    100
+                );
 
-            const hue = Math.round(
-                120 - (cappedProgress * 1.2)
-            );
+            const hue =
+                Math.round(
+                    120 -
+                    (cappedProgress * 1.2)
+                );
 
-            let status = "GREEN";
+            let status =
+                "GREEN";
 
             if (progress >= 100) {
-                status = "RED";
+                status =
+                    "RED";
             } else if (progress >= 75) {
-                status = "ORANGE";
+                status =
+                    "ORANGE";
             } else if (progress >= 50) {
-                status = "YELLOW";
+                status =
+                    "YELLOW";
             }
 
             return {
@@ -1618,86 +2191,123 @@
                 return 0;
             }
 
-            const receivedDay = dateStringToDayNumber(dateString);
-            const todayDay = getTodayDayNumber();
+            const receivedDay =
+                dateStringToDayNumber(
+                    dateString
+                );
 
-            return Math.max(0, todayDay - receivedDay);
+            const todayDay =
+                getTodayDayNumber();
+
+            return Math.max(
+                0,
+                todayDay - receivedDay
+            );
         }
 
         function getTodayDayNumber() {
-            const today = new Date();
+            const today =
+                new Date();
 
             return Math.floor(
                 Date.UTC(
                     today.getFullYear(),
                     today.getMonth(),
                     today.getDate()
-                ) / 86_400_000
+                ) /
+                86_400_000
             );
         }
 
         function dateStringToDayNumber(dateString) {
-            const parts = dateString
-                .split("-")
-                .map(Number);
+            const parts =
+                dateString
+                    .split("-")
+                    .map(Number);
 
-            if (parts.length !== 3) {
+            if (
+                parts.length !== 3 ||
+                parts.some(Number.isNaN)
+            ) {
                 return getTodayDayNumber();
             }
 
-            const [year, month, day] = parts;
+            const [
+                year,
+                month,
+                day
+            ] = parts;
 
             return Math.floor(
                 Date.UTC(
                     year,
                     month - 1,
                     day
-                ) / 86_400_000
+                ) /
+                86_400_000
             );
         }
 
         function getCurrentWeekDates() {
-            const today = new Date();
+            const today =
+                new Date();
 
             const mondayOffset =
                 (today.getDay() + 6) % 7;
 
-            const monday = new Date(
-                today.getFullYear(),
-                today.getMonth(),
-                today.getDate() - mondayOffset
-            );
-
-            return DAYS.map((_, index) => {
-                return new Date(
-                    monday.getFullYear(),
-                    monday.getMonth(),
-                    monday.getDate() + index
+            const monday =
+                new Date(
+                    today.getFullYear(),
+                    today.getMonth(),
+                    today.getDate() -
+                        mondayOffset
                 );
-            });
+
+            return DAYS.map(
+                (_, index) =>
+                    new Date(
+                        monday.getFullYear(),
+                        monday.getMonth(),
+                        monday.getDate() +
+                            index
+                    )
+            );
         }
 
         function getCurrentDayKey() {
-            const jsDay = new Date().getDay();
+            const jsDay =
+                new Date().getDay();
 
             const mondayBasedIndex =
                 (jsDay + 6) % 7;
 
-            return DAYS[mondayBasedIndex].key;
+            return DAYS[
+                mondayBasedIndex
+            ].key;
         }
 
         function getTodayDateString() {
-            const today = new Date();
+            const today =
+                new Date();
 
-            const year = today.getFullYear();
+            const year =
+                today.getFullYear();
 
-            const month = String(
-                today.getMonth() + 1
-            ).padStart(2, "0");
+            const month =
+                String(
+                    today.getMonth() + 1
+                ).padStart(
+                    2,
+                    "0"
+                );
 
-            const day = String(
-                today.getDate()
-            ).padStart(2, "0");
+            const day =
+                String(
+                    today.getDate()
+                ).padStart(
+                    2,
+                    "0"
+                );
 
             return `${year}-${month}-${day}`;
         }
@@ -1707,14 +2317,21 @@
                 return "Unknown";
             }
 
-            const [year, month, day] =
-                dateString.split("-").map(Number);
-
-            const date = new Date(
+            const [
                 year,
-                month - 1,
+                month,
                 day
-            );
+            ] =
+                dateString
+                    .split("-")
+                    .map(Number);
+
+            const date =
+                new Date(
+                    year,
+                    month - 1,
+                    day
+                );
 
             return date.toLocaleDateString(
                 undefined,
@@ -1735,7 +2352,9 @@
             try {
                 localStorage.setItem(
                     STORAGE_KEY,
-                    JSON.stringify(state.tasks)
+                    JSON.stringify(
+                        state.tasks
+                    )
                 );
             } catch (error) {
                 console.error(error);
@@ -1748,13 +2367,17 @@
 
         function loadTasks() {
             try {
-                const raw = localStorage.getItem(STORAGE_KEY);
+                const raw =
+                    localStorage.getItem(
+                        STORAGE_KEY
+                    );
 
                 if (!raw) {
                     return [];
                 }
 
-                const parsed = JSON.parse(raw);
+                const parsed =
+                    JSON.parse(raw);
 
                 if (!Array.isArray(parsed)) {
                     return [];
@@ -1765,6 +2388,7 @@
                     .map(normalizeTask);
             } catch (error) {
                 console.error(error);
+
                 return [];
             }
         }
@@ -1782,33 +2406,49 @@
         function normalizeTask(task) {
             const validScheduledDay =
                 DAYS.some(
-                    (day) => day.key === task.scheduledDay
+                    (day) =>
+                        day.key ===
+                        task.scheduledDay
                 )
                     ? task.scheduledDay
                     : "monday";
 
             return {
-                id: task.id,
-                title: task.title,
+                id:
+                    task.id,
+
+                title:
+                    task.title,
+
                 details:
                     typeof task.details === "string"
                         ? task.details
                         : "",
-                scheduledDay: validScheduledDay,
-                receivedDate: task.receivedDate,
+
+                scheduledDay:
+                    validScheduledDay,
+
+                receivedDate:
+                    task.receivedDate,
+
                 effort:
                     EFFORT_LABELS[task.effort]
                         ? task.effort
                         : "30m",
+
                 redAfterDays:
                     Number(task.redAfterDays) > 0
                         ? Number(task.redAfterDays)
                         : 14,
-                completed: Boolean(task.completed),
+
+                completed:
+                    Boolean(task.completed),
+
                 completedAt:
                     typeof task.completedAt === "string"
                         ? task.completedAt
                         : null,
+
                 createdAt:
                     typeof task.createdAt === "string"
                         ? task.createdAt
@@ -1820,78 +2460,110 @@
             const backup = {
                 app: "Urgency Board",
                 version: 1,
-                exportedAt: new Date().toISOString(),
+                exportedAt:
+                    new Date().toISOString(),
                 tasks: state.tasks
             };
 
-            const blob = new Blob(
-                [
-                    JSON.stringify(
-                        backup,
-                        null,
-                        2
-                    )
-                ],
-                {
-                    type: "application/json"
-                }
-            );
+            const blob =
+                new Blob(
+                    [
+                        JSON.stringify(
+                            backup,
+                            null,
+                            2
+                        )
+                    ],
+                    {
+                        type:
+                            "application/json"
+                    }
+                );
 
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
+            const url =
+                URL.createObjectURL(
+                    blob
+                );
 
-            link.href = url;
+            const link =
+                document.createElement("a");
+
+            link.href =
+                url;
+
             link.download =
                 `urgency-board-backup-${getTodayDateString()}.json`;
 
-            document.body.appendChild(link);
+            document.body.appendChild(
+                link
+            );
+
             link.click();
+
             link.remove();
 
-            URL.revokeObjectURL(url);
+            URL.revokeObjectURL(
+                url
+            );
 
-            showToast("Backup downloaded.");
+            showToast(
+                "Backup downloaded."
+            );
         }
 
         async function handleImport(event) {
-            const file = event.target.files?.[0];
+            const file =
+                event.target.files?.[0];
 
             if (!file) {
                 return;
             }
 
             try {
-                const text = await file.text();
-                const parsed = JSON.parse(text);
+                const text =
+                    await file.text();
+
+                const parsed =
+                    JSON.parse(text);
 
                 const importedTasks =
                     Array.isArray(parsed)
                         ? parsed
                         : parsed.tasks;
 
-                if (!Array.isArray(importedTasks)) {
+                if (
+                    !Array.isArray(
+                        importedTasks
+                    )
+                ) {
                     throw new Error(
                         "Backup does not contain a task list."
                     );
                 }
 
-                const validTasks = importedTasks
-                    .filter(isValidTask)
-                    .map(normalizeTask);
+                const validTasks =
+                    importedTasks
+                        .filter(isValidTask)
+                        .map(normalizeTask);
 
-                const confirmed = window.confirm(
-                    `Import ${validTasks.length} tasks? ` +
-                    "This will replace the tasks currently in this browser."
-                );
+                const confirmed =
+                    window.confirm(
+                        `Import ${validTasks.length} tasks? ` +
+                        "This will replace the tasks currently stored in this browser."
+                    );
 
                 if (!confirmed) {
                     return;
                 }
 
-                state.tasks = validTasks;
+                state.tasks =
+                    validTasks;
 
                 saveAndRender();
-                showToast("Backup imported.");
+
+                showToast(
+                    "Backup imported."
+                );
             } catch (error) {
                 console.error(error);
 
@@ -1900,13 +2572,15 @@
                     "Please use a valid Urgency Board backup."
                 );
             } finally {
-                importInput.value = "";
+                importInput.value =
+                    "";
             }
         }
 
         function findTask(taskId) {
             return state.tasks.find(
-                (task) => task.id === taskId
+                (task) =>
+                    task.id === taskId
             );
         }
 
@@ -1920,28 +2594,57 @@
 
             return (
                 `${Date.now()}-` +
-                Math.random().toString(36).slice(2)
+                Math.random()
+                    .toString(36)
+                    .slice(2)
             );
         }
 
         function escapeHtml(value) {
             return String(value)
-                .replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll('"', "&quot;")
-                .replaceAll("'", "&#039;");
+                .replaceAll(
+                    "&",
+                    "&amp;"
+                )
+                .replaceAll(
+                    "<",
+                    "&lt;"
+                )
+                .replaceAll(
+                    ">",
+                    "&gt;"
+                )
+                .replaceAll(
+                    '"',
+                    "&quot;"
+                )
+                .replaceAll(
+                    "'",
+                    "&#039;"
+                );
         }
 
         function showToast(message) {
-            toast.textContent = message;
-            toast.classList.add("visible");
+            toast.textContent =
+                message;
 
-            window.clearTimeout(toastTimer);
+            toast.classList.add(
+                "visible"
+            );
 
-            toastTimer = window.setTimeout(() => {
-                toast.classList.remove("visible");
-            }, 2400);
+            window.clearTimeout(
+                toastTimer
+            );
+
+            toastTimer =
+                window.setTimeout(
+                    () => {
+                        toast.classList.remove(
+                            "visible"
+                        );
+                    },
+                    2400
+                );
         }
     </script>
 </body>

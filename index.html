@@ -21,7 +21,6 @@
             --background: #050806;
             --surface: #0a100c;
             --surface-secondary: #101a13;
-            --surface-tertiary: #0d1510;
             --column: #080d0a;
 
             --border: #243329;
@@ -141,7 +140,6 @@
 
         .button {
             display: inline-flex;
-            gap: 6px;
             align-items: center;
             justify-content: center;
 
@@ -185,11 +183,6 @@
             background: var(--danger-background);
             border-color: var(--danger-border);
             color: var(--danger);
-        }
-
-        .button.danger:hover {
-            background: #3c1717;
-            border-color: #9a4848;
         }
 
         .button.small {
@@ -307,7 +300,7 @@
             grid-template-columns:
                 repeat(
                     7,
-                    minmax(275px, 1fr)
+                    minmax(280px, 1fr)
                 );
 
             gap: 12px;
@@ -318,7 +311,7 @@
         }
 
         .day-column {
-            min-width: 275px;
+            min-width: 280px;
             min-height: 500px;
 
             overflow: hidden;
@@ -349,8 +342,6 @@
         }
 
         .day-name {
-            color: var(--text);
-
             font-size: 14px;
             font-weight: 800;
         }
@@ -471,8 +462,6 @@
         }
 
         .task-card {
-            position: relative;
-
             margin-bottom: 9px;
             padding: 12px;
 
@@ -539,23 +528,6 @@
             font-weight: 850;
 
             white-space: nowrap;
-        }
-
-        .smart-badge {
-            display: inline-block;
-
-            margin-top: 7px;
-            margin-right: 5px;
-            padding: 3px 7px;
-
-            border: 1px solid #567361;
-            border-radius: 999px;
-
-            background: #142319;
-            color: var(--primary);
-
-            font-size: 9px;
-            font-weight: 800;
         }
 
         .category-badge {
@@ -654,8 +626,6 @@
             height: 100%;
 
             border-radius: inherit;
-
-            transition: width 180ms ease;
         }
 
         .rainbow-progress-track {
@@ -689,15 +659,12 @@
                     #f06595 100%
                 );
 
-            box-shadow:
-                0 0 10px rgb(255 255 255 / 12%);
-
             transition:
                 width 220ms ease;
         }
 
         .progress-percentage {
-            color: #ffffff;
+            color: white;
 
             font-size: 11px;
             font-weight: 850;
@@ -718,7 +685,7 @@
         }
 
         .task-actions select {
-            min-width: 88px;
+            min-width: 92px;
             min-height: 30px;
 
             padding: 4px 6px;
@@ -903,11 +870,6 @@
             color: var(--text);
         }
 
-        .field input::placeholder,
-        .field textarea::placeholder {
-            color: #68736b;
-        }
-
         .field textarea {
             min-height: 90px;
 
@@ -983,10 +945,6 @@
             color: var(--muted);
 
             font-weight: 800;
-        }
-
-        .progress-input-wrap input {
-            width: 100%;
         }
 
         .progress-preview {
@@ -1120,10 +1078,6 @@
             cursor: pointer;
         }
 
-        .color-option:hover {
-            border-color: #5d8066;
-        }
-
         .color-option.selected {
             border-width: 2px;
         }
@@ -1162,7 +1116,7 @@
             bottom: 20px;
             z-index: 100;
 
-            max-width: 360px;
+            max-width: 380px;
 
             padding: 11px 14px;
 
@@ -1239,6 +1193,7 @@
                 <h1>to do board</h1>
 
                 <p>
+                    Unfinished tasks automatically carry forward.
                     Moving a task never resets its age.
                 </p>
             </div>
@@ -1249,7 +1204,7 @@
                     id="addTaskButton"
                     type="button"
                 >
-                    + Add Task
+                    Add Task
                 </button>
 
                 <button
@@ -1381,7 +1336,6 @@
                     id="taskTitle"
                     type="text"
                     maxlength="200"
-                    placeholder="e.g. Finish analysis"
                     required
                 >
             </div>
@@ -1414,7 +1368,7 @@
                         id="newCategoryFromTaskButton"
                         type="button"
                     >
-                        + New Category
+                        New Category
                     </button>
                 </div>
 
@@ -1442,7 +1396,8 @@
                     ></select>
 
                     <p class="field-help">
-                        Moving this task later does not reset its age.
+                        Choosing a weekday that already passed this week
+                        schedules the next occurrence of that weekday.
                     </p>
                 </div>
 
@@ -1456,6 +1411,10 @@
                         type="date"
                         required
                     >
+
+                    <p class="field-help">
+                        This date controls task age and urgency.
+                    </p>
                 </div>
             </div>
 
@@ -1470,30 +1429,30 @@
                         required
                     >
                         <option value="5m">
-                            ⚡ 5 minutes
+                            5 minutes
                         </option>
 
                         <option value="15m">
-                            ⚡ 15 minutes
+                            15 minutes
                         </option>
 
                         <option
                             value="30m"
                             selected
                         >
-                            ● 30 minutes
+                            30 minutes
                         </option>
 
                         <option value="1h">
-                            ●● 1 hour
+                            1 hour
                         </option>
 
                         <option value="2h">
-                            ●● 2 hours
+                            2 hours
                         </option>
 
                         <option value="4h">
-                            ●●● 4+ hours
+                            4+ hours
                         </option>
                     </select>
                 </div>
@@ -1513,7 +1472,8 @@
                     >
 
                     <p class="field-help">
-                        Number of days before this reaches 100% urgency.
+                        Number of days before the task reaches
+                        100% urgency.
                     </p>
                 </div>
             </div>
@@ -1543,7 +1503,7 @@
 
                     <div class="field-help">
                         Optional. Leave blank if you do not want
-                        progress tracking for this project.
+                        a progress bar for this task.
                     </div>
                 </div>
 
@@ -1575,10 +1535,10 @@
                 </div>
 
                 <p class="field-help">
-                    Only 2-hour and 4+-hour tasks can use this.
-                    It appears only while editing. Enter a percentage
-                    and save to make the rainbow progress bar appear
-                    on the task. Clear the percentage later to remove it.
+                    This only appears while editing a 2-hour or
+                    4+-hour task. Enter a percentage and save to
+                    enable the rainbow progress bar. Clear it or
+                    enter 0 to remove the bar.
                 </p>
             </div>
 
@@ -1629,7 +1589,7 @@
         <div class="category-manager">
             <div class="category-manager-header">
                 <p>
-                    Create categories and choose a color for each.
+                    Create, rename, recolor, or remove categories.
                 </p>
 
                 <button
@@ -1637,7 +1597,7 @@
                     id="addCategoryButton"
                     type="button"
                 >
-                    + Add Category
+                    Add Category
                 </button>
             </div>
 
@@ -1677,7 +1637,6 @@
                     id="categoryNameInput"
                     type="text"
                     maxlength="60"
-                    placeholder="e.g. Lab Work"
                     required
                 >
             </div>
@@ -1785,12 +1744,12 @@
         ];
 
         const EFFORT_LABELS = {
-            "5m": "⚡ 5 min",
-            "15m": "⚡ 15 min",
-            "30m": "● 30 min",
-            "1h": "●● 1 hr",
-            "2h": "●● 2 hrs",
-            "4h": "●●● 4+ hrs"
+            "5m": "5 min",
+            "15m": "15 min",
+            "30m": "30 min",
+            "1h": "1 hr",
+            "2h": "2 hrs",
+            "4h": "4+ hrs"
         };
 
         const EFFORT_MINUTES = {
@@ -1805,43 +1764,64 @@
         const SORT_MODES = [
             {
                 value: "smart",
-                label: "Smart Priority",
+
+                label:
+                    "Smart Priority",
+
                 help:
-                    "Urgency and absolute age matter most. Overdue tasks rise sharply. Short tasks receive only a small bonus, so large old projects are not buried."
+                    "Urgency and absolute age matter most. Overdue tasks rise sharply. Short tasks get only a small bonus."
             },
             {
                 value: "urgency",
-                label: "Urgency / Time to Red",
+
+                label:
+                    "Urgency / Time to Red",
+
                 help:
-                    "Tasks closest to turning red appear first. Tasks already overdue appear before tasks that still have time remaining."
+                    "Tasks with the least time remaining before red appear first."
             },
             {
                 value: "oldest",
-                label: "Oldest First",
+
+                label:
+                    "Oldest First",
+
                 help:
                     "Tasks you have been carrying the longest appear first."
             },
             {
                 value: "shortest",
-                label: "Shortest First",
+
+                label:
+                    "Shortest First",
+
                 help:
-                    "5 min → 15 min → 30 min → 1 hr → 2 hrs → 4+ hrs."
+                    "5 min, 15 min, 30 min, 1 hr, 2 hrs, then 4+ hrs."
             },
             {
                 value: "longest",
-                label: "Longest First",
+
+                label:
+                    "Longest First",
+
                 help:
                     "4+ hour projects appear first, followed by progressively shorter tasks."
             },
             {
                 value: "category",
-                label: "Category",
+
+                label:
+                    "Category",
+
                 help:
-                    "Tasks are grouped by their colored category. Within each category, the most urgent task appears first."
+                    "Tasks are grouped by colored category. Within each category, the most urgent task appears first."
             },
             {
                 value: "newest",
-                label: "Newest First",
+
+                label:
+                    "Newest First",
+
                 help:
                     "Tasks received most recently appear first."
             }
@@ -1887,13 +1867,26 @@
         ];
 
         const state = {
-            categories: loadCategories(),
-            tasks: [],
-            editingTaskId: null,
-            editingCategoryId: null,
-            completedVisible: false,
-            categoryFilter: "all",
-            sortMode: loadSortMode()
+            categories:
+                loadCategories(),
+
+            tasks:
+                [],
+
+            editingTaskId:
+                null,
+
+            editingCategoryId:
+                null,
+
+            completedVisible:
+                false,
+
+            categoryFilter:
+                "all",
+
+            sortMode:
+                loadSortMode()
         };
 
         state.tasks =
@@ -1934,16 +1927,6 @@
         const taskDialog =
             document.getElementById(
                 "taskDialog"
-            );
-
-        const categoriesDialog =
-            document.getElementById(
-                "categoriesDialog"
-            );
-
-        const categoryEditorDialog =
-            document.getElementById(
-                "categoryEditorDialog"
             );
 
         const taskDialogTitle =
@@ -2021,6 +2004,16 @@
                 "deleteTaskButton"
             );
 
+        const selectedCategoryColor =
+            document.getElementById(
+                "selectedCategoryColor"
+            );
+
+        const selectedCategoryName =
+            document.getElementById(
+                "selectedCategoryName"
+            );
+
         const completedSection =
             document.getElementById(
                 "completedSection"
@@ -2041,19 +2034,19 @@
                 "importInput"
             );
 
+        const categoriesDialog =
+            document.getElementById(
+                "categoriesDialog"
+            );
+
         const categoryList =
             document.getElementById(
                 "categoryList"
             );
 
-        const selectedCategoryColor =
+        const categoryEditorDialog =
             document.getElementById(
-                "selectedCategoryColor"
-            );
-
-        const selectedCategoryName =
-            document.getElementById(
-                "selectedCategoryName"
+                "categoryEditorDialog"
             );
 
         const categoryEditorTitle =
@@ -2101,7 +2094,11 @@
                 "toast"
             );
 
-        let toastTimer = null;
+        let toastTimer =
+            null;
+
+        let lastKnownDate =
+            getTodayDateString();
 
         initialize();
 
@@ -2110,12 +2107,34 @@
             populateSortSelect();
             bindEvents();
 
+            const movedCount =
+                rollForwardOverdueTasks();
+
             saveCategories();
             saveTasks();
 
             refreshCategoryControls();
 
             render();
+
+            if (
+                movedCount >
+                0
+            ) {
+                window.setTimeout(
+                    () => {
+                        showToast(
+                            `${movedCount} unfinished task${movedCount === 1 ? "" : "s"} carried forward.`
+                        );
+                    },
+                    200
+                );
+            }
+
+            window.setInterval(
+                runDailyMaintenance,
+                60_000
+            );
         }
 
         function bindEvents() {
@@ -2275,44 +2294,177 @@
                     updateProgressPreview
                 );
 
-            taskDialog
-                .addEventListener(
-                    "click",
-                    (event) => {
-                        if (
-                            event.target ===
-                            taskDialog
-                        ) {
-                            closeTaskDialog();
-                        }
+            window.addEventListener(
+                "focus",
+                runDailyMaintenance
+            );
+
+            document.addEventListener(
+                "visibilitychange",
+                () => {
+                    if (
+                        document.visibilityState ===
+                        "visible"
+                    ) {
+                        runDailyMaintenance();
                     }
+                }
+            );
+
+            taskDialog.addEventListener(
+                "click",
+                (event) => {
+                    if (
+                        event.target ===
+                        taskDialog
+                    ) {
+                        closeTaskDialog();
+                    }
+                }
+            );
+
+            categoriesDialog.addEventListener(
+                "click",
+                (event) => {
+                    if (
+                        event.target ===
+                        categoriesDialog
+                    ) {
+                        closeCategoriesDialog();
+                    }
+                }
+            );
+
+            categoryEditorDialog.addEventListener(
+                "click",
+                (event) => {
+                    if (
+                        event.target ===
+                        categoryEditorDialog
+                    ) {
+                        closeCategoryEditor();
+                    }
+                }
+            );
+        }
+
+        function runDailyMaintenance() {
+            const today =
+                getTodayDateString();
+
+            const dateChanged =
+                today !==
+                lastKnownDate;
+
+            const movedCount =
+                rollForwardOverdueTasks();
+
+            if (
+                !dateChanged &&
+                movedCount ===
+                    0
+            ) {
+                return;
+            }
+
+            lastKnownDate =
+                today;
+
+            render();
+
+            if (
+                movedCount >
+                0
+            ) {
+                showToast(
+                    `${movedCount} unfinished task${movedCount === 1 ? "" : "s"} carried forward.`
+                );
+            }
+        }
+
+        function rollForwardOverdueTasks() {
+            const today =
+                getTodayDateString();
+
+            let movedCount =
+                0;
+
+            state.tasks.forEach(
+                (task) => {
+                    if (
+                        task.completed ||
+                        !isValidDateString(
+                            task.scheduledDate
+                        )
+                    ) {
+                        return;
+                    }
+
+                    let nextDate =
+                        task.scheduledDate;
+
+                    while (
+                        nextDate <
+                        today
+                    ) {
+                        nextDate =
+                            getNextCarryDate(
+                                nextDate
+                            );
+                    }
+
+                    if (
+                        nextDate ===
+                        task.scheduledDate
+                    ) {
+                        return;
+                    }
+
+                    task.scheduledDate =
+                        nextDate;
+
+                    task.scheduledDay =
+                        getDayKeyFromDateString(
+                            nextDate
+                        );
+
+                    movedCount +=
+                        1;
+                }
+            );
+
+            if (
+                movedCount >
+                0
+            ) {
+                saveTasks();
+            }
+
+            return movedCount;
+        }
+
+        function getNextCarryDate(
+            dateString
+        ) {
+            let nextDate =
+                addDaysToDateString(
+                    dateString,
+                    1
                 );
 
-            categoriesDialog
-                .addEventListener(
-                    "click",
-                    (event) => {
-                        if (
-                            event.target ===
-                            categoriesDialog
-                        ) {
-                            closeCategoriesDialog();
-                        }
-                    }
-                );
+            while (
+                isWeekendDateString(
+                    nextDate
+                )
+            ) {
+                nextDate =
+                    addDaysToDateString(
+                        nextDate,
+                        1
+                    );
+            }
 
-            categoryEditorDialog
-                .addEventListener(
-                    "click",
-                    (event) => {
-                        if (
-                            event.target ===
-                            categoryEditorDialog
-                        ) {
-                            closeCategoryEditor();
-                        }
-                    }
-                );
+            return nextDate;
         }
 
         function populateDaySelect() {
@@ -2369,8 +2521,11 @@
                 first.toLocaleDateString(
                     undefined,
                     {
-                        month: "short",
-                        day: "numeric"
+                        month:
+                            "short",
+
+                        day:
+                            "numeric"
                     }
                 );
 
@@ -2378,9 +2533,14 @@
                 last.toLocaleDateString(
                     undefined,
                     {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric"
+                        month:
+                            "short",
+
+                        day:
+                            "numeric",
+
+                        year:
+                            "numeric"
                     }
                 );
 
@@ -2406,14 +2566,12 @@
 
             const progressTasks =
                 openTasks.filter(
-                    (task) =>
-                        shouldDisplayProgress(
-                            task
-                        )
+                    shouldDisplayProgress
                 );
 
             const oldestAge =
-                openTasks.length > 0
+                openTasks.length >
+                0
                     ? Math.max(
                         ...openTasks.map(
                             (task) =>
@@ -2457,7 +2615,7 @@
         }
 
         function renderSortHelp() {
-            const sortMode =
+            const selectedMode =
                 SORT_MODES.find(
                     (mode) =>
                         mode.value ===
@@ -2465,7 +2623,7 @@
                 );
 
             sortHelp.textContent =
-                sortMode?.help ??
+                selectedMode?.help ??
                 "";
         }
 
@@ -2498,8 +2656,11 @@
                             .toLocaleDateString(
                                 undefined,
                                 {
-                                    month: "short",
-                                    day: "numeric"
+                                    month:
+                                        "short",
+
+                                    day:
+                                        "numeric"
                                 }
                             );
 
@@ -2575,12 +2736,12 @@
                         state.sortMode ===
                         "category"
                     ) {
-                        const categoryGroups =
+                        const groups =
                             groupTasksByCategory(
                                 dayTasks
                             );
 
-                        categoryGroups.forEach(
+                        groups.forEach(
                             ({
                                 category,
                                 tasks
@@ -2618,6 +2779,17 @@
                         column
                     );
                 }
+            );
+        }
+
+        function taskMatchesCategoryFilter(
+            task
+        ) {
+            return (
+                state.categoryFilter ===
+                    "all" ||
+                task.categoryId ===
+                    state.categoryFilter
             );
         }
 
@@ -2673,23 +2845,23 @@
             firstTask,
             secondTask
         ) {
-            const first =
+            const firstScore =
                 calculateSmartPriority(
                     firstTask
-                );
+                ).score;
 
-            const second =
+            const secondScore =
                 calculateSmartPriority(
                     secondTask
-                );
+                ).score;
 
             if (
-                second.score !==
-                first.score
+                secondScore !==
+                firstScore
             ) {
                 return (
-                    second.score -
-                    first.score
+                    secondScore -
+                    firstScore
                 );
             }
 
@@ -2733,17 +2905,38 @@
                 );
             }
 
-            return compareByOldest(
+            return compareByAgeOnly(
                 firstTask,
-                secondTask,
-                true
+                secondTask
             );
         }
 
         function compareByOldest(
             firstTask,
-            secondTask,
-            skipUrgencyTieBreak = false
+            secondTask
+        ) {
+            const ageDifference =
+                compareByAgeOnly(
+                    firstTask,
+                    secondTask
+                );
+
+            if (
+                ageDifference !==
+                0
+            ) {
+                return ageDifference;
+            }
+
+            return compareByUrgency(
+                firstTask,
+                secondTask
+            );
+        }
+
+        function compareByAgeOnly(
+            firstTask,
+            secondTask
         ) {
             const firstAge =
                 calculateTaskAge(
@@ -2765,17 +2958,8 @@
                 );
             }
 
-            if (
-                skipUrgencyTieBreak
-            ) {
-                return firstTask.title.localeCompare(
-                    secondTask.title
-                );
-            }
-
-            return compareByUrgency(
-                firstTask,
-                secondTask
+            return firstTask.title.localeCompare(
+                secondTask.title
             );
         }
 
@@ -2826,7 +3010,8 @@
                 return (
                     firstMinutes -
                     secondMinutes
-                ) * direction;
+                ) *
+                direction;
             }
 
             return compareByUrgency(
@@ -3021,11 +3206,6 @@
                     task
                 );
 
-            const smart =
-                calculateSmartPriority(
-                    task
-                );
-
             const category =
                 findCategory(
                     task.categoryId
@@ -3051,23 +3231,6 @@
                                 )
                             }
                         </p>
-                    `
-                    : "";
-
-            const smartMarkup =
-                state.sortMode ===
-                "smart"
-                    ? `
-                        <span
-                            class="smart-badge"
-                            title="${escapeHtml(
-                                getSmartBreakdownText(
-                                    smart
-                                )
-                            )}"
-                        >
-                            🧠 ${Math.round(smart.score)}
-                        </span>
                     `
                     : "";
 
@@ -3142,8 +3305,6 @@
                     </span>
                 </div>
 
-                ${smartMarkup}
-
                 <div
                     class="category-badge"
                     style="
@@ -3190,6 +3351,15 @@
                             urgency.timeLabel
                         )}
                     </span>
+
+                    <span class="meta-chip">
+                        Scheduled
+                        ${escapeHtml(
+                            formatDate(
+                                task.scheduledDate
+                            )
+                        )}
+                    </span>
                 </div>
 
                 ${progressMarkup}
@@ -3233,7 +3403,7 @@
                         class="button small complete-button"
                         type="button"
                     >
-                        ✓ Done
+                        Done
                     </button>
 
                     <button
@@ -3290,33 +3460,31 @@
                     }
                 );
 
-            card
-                .addEventListener(
-                    "dragstart",
-                    (event) => {
-                        card.classList.add(
-                            "dragging"
-                        );
+            card.addEventListener(
+                "dragstart",
+                (event) => {
+                    card.classList.add(
+                        "dragging"
+                    );
 
-                        event.dataTransfer.effectAllowed =
-                            "move";
+                    event.dataTransfer.effectAllowed =
+                        "move";
 
-                        event.dataTransfer.setData(
-                            "text/plain",
-                            task.id
-                        );
-                    }
-                );
+                    event.dataTransfer.setData(
+                        "text/plain",
+                        task.id
+                    );
+                }
+            );
 
-            card
-                .addEventListener(
-                    "dragend",
-                    () => {
-                        card.classList.remove(
-                            "dragging"
-                        );
-                    }
-                );
+            card.addEventListener(
+                "dragend",
+                () => {
+                    card.classList.remove(
+                        "dragging"
+                    );
+                }
+            );
 
             return card;
         }
@@ -3376,56 +3544,53 @@
         function configureDropZone(
             dropZone
         ) {
-            dropZone
-                .addEventListener(
-                    "dragover",
-                    (event) => {
-                        event.preventDefault();
+            dropZone.addEventListener(
+                "dragover",
+                (event) => {
+                    event.preventDefault();
 
-                        event.dataTransfer.dropEffect =
-                            "move";
+                    event.dataTransfer.dropEffect =
+                        "move";
 
-                        dropZone.classList.add(
-                            "drag-over"
+                    dropZone.classList.add(
+                        "drag-over"
+                    );
+                }
+            );
+
+            dropZone.addEventListener(
+                "dragleave",
+                () => {
+                    dropZone.classList.remove(
+                        "drag-over"
+                    );
+                }
+            );
+
+            dropZone.addEventListener(
+                "drop",
+                (event) => {
+                    event.preventDefault();
+
+                    dropZone.classList.remove(
+                        "drag-over"
+                    );
+
+                    const taskId =
+                        event.dataTransfer.getData(
+                            "text/plain"
                         );
+
+                    if (!taskId) {
+                        return;
                     }
-                );
 
-            dropZone
-                .addEventListener(
-                    "dragleave",
-                    () => {
-                        dropZone.classList.remove(
-                            "drag-over"
-                        );
-                    }
-                );
-
-            dropZone
-                .addEventListener(
-                    "drop",
-                    (event) => {
-                        event.preventDefault();
-
-                        dropZone.classList.remove(
-                            "drag-over"
-                        );
-
-                        const taskId =
-                            event.dataTransfer.getData(
-                                "text/plain"
-                            );
-
-                        if (!taskId) {
-                            return;
-                        }
-
-                        moveTask(
-                            taskId,
-                            dropZone.dataset.day
-                        );
-                    }
-                );
+                    moveTask(
+                        taskId,
+                        dropZone.dataset.day
+                    );
+                }
+            );
         }
 
         function calculateSmartPriority(
@@ -3483,33 +3648,39 @@
             const minutes =
                 EFFORT_MINUTES[
                     task.effort
-                ] ?? 30;
+                ] ??
+                30;
 
             let quickWinBonus =
                 0;
 
             if (
-                minutes <= 5
+                minutes <=
+                5
             ) {
                 quickWinBonus =
                     14;
             } else if (
-                minutes <= 15
+                minutes <=
+                15
             ) {
                 quickWinBonus =
                     11;
             } else if (
-                minutes <= 30
+                minutes <=
+                30
             ) {
                 quickWinBonus =
                     8;
             } else if (
-                minutes <= 60
+                minutes <=
+                60
             ) {
                 quickWinBonus =
                     5;
             } else if (
-                minutes <= 120
+                minutes <=
+                120
             ) {
                 quickWinBonus =
                     2;
@@ -3544,33 +3715,14 @@
                 }
             }
 
-            const score =
-                urgencyScore +
-                overdueBonus +
-                staleScore +
-                quickWinBonus +
-                finishLineBonus;
-
             return {
-                score,
-                urgencyScore,
-                overdueBonus,
-                staleScore,
-                quickWinBonus,
-                finishLineBonus
+                score:
+                    urgencyScore +
+                    overdueBonus +
+                    staleScore +
+                    quickWinBonus +
+                    finishLineBonus
             };
-        }
-
-        function getSmartBreakdownText(
-            smart
-        ) {
-            return [
-                `Urgency ${Math.round(smart.urgencyScore)}`,
-                `age ${Math.round(smart.staleScore)}`,
-                `overdue ${Math.round(smart.overdueBonus)}`,
-                `quick-task ${Math.round(smart.quickWinBonus)}`,
-                `near-finish ${Math.round(smart.finishLineBonus)}`
-            ].join(" + ");
         }
 
         function calculateUrgency(
@@ -3586,7 +3738,8 @@
                     1,
                     Number(
                         task.redAfterDays
-                    ) || 14
+                    ) ||
+                    14
                 );
 
             const progress =
@@ -3667,7 +3820,6 @@
 
             return {
                 age,
-                redDays,
                 progress,
                 hue,
                 status,
@@ -3730,17 +3882,6 @@
                 event.target.value;
 
             render();
-        }
-
-        function taskMatchesCategoryFilter(
-            task
-        ) {
-            return (
-                state.categoryFilter ===
-                    "all" ||
-                task.categoryId ===
-                    state.categoryFilter
-            );
         }
 
         function openAddTaskDialog() {
@@ -3848,20 +3989,17 @@
                     task.redAfterDays
                 );
 
-            if (
-                task.progressTracked &&
-                isLongEffort(
-                    task.effort
+            progressPercentInput.value =
+                (
+                    task.progressTracked &&
+                    isLongEffort(
+                        task.effort
+                    )
                 )
-            ) {
-                progressPercentInput.value =
-                    String(
+                    ? String(
                         task.progressPercent
-                    );
-            } else {
-                progressPercentInput.value =
-                    "";
-            }
+                    )
+                    : "";
 
             updateSelectedCategoryPreview();
             updateProgressFieldVisibility();
@@ -3873,20 +4011,14 @@
         }
 
         function updateProgressFieldVisibility() {
-            const editingExistingTask =
-                Boolean(
-                    state.editingTaskId
-                );
-
-            const eligibleEffort =
-                isLongEffort(
-                    effort.value
-                );
-
             progressField.hidden =
                 !(
-                    editingExistingTask &&
-                    eligibleEffort
+                    Boolean(
+                        state.editingTaskId
+                    ) &&
+                    isLongEffort(
+                        effort.value
+                    )
                 );
 
             if (
@@ -3894,9 +4026,11 @@
             ) {
                 progressPreview.hidden =
                     true;
-            } else {
-                updateProgressPreview();
+
+                return;
             }
+
+            updateProgressPreview();
         }
 
         function updateProgressPreview() {
@@ -4088,6 +4222,10 @@
                     }
                 }
 
+                const scheduleChanged =
+                    scheduledDay.value !==
+                    task.scheduledDay;
+
                 task.title =
                     title;
 
@@ -4097,8 +4235,19 @@
                 task.categoryId =
                     selectedCategoryId;
 
+                if (
+                    scheduleChanged
+                ) {
+                    task.scheduledDate =
+                        getNextOccurrenceDate(
+                            scheduledDay.value
+                        );
+                }
+
                 task.scheduledDay =
-                    scheduledDay.value;
+                    getDayKeyFromDateString(
+                        task.scheduledDate
+                    );
 
                 task.receivedDate =
                     receivedDate.value;
@@ -4130,6 +4279,11 @@
                 return;
             }
 
+            const taskScheduledDate =
+                getNextOccurrenceDate(
+                    scheduledDay.value
+                );
+
             const newTask = {
                 id:
                     createId(),
@@ -4142,7 +4296,12 @@
                     selectedCategoryId,
 
                 scheduledDay:
-                    scheduledDay.value,
+                    getDayKeyFromDateString(
+                        taskScheduledDate
+                    ),
+
+                scheduledDate:
+                    taskScheduledDate,
 
                 receivedDate:
                     receivedDate.value,
@@ -4268,6 +4427,21 @@
             task.completedAt =
                 null;
 
+            if (
+                task.scheduledDate <
+                getTodayDateString()
+            ) {
+                task.scheduledDate =
+                    getNextCarryTargetFromPastDate(
+                        task.scheduledDate
+                    );
+
+                task.scheduledDay =
+                    getDayKeyFromDateString(
+                        task.scheduledDate
+                    );
+            }
+
             saveAndRender();
 
             showToast(
@@ -4335,20 +4509,34 @@
                 return;
             }
 
+            const newScheduledDate =
+                getNextOccurrenceDate(
+                    newDay
+                );
+
             if (
-                task.scheduledDay ===
-                newDay
+                task.scheduledDate ===
+                newScheduledDate
             ) {
                 return;
             }
 
+            task.scheduledDate =
+                newScheduledDate;
+
             task.scheduledDay =
-                newDay;
+                getDayKeyFromDateString(
+                    newScheduledDate
+                );
 
             saveAndRender();
 
             showToast(
-                `Moved to ${day.label}. Age and progress were not reset.`
+                (
+                    `Moved to ${day.label}, ` +
+                    `${formatDate(newScheduledDate)}. ` +
+                    "Age and progress were not reset."
+                )
             );
         }
 
@@ -4611,10 +4799,6 @@
         }
 
         function renderCategoryManager() {
-            if (!categoryList) {
-                return;
-            }
-
             categoryList.innerHTML =
                 "";
 
@@ -5539,15 +5723,20 @@
         }
 
         function getTodayDateString() {
-            const today =
-                new Date();
+            return formatLocalDateString(
+                new Date()
+            );
+        }
 
+        function formatLocalDateString(
+            date
+        ) {
             const year =
-                today.getFullYear();
+                date.getFullYear();
 
             const month =
                 String(
-                    today.getMonth() +
+                    date.getMonth() +
                     1
                 ).padStart(
                     2,
@@ -5556,7 +5745,7 @@
 
             const day =
                 String(
-                    today.getDate()
+                    date.getDate()
                 ).padStart(
                     2,
                     "0"
@@ -5564,6 +5753,281 @@
 
             return (
                 `${year}-${month}-${day}`
+            );
+        }
+
+        function parseLocalDateString(
+            dateString
+        ) {
+            const [
+                year,
+                month,
+                day
+            ] =
+                String(
+                    dateString
+                )
+                    .split("-")
+                    .map(
+                        Number
+                    );
+
+            if (
+                !year ||
+                !month ||
+                !day
+            ) {
+                return null;
+            }
+
+            return new Date(
+                year,
+                month -
+                    1,
+                day
+            );
+        }
+
+        function isValidDateString(
+            dateString
+        ) {
+            if (
+                !/^\d{4}-\d{2}-\d{2}$/.test(
+                    String(
+                        dateString ??
+                        ""
+                    )
+                )
+            ) {
+                return false;
+            }
+
+            const date =
+                parseLocalDateString(
+                    dateString
+                );
+
+            return Boolean(
+                date &&
+                formatLocalDateString(
+                    date
+                ) ===
+                    dateString
+            );
+        }
+
+        function addDaysToDateString(
+            dateString,
+            days
+        ) {
+            const date =
+                parseLocalDateString(
+                    dateString
+                );
+
+            if (!date) {
+                return getTodayDateString();
+            }
+
+            date.setDate(
+                date.getDate() +
+                    days
+            );
+
+            return formatLocalDateString(
+                date
+            );
+        }
+
+        function isWeekendDateString(
+            dateString
+        ) {
+            const date =
+                parseLocalDateString(
+                    dateString
+                );
+
+            if (!date) {
+                return false;
+            }
+
+            const day =
+                date.getDay();
+
+            return (
+                day ===
+                    0 ||
+                day ===
+                    6
+            );
+        }
+
+        function getDayKeyFromDateString(
+            dateString
+        ) {
+            const date =
+                parseLocalDateString(
+                    dateString
+                );
+
+            if (!date) {
+                return getCurrentDayKey();
+            }
+
+            const mondayIndex =
+                (
+                    date.getDay() +
+                    6
+                ) %
+                7;
+
+            return DAYS[
+                mondayIndex
+            ].key;
+        }
+
+        function getNextOccurrenceDate(
+            dayKey
+        ) {
+            const targetIndex =
+                DAYS.findIndex(
+                    (day) =>
+                        day.key ===
+                        dayKey
+                );
+
+            if (
+                targetIndex <
+                0
+            ) {
+                return getTodayDateString();
+            }
+
+            const today =
+                new Date();
+
+            const currentIndex =
+                (
+                    today.getDay() +
+                    6
+                ) %
+                7;
+
+            let delta =
+                targetIndex -
+                currentIndex;
+
+            if (
+                delta <
+                0
+            ) {
+                delta +=
+                    7;
+            }
+
+            const targetDate =
+                new Date(
+                    today.getFullYear(),
+                    today.getMonth(),
+                    today.getDate() +
+                        delta
+                );
+
+            return formatLocalDateString(
+                targetDate
+            );
+        }
+
+        function inferLegacyScheduledDate(
+            scheduledDayKey
+        ) {
+            const targetIndex =
+                DAYS.findIndex(
+                    (day) =>
+                        day.key ===
+                        scheduledDayKey
+                );
+
+            if (
+                targetIndex <
+                0
+            ) {
+                return getTodayDateString();
+            }
+
+            const today =
+                new Date();
+
+            const currentIndex =
+                (
+                    today.getDay() +
+                    6
+                ) %
+                7;
+
+            const delta =
+                targetIndex -
+                currentIndex;
+
+            const targetDate =
+                new Date(
+                    today.getFullYear(),
+                    today.getMonth(),
+                    today.getDate() +
+                        delta
+                );
+
+            return formatLocalDateString(
+                targetDate
+            );
+        }
+
+        function getNextCarryTargetFromPastDate(
+            dateString
+        ) {
+            const today =
+                getTodayDateString();
+
+            let nextDate =
+                dateString;
+
+            while (
+                nextDate <
+                today
+            ) {
+                nextDate =
+                    getNextCarryDate(
+                        nextDate
+                    );
+            }
+
+            return nextDate;
+        }
+
+        function formatDate(
+            dateString
+        ) {
+            const date =
+                parseLocalDateString(
+                    dateString
+                );
+
+            if (!date) {
+                return "Unknown";
+            }
+
+            return date.toLocaleDateString(
+                undefined,
+                {
+                    month:
+                        "short",
+
+                    day:
+                        "numeric",
+
+                    year:
+                        "numeric"
+                }
             );
         }
 
@@ -5673,21 +6137,35 @@
                     ? legacyCategoryId
                     : UNCATEGORIZED_ID;
 
-            const scheduledDay =
-                DAYS.some(
-                    (day) =>
-                        day.key ===
-                        task.scheduledDay
-                )
-                    ? task.scheduledDay
-                    : "monday";
-
             const normalizedEffort =
                 EFFORT_LABELS[
                     task.effort
                 ]
                     ? task.effort
                     : "30m";
+
+            const legacyScheduledDay =
+                DAYS.some(
+                    (day) =>
+                        day.key ===
+                        task.scheduledDay
+                )
+                    ? task.scheduledDay
+                    : getCurrentDayKey();
+
+            const taskScheduledDate =
+                isValidDateString(
+                    task.scheduledDate
+                )
+                    ? task.scheduledDate
+                    : inferLegacyScheduledDate(
+                        legacyScheduledDay
+                    );
+
+            const normalizedScheduledDay =
+                getDayKeyFromDateString(
+                    taskScheduledDate
+                );
 
             const legacyProgress =
                 clampNumber(
@@ -5725,7 +6203,11 @@
 
                 categoryId,
 
-                scheduledDay,
+                scheduledDay:
+                    normalizedScheduledDay,
+
+                scheduledDate:
+                    taskScheduledDate,
 
                 receivedDate:
                     typeof task.receivedDate ===
@@ -5781,7 +6263,7 @@
                     "To Do Board",
 
                 version:
-                    6,
+                    7,
 
                 exportedAt:
                     new Date()
@@ -5946,6 +6428,8 @@
                     state.sortMode =
                         parsed.sortMode;
                 }
+
+                rollForwardOverdueTasks();
 
                 saveTasks();
                 saveCategories();
